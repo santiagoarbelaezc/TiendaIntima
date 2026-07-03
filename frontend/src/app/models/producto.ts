@@ -15,7 +15,7 @@ export interface Producto {
   precio: number;
   precioAnterior?: number;
   calificacion: number;
-  reseñas: number;
+  resenas: number;
   tallas: string[];
   colores: ColorOpcion[];
   imagenes: string[];

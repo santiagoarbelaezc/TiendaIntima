@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" fill="none">
+  <rect width="1400" height="1000" fill="#FBF7F4"/>
+  <rect x="100" y="100" width="1200" height="800" rx="56" fill="#FFFFFF" stroke="#E9E1D8"/>
+  <rect x="180" y="180" width="1040" height="640" rx="40" fill="#F6EFEA"/>
+  <rect x="220" y="230" width="340" height="540" rx="30" fill="#EAC7D2"/>
+  <rect x="620" y="230" width="300" height="540" rx="30" fill="#E8D9CF"/>
+  <rect x="980" y="230" width="200" height="540" rx="30" fill="#F0DDD5"/>
+  <text x="260" y="840" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700" fill="#111111">Interior luminoso y cálido</text>
+</svg>

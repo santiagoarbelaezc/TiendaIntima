@@ -7,7 +7,7 @@
         </button>
       </div>
       <div class="order-1 overflow-hidden rounded-[32px] bg-white shadow-soft lg:order-2">
-        <img [src]="selectedImage() || product()?.imagenes[0]" [alt]="product()?.nombre ?? 'Producto'" class="h-full min-h-[560px] w-full object-cover">
+        <img [src]="selectedImage() || (product()?.imagenes?.[0] ?? '')" [alt]="product()?.nombre ?? 'Producto'" class="h-full min-h-[560px] w-full object-cover">
       </div>
     </section>
 
@@ -18,7 +18,7 @@
       <div class="space-y-3">
         <p class="text-xs uppercase tracking-[0.35em] text-black/45">{{ product()?.categoriaNombre }}</p>
         <h1 class="section-title text-5xl text-[#111111]">{{ product()?.nombre }}</h1>
-        <app-rating-stars [rating]="product()?.calificacion ?? 0" [reviewCount]="product()?.reseñas ?? 0"></app-rating-stars>
+        <app-rating-stars [rating]="product()?.calificacion ?? 0" [reviewCount]="product()?.resenas ?? 0"></app-rating-stars>
         <app-price-tag [price]="product()?.precio ?? 0" [previousPrice]="product()?.precioAnterior"></app-price-tag>
       </div>
 

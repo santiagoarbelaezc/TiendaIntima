@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ButtonComponent } from '../../components/button/button.component';
@@ -12,11 +13,10 @@ import { ButtonComponent } from '../../components/button/button.component';
   styleUrl: './newsletter-signup.component.scss'
 })
 export class NewsletterSignupComponent {
+  private readonly formBuilder = inject(FormBuilder);
   readonly form = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]]
   });
-
-  constructor(private readonly formBuilder: FormBuilder) {}
 
   submit(): void {
     this.form.markAllAsTouched();

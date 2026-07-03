@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none">
+  <defs>
+    <linearGradient id="b1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111111"/>
+      <stop offset="1" stop-color="#2B2B2B"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#b1)"/>
+  <circle cx="1280" cy="180" r="220" fill="#EAC7D2" opacity="0.35"/>
+  <circle cx="220" cy="740" r="260" fill="#F6EFEA" opacity="0.18"/>
+  <rect x="88" y="88" width="1424" height="724" rx="48" stroke="#FFFFFF" stroke-opacity="0.15"/>
+  <text x="120" y="260" font-family="Cormorant Garamond, Georgia, serif" font-size="106" font-weight="600" fill="#FFFFFF">Promo de temporada</text>
+  <text x="120" y="356" font-family="Inter, Arial, sans-serif" font-size="34" fill="#FFFFFF" opacity="0.8">Sets seleccionados con envío a domicilio disponible</text>
+  <rect x="120" y="470" width="380" height="92" rx="46" fill="#EAC7D2"/>
+  <text x="310" y="530" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#111111">Ver promociones</text>
+</svg>

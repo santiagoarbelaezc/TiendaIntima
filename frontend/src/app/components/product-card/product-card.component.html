@@ -12,7 +12,7 @@
         <h3 class="text-lg font-semibold text-[#111111]">{{ product.nombre }}</h3>
         <p class="text-sm leading-6 text-black/65">{{ product.descripcionCorta }}</p>
       </div>
-      <app-rating-stars [rating]="product.calificacion" [reviewCount]="product.reseñas" [compact]="true"></app-rating-stars>
+      <app-rating-stars [rating]="product.calificacion" [reviewCount]="product.resenas" [compact]="true"></app-rating-stars>
       <app-price-tag [price]="product.precio" [previousPrice]="product.precioAnterior"></app-price-tag>
     </div>
   </a>

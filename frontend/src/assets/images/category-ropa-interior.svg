@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" fill="none">
+  <rect width="1200" height="1200" fill="#FBF7F4"/>
+  <circle cx="250" cy="250" r="210" fill="#F0DDD5" opacity="0.9"/>
+  <rect x="140" y="140" width="920" height="920" rx="60" fill="#FFFFFF" stroke="#E9E1D8"/>
+  <path d="M420 390c60-70 300-70 360 0v240H420V390Z" fill="#E8D9CF"/>
+  <path d="M420 390c-42 45-62 120-62 240h484c0-120-20-195-62-240" fill="#D59AAD"/>
+  <rect x="360" y="700" width="480" height="110" rx="55" fill="#111111"/>
+  <text x="600" y="769" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="48" font-weight="600" fill="#FFFFFF">Ropa interior</text>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" fill="none">
+  <rect width="1400" height="1000" fill="#FAF8F6"/>
+  <rect x="120" y="120" width="1160" height="760" rx="48" fill="#FFFFFF" stroke="#E9E1D8"/>
+  <rect x="210" y="220" width="460" height="580" rx="36" fill="#F6EFEA"/>
+  <rect x="730" y="220" width="460" height="260" rx="36" fill="#EAC7D2" opacity="0.8"/>
+  <rect x="730" y="520" width="460" height="280" rx="36" fill="#E8D9CF"/>
+  <circle cx="430" cy="480" r="140" fill="#D7C2B8" opacity="0.85"/>
+  <text x="250" y="860" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700" fill="#111111">Boutique física Tiendaintima</text>
+</svg>

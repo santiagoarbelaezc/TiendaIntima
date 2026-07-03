@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, computed, inject, signal, toSignal } from '@angular/core';
+import { Component, HostListener, computed, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 import { ProductosService } from '../../services/productos.service';
 import { brandName, navigationItems } from '../../core/constants/brand.constants';

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, signal, toSignal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { map } from 'rxjs';
 
@@ -8,6 +9,7 @@ import { EmptyStateComponent } from '../../components/empty-state/empty-state.co
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { ProductosService } from '../../services/productos.service';
 import type { Producto } from '../../models/producto';
+import type { Categoria } from '../../models/categoria';
 
 @Component({
   selector: 'app-catalogo-page',
@@ -23,10 +25,10 @@ export class CatalogoPageComponent {
   readonly categoryQuery = toSignal(this.route.queryParamMap.pipe(map((params) => params.get('categoria') ?? '')), { initialValue: '' });
   readonly filterQuery = toSignal(this.route.queryParamMap.pipe(map((params) => params.get('filter') ?? '')), { initialValue: '' });
   readonly products = toSignal(this.productosService.getProductos(), { initialValue: [] as Producto[] });
-  readonly categories = toSignal(this.productosService.getCategorias(), { initialValue: [] });
+  readonly categories = toSignal(this.productosService.getCategorias(), { initialValue: [] as Categoria[] });
 
   searchTerm = '';
-  categoryFilter: 'all' | string = 'all';
+  categoryFilter = 'all';
   sortBy: 'relevancia' | 'precio-asc' | 'precio-desc' | 'novedades' = 'relevancia';
 
   readonly filteredProducts = signal<Producto[]>([]);
@@ -35,10 +37,10 @@ export class CatalogoPageComponent {
     effect(() => {
       const selectedCategory = this.categoryQuery();
       const selectedFilter = this.filterQuery();
-      this.categoryFilter.set(selectedCategory || 'all');
+      this.categoryFilter = selectedCategory || 'all';
 
       if (selectedFilter === 'nuevo') {
-        this.sortBy.set('novedades');
+        this.sortBy = 'novedades';
       }
 
       this.applyFilters();
@@ -49,7 +51,7 @@ export class CatalogoPageComponent {
     const normalizedSearch = this.searchTerm.trim().toLowerCase();
     const category = this.categoryFilter;
 
-    const filtered = this.products().filter((product) => {
+    const filtered = this.products().filter((product: Producto) => {
       const matchesCategory = category === 'all' || product.categoriaSlug === category;
       const matchesSearch = !normalizedSearch || product.nombre.toLowerCase().includes(normalizedSearch) || product.descripcion.toLowerCase().includes(normalizedSearch);
       return matchesCategory && matchesSearch;

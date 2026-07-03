@@ -1,12 +1,5 @@
 <div class="flex flex-wrap gap-3">
-  <button
-    type="button"
-    *ngFor="let color of colors"
-    class="group flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition"
-    [class.border-[#111111]]="selected?.hex === color.hex"
-    [class.border-black/10]="selected?.hex !== color.hex"
-    (click)="selectColor(color)"
-  >
+  <button type="button" *ngFor="let color of colors" class="group flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition" [ngClass]="selected?.hex === color.hex ? 'border-[#111111]' : 'border-black/10'" (click)="selectColor(color)">
     <span class="h-4 w-4 rounded-full ring-1 ring-black/10" [style.backgroundColor]="color.hex"></span>
     <span>{{ color.nombre }}</span>
   </button>
