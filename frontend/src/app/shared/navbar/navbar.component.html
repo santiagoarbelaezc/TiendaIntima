@@ -1,5 +1,5 @@
 <header class="sticky top-0 z-50 border-b border-black/5 bg-white/95 backdrop-blur-xl">
-  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 md:px-6 xl:px-8">
+  <div class="page-container flex items-center justify-between gap-4 py-4">
     <button type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 lg:hidden" (click)="toggleMobileMenu()">
       <span class="sr-only">Abrir menú</span>
       <span class="block h-px w-5 bg-black"></span>
@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <div *ngIf="showMegaMenu()" class="mx-auto hidden max-w-7xl px-4 pb-4 lg:block xl:px-8">
+  <div *ngIf="showMegaMenu()" class="page-container hidden pb-4 lg:block">
     <app-mega-menu [categories]="categories()" [activeSlug]="activeMegaMenu()"></app-mega-menu>
   </div>
 

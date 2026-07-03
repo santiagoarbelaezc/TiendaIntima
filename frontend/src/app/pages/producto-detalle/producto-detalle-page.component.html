@@ -1,4 +1,4 @@
-<div class="mx-auto max-w-7xl px-4 py-6 md:px-6 xl:px-8 xl:py-8" *ngIf="product(); else emptyTemplate">
+<div class="page-container py-6 xl:py-8" *ngIf="product(); else emptyTemplate">
   <div class="grid gap-8 lg:grid-cols-[1fr_0.9fr]">
     <section class="grid gap-4 lg:grid-cols-[88px_1fr]">
       <div class="order-2 flex gap-3 overflow-x-auto lg:order-1 lg:flex-col">
@@ -66,7 +66,7 @@
 </div>
 
 <ng-template #emptyTemplate>
-  <div class="mx-auto max-w-7xl px-4 py-10 md:px-6 xl:px-8">
+  <div class="page-container py-10">
     <app-empty-state title="Producto no encontrado" description="Revisa el catálogo para descubrir piezas disponibles." actionLabel="Ir al catálogo" actionRoute="/catalogo"></app-empty-state>
   </div>
 </ng-template>
