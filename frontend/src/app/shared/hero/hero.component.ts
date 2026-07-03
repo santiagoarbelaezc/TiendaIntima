@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { ButtonComponent } from '../../components/button/button.component';
@@ -19,7 +19,7 @@ export interface HeroImageItem {
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss'
 })
-export class HeroComponent implements AfterViewInit {
+export class HeroComponent implements AfterViewInit, OnDestroy {
   @ViewChild('scrollContainer') scrollContainer?: ElementRef<HTMLDivElement>;
 
   readonly items: HeroImageItem[] = [
@@ -47,10 +47,36 @@ export class HeroComponent implements AfterViewInit {
   ];
 
   currentSlide = 0;
+  private autoplayInterval?: ReturnType<typeof setInterval>;
+  private readonly AUTOPLAY_DELAY = 4500;
 
   ngAfterViewInit(): void {
     this.syncCurrentSlide();
+    this.startAutoplay();
+
+    // Prevent vertical wheel scroll from moving the horizontal carousel
+    const container = this.scrollContainer?.nativeElement;
+    if (container) {
+      container.addEventListener('wheel', this.onWheel, { passive: false });
+    }
   }
+
+  ngOnDestroy(): void {
+    this.stopAutoplay();
+    const container = this.scrollContainer?.nativeElement;
+    if (container) {
+      container.removeEventListener('wheel', this.onWheel);
+    }
+  }
+
+  readonly onWheel = (event: WheelEvent): void => {
+    // If the scroll is primarily vertical, prevent the carousel from moving
+    // and redirect the scroll to the page instead
+    if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+      event.preventDefault();
+      window.scrollBy({ top: event.deltaY, behavior: 'auto' });
+    }
+  };
 
   scrollToSlide(index: number): void {
     const container = this.scrollContainer?.nativeElement;
@@ -59,6 +85,8 @@ export class HeroComponent implements AfterViewInit {
     const slideWidth = container.clientWidth;
     container.scrollTo({ left: slideWidth * index, behavior: 'smooth' });
     this.currentSlide = index;
+    // Restart autoplay on manual navigation
+    this.startAutoplay();
   }
 
   onScroll(): void {
@@ -71,5 +99,19 @@ export class HeroComponent implements AfterViewInit {
 
     const slideWidth = container.clientWidth || 1;
     this.currentSlide = Math.round(container.scrollLeft / slideWidth);
+  }
+
+  private startAutoplay(): void {
+    this.stopAutoplay();
+    this.autoplayInterval = setInterval(() => {
+      const next = (this.currentSlide + 1) % this.items.length;
+      this.scrollToSlide(next);
+    }, this.AUTOPLAY_DELAY);
+  }
+
+  private stopAutoplay(): void {
+    if (this.autoplayInterval) {
+      clearInterval(this.autoplayInterval);
+    }
   }
 }
