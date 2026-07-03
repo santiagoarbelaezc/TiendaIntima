@@ -3,52 +3,9 @@
   width: 100%;
 }
 
-.hero-shell {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-  
-  @media (min-width: 1024px) {
-    grid-template-columns: 
-      [full-start] minmax(1.5rem, 1fr)
-      [content-start] minmax(0, 44rem)
-      [content-half] minmax(0, 44rem)
-      [content-end] minmax(1.5rem, 1fr)
-      [full-end];
-  }
-  
-  @media (min-width: 1280px) {
-    grid-template-columns: 
-      [full-start] minmax(2rem, 1fr)
-      [content-start] minmax(0, 44rem)
-      [content-half] minmax(0, 44rem)
-      [content-end] minmax(2rem, 1fr)
-      [full-end];
-  }
-}
-
-.hero-copy {
-  @media (min-width: 1024px) {
-    grid-column: content-start / content-half;
-  }
-}
-
-.hero-visual {
-  min-height: 34rem;
-  
-  @media (min-width: 1024px) {
-    grid-column: content-half / full-end;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-  }
-  
-  @media (min-width: 1280px) {
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+.carousel-track-container {
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 

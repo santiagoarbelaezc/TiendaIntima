@@ -1,21 +1,59 @@
-<section class="hero-shell overflow-hidden bg-white shadow-soft">
-  <div class="hero-copy z-10 flex flex-col justify-center space-y-6 lg:space-y-8 py-10 px-4 sm:px-6 lg:py-16 lg:px-0 lg:pr-10 xl:pr-16">
-    <div class="max-w-2xl">
-      <p class="text-[0.75rem] font-bold uppercase tracking-[0.35em] text-black/50">Colección Tiendaintima</p>
-      <h1 class="section-title mt-4 text-[clamp(3rem,6vw,6.5rem)] font-bold leading-[0.92] tracking-[-0.04em] text-[#111111]">{{ title }}</h1>
-      <p class="mt-6 max-w-lg text-base leading-relaxed text-black/65 sm:text-lg lg:text-[1.15rem]">{{ subtitle }}</p>
-      <div class="mt-10 flex flex-wrap items-center gap-4">
-        <a [routerLink]="ctaLink" class="inline-flex items-center justify-center rounded-full bg-[#111111] px-8 py-4 text-sm font-bold uppercase tracking-[0.15em] text-white transition duration-300 hover:bg-black/80 hover:shadow-lg hover:-translate-y-0.5">
-          {{ ctaLabel }}
-        </a>
-        <a routerLink="/nosotros" class="inline-flex items-center justify-center rounded-full border border-black/15 px-8 py-4 text-sm font-semibold text-black/70 transition duration-300 hover:border-black/40 hover:text-black hover:-translate-y-0.5">
-          Conocer la marca
-        </a>
+<div class="relative w-full h-[85vh] min-h-[40rem] max-h-[60rem] overflow-hidden">
+  <div
+    #scrollContainer
+    (scroll)="onScroll()"
+    class="carousel-track-container h-full w-full overflow-x-auto scroll-smooth snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none]"
+  >
+    <div class="flex h-full w-max">
+      <div
+        *ngFor="let item of items; let i = index"
+        [id]="'slide-' + i"
+        class="relative h-full w-screen flex-none snap-center"
+      >
+        <img
+          [src]="item.img"
+          [alt]="item.title"
+          class="h-full w-full object-cover brightness-[0.8] contrast-[1.05] saturate-[0.9]"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 lg:bg-gradient-to-r lg:from-black/80 lg:via-black/40 lg:to-transparent"></div>
+        
+        <div class="absolute inset-0 flex items-center">
+          <div class="page-container w-full text-white pt-20 pb-10">
+            <div class="max-w-2xl">
+              <p class="mb-4 text-[0.8rem] font-bold uppercase tracking-[0.35em] text-white/80">
+                Colección Tiendaintima
+              </p>
+              <h2 class="section-title mb-6 text-[clamp(3.5rem,7vw,7rem)] font-bold leading-[0.95] tracking-[-0.04em]">
+                {{ item.title }}
+              </h2>
+              <p class="mb-10 max-w-lg text-lg leading-relaxed text-white/90 lg:text-[1.2rem]">
+                {{ item.subtitle }}
+              </p>
+              <a
+                [routerLink]="item.link"
+                class="inline-flex items-center justify-center rounded-full bg-white px-8 py-4 text-[0.9rem] font-bold uppercase tracking-[0.15em] text-[#111111] transition duration-300 hover:bg-[#F6EFEA] hover:shadow-lg hover:-translate-y-0.5"
+              >
+                {{ item.ctaText }}
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="hero-visual z-0 lg:min-h-[calc(100vh-6.5rem)]">
-    <app-hero-images></app-hero-images>
+  <div class="absolute bottom-8 left-0 right-0 z-10 flex justify-center gap-3">
+    <button
+      *ngFor="let dot of items; let i = index"
+      (click)="scrollToSlide(i)"
+      [ngClass]="{
+        'w-10 bg-white': i === currentSlide,
+        'w-3 bg-white/40': i !== currentSlide
+      }"
+      class="h-3 rounded-full border-0 p-0 transition-all duration-300 hover:bg-white/70"
+      type="button"
+      [attr.aria-label]="'Ir a la diapositiva ' + (i + 1)"
+    ></button>
   </div>
-</section>
+</div>
