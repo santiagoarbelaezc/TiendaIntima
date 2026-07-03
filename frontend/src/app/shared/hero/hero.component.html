@@ -1,18 +1,20 @@
-<section class="hero-shell overflow-hidden rounded-[40px] border border-black/10 bg-white shadow-soft">
-  <div class="grid items-stretch gap-0 lg:min-h-[calc(100vh-11rem)] lg:grid-cols-[0.95fr_1.05fr]">
-    <div class="hero-copy flex flex-col justify-center space-y-6 p-6 sm:p-8 lg:p-12 xl:p-16">
-      <p class="text-xs uppercase tracking-[0.35em] text-black/45">Colección Tiendaintima</p>
-      <h1 class="section-title max-w-2xl text-[clamp(2.8rem,5vw,5.9rem)] leading-[0.92] text-[#111111]">{{ title }}</h1>
-      <p class="max-w-xl text-base leading-7 text-black/65 sm:text-lg">{{ subtitle }}</p>
-      <div class="flex flex-wrap items-center gap-3">
-        <a [routerLink]="ctaLink">
-          <app-button>{{ ctaLabel }}</app-button>
-        </a>
-        <a routerLink="/nosotros" class="rounded-full border border-black/10 px-5 py-3 text-sm font-semibold text-black/70 transition hover:border-black/30 hover:text-black">Conocer la marca</a>
+<section class="hero-shell overflow-hidden bg-white shadow-soft">
+  <div class="grid items-stretch gap-0 lg:min-h-[calc(100vh-6.5rem)] lg:grid-cols-[0.9fr_1.1fr]">
+    <div class="hero-copy flex flex-col justify-center space-y-6 p-6 sm:p-8 lg:pl-[clamp(1.5rem,4vw,4rem)] lg:pr-10 lg:py-12 xl:pl-[clamp(2rem,6vw,6rem)] xl:py-16">
+      <div class="max-w-2xl">
+        <p class="text-xs uppercase tracking-[0.35em] text-black/45">Colección Tiendaintima</p>
+        <h1 class="section-title mt-4 text-[clamp(2.8rem,5vw,5.9rem)] leading-[0.92] text-[#111111]">{{ title }}</h1>
+        <p class="mt-6 max-w-xl text-base leading-7 text-black/65 sm:text-lg">{{ subtitle }}</p>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a [routerLink]="ctaLink">
+            <app-button>{{ ctaLabel }}</app-button>
+          </a>
+          <a routerLink="/nosotros" class="rounded-full border border-black/10 px-5 py-3 text-sm font-semibold text-black/70 transition hover:border-black/30 hover:text-black">Conocer la marca</a>
+        </div>
       </div>
     </div>
 
-    <div class="hero-visual p-4 sm:p-6 lg:p-8 xl:p-10">
+    <div class="hero-visual">
       <app-hero-images></app-hero-images>
     </div>
   </div>

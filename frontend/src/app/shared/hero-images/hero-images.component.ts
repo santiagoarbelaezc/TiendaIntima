@@ -21,19 +21,19 @@ export class HeroImagesComponent implements AfterViewInit {
 
   readonly items: HeroImageItem[] = [
     {
-      img: 'https://source.unsplash.com/1600x2200/?women,pajamas,bedroom',
+      img: 'assets/images/hero-main.svg',
       title: 'Pijamas suaves',
       subtitle: 'Siluetas relajadas para noches tranquilas.',
       link: '/catalogo?categoria=pijamas'
     },
     {
-      img: 'https://source.unsplash.com/1600x2200/?women,lingerie,portrait',
+      img: 'assets/images/product-04.svg',
       title: 'Ropa interior',
       subtitle: 'Piezas delicadas con ajuste cómodo.',
       link: '/catalogo?categoria=ropa-interior'
     },
     {
-      img: 'https://source.unsplash.com/1600x2200/?woman,robe,bedroom',
+      img: 'assets/images/product-03.svg',
       title: 'Novedades',
       subtitle: 'Texturas nuevas para renovar tu armario.',
       link: '/catalogo?filter=nuevo'
