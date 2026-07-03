@@ -1,0 +1,19 @@
+<article class="group overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-[0_16px_40px_rgba(17,17,17,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-soft">
+  <a [routerLink]="['/producto', product.slug]" class="block">
+    <div class="relative aspect-[4/5] overflow-hidden bg-[#F5F0EB]">
+      <img [src]="product.imagenes[0]" [alt]="product.nombre" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy">
+      <div class="absolute left-4 top-4 flex flex-wrap gap-2">
+        <app-badge *ngFor="let label of product.etiquetas.slice(0, 2)" [label]="label" tone="dark"></app-badge>
+      </div>
+    </div>
+    <div class="space-y-3 p-5">
+      <div class="space-y-1">
+        <p class="text-xs uppercase tracking-[0.3em] text-black/45">{{ product.categoriaNombre }}</p>
+        <h3 class="text-lg font-semibold text-[#111111]">{{ product.nombre }}</h3>
+        <p class="text-sm leading-6 text-black/65">{{ product.descripcionCorta }}</p>
+      </div>
+      <app-rating-stars [rating]="product.calificacion" [reviewCount]="product.reseñas" [compact]="true"></app-rating-stars>
+      <app-price-tag [price]="product.precio" [previousPrice]="product.precioAnterior"></app-price-tag>
+    </div>
+  </a>
+</article>

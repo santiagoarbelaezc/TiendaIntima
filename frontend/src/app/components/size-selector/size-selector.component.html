@@ -1,0 +1,15 @@
+<div class="flex flex-wrap gap-2">
+  <button
+    type="button"
+    *ngFor="let size of sizes"
+    class="rounded-full border px-4 py-2 text-sm transition"
+    [class.border-[#111111]]="selected === size"
+    [class.bg-[#111111]]="selected === size"
+    [class.text-white]="selected === size"
+    [class.border-black/10]="selected !== size"
+    [class.bg-white]="selected !== size"
+    (click)="selectSize(size)"
+  >
+    {{ size }}
+  </button>
+</div>
