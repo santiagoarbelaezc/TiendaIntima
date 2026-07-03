@@ -1,34 +1,38 @@
-<div class="hero-images-shell">
-  <div class="hero-carousel-mobile">
-    <div class="carousel-track-container" #scrollContainer (scroll)="onScroll()">
-      <div class="carousel-track">
-        <div class="carousel-slide" *ngFor="let item of items; let i = index" [id]="'slide-' + i">
-          <img [src]="item.img" [alt]="item.title" class="slide-img" loading="lazy">
-          <div class="slide-overlay">
-            <div class="slide-content">
-              <p class="slide-eyebrow">Tiendaintima</p>
-              <h2 class="slide-title">{{ item.title }}</h2>
-              <p class="slide-subtitle">{{ item.subtitle }}</p>
-              <a [routerLink]="item.link" class="slide-cta">Descubrir</a>
+<div class="relative h-full min-h-[34rem]">
+  <div class="hero-carousel-mobile relative hidden h-full min-h-[34rem] overflow-hidden rounded-[2rem] bg-white/95 max-md:block">
+    <div
+      #scrollContainer
+      (scroll)="onScroll()"
+      class="carousel-track-container h-full w-full overflow-x-auto scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none]"
+    >
+      <div class="flex h-full w-max">
+        <div *ngFor="let item of items; let i = index" [id]="'slide-' + i" class="relative h-full min-h-[34rem] w-screen flex-none snap-center">
+          <img [src]="item.img" [alt]="item.title" class="h-full w-full object-cover brightness-[0.8] contrast-[0.98] saturate-[0.95]" loading="lazy">
+          <div class="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/75 via-black/20 to-black/10 px-4 pb-12 pt-6">
+            <div class="max-w-md text-center text-white">
+              <p class="mb-3 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-white/80">Tiendaintima</p>
+              <h2 class="mb-3 font-['Inter_Tight'] text-[2.25rem] font-bold leading-[0.95] tracking-[-0.05em]">{{ item.title }}</h2>
+              <p class="mb-5 text-sm leading-6 text-white/80">{{ item.subtitle }}</p>
+              <a [routerLink]="item.link" class="inline-flex items-center justify-center rounded-full bg-[#111111] px-6 py-3 text-[0.8rem] font-bold uppercase tracking-[0.18em] text-white">Descubrir</a>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="carousel-dots">
-      <button *ngFor="let dot of items; let i = index" (click)="scrollToSlide(i)" [class.active]="i === currentSlide" class="dot-btn" type="button"></button>
+    <div class="absolute bottom-5 left-0 right-0 z-10 flex justify-center gap-2">
+      <button *ngFor="let dot of items; let i = index" (click)="scrollToSlide(i)" [class.active]="i === currentSlide" class="h-2 w-2 rounded-full border-0 bg-white/40 p-0 transition-all duration-300 active:w-8 active:bg-[#EAC7D2]" type="button"></button>
     </div>
   </div>
 
-  <section class="hero-desktop-grid">
-    <a *ngFor="let item of items" [routerLink]="item.link" class="hero-desktop-card group">
-      <img [src]="item.img" [alt]="item.title" class="bg-img" loading="lazy">
-      <div class="card-overlay"></div>
-      <div class="content">
-        <p class="card-eyebrow">Colección</p>
-        <h3>{{ item.title }}</h3>
-        <span class="btn mt-2 inline-block">Ver colección</span>
+  <section class="hero-desktop-grid hidden h-full gap-4 md:grid md:grid-cols-3">
+    <a *ngFor="let item of items" [routerLink]="item.link" class="group relative min-h-[34rem] overflow-hidden rounded-[2rem] bg-[#F7F1EA]">
+      <img [src]="item.img" [alt]="item.title" class="h-full w-full object-cover brightness-[0.9] saturate-[0.9] transition duration-700 group-hover:scale-[1.05] group-hover:brightness-100" loading="lazy">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/5"></div>
+      <div class="absolute inset-x-0 bottom-0 z-10 flex flex-col items-center px-4 pb-6 text-center text-white">
+        <p class="mb-3 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-white/80">Colección</p>
+        <h3 class="font-['Inter_Tight'] text-[clamp(1.8rem,3vw,2.6rem)] font-bold leading-[0.95] tracking-[-0.05em]">{{ item.title }}</h3>
+        <span class="mt-4 inline-flex items-center justify-center rounded-full bg-[#111111] px-4 py-3 text-[0.75rem] font-bold uppercase tracking-[0.18em] text-white">Ver colección</span>
       </div>
     </a>
   </section>
