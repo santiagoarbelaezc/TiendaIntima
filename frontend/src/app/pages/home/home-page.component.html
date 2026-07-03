@@ -1,10 +1,5 @@
 <div class="flex flex-col gap-10 py-6 xl:py-8">
-  <app-hero
-    title="Descanso elegante, texturas suaves y piezas pensadas para sentirte en casa"
-    subtitle="Una tienda boutique de pijamas, ropa interior y prendas de descanso con una experiencia cálida, minimalista y cercana."
-    ctaLabel="Explorar colección"
-    ctaLink="/catalogo"
-  ></app-hero>
+  <app-hero></app-hero>
 
   <section class="page-container grid gap-4 md:grid-cols-3">
     <a *ngFor="let category of categories()" [routerLink]="['/catalogo']" [queryParams]="{ categoria: category.slug }" class="overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-soft transition hover:-translate-y-1">

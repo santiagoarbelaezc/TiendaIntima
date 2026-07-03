@@ -5,29 +5,50 @@
 
 .hero-shell {
   width: 100%;
-  border-radius: 0;
-  border-left: 0;
-  border-right: 0;
-}
-
-.hero-copy {
-  padding-left: 1rem !important;
+  display: grid;
+  grid-template-columns: 1fr;
   
-  @media (min-width: 640px) {
-    padding-left: 1.5rem !important;
+  @media (min-width: 1024px) {
+    grid-template-columns: 
+      [full-start] minmax(1.5rem, 1fr)
+      [content-start] minmax(0, 44rem)
+      [content-half] minmax(0, 44rem)
+      [content-end] minmax(1.5rem, 1fr)
+      [full-end];
   }
   
   @media (min-width: 1280px) {
-    padding-left: max(1.5rem, calc((100vw - 88rem) / 2 + 1.5rem)) !important;
+    grid-template-columns: 
+      [full-start] minmax(2rem, 1fr)
+      [content-start] minmax(0, 44rem)
+      [content-half] minmax(0, 44rem)
+      [content-end] minmax(2rem, 1fr)
+      [full-end];
+  }
+}
+
+.hero-copy {
+  @media (min-width: 1024px) {
+    grid-column: content-start / content-half;
   }
 }
 
 .hero-visual {
-  min-height: 38rem;
-  padding: 1rem;
+  min-height: 34rem;
   
   @media (min-width: 1024px) {
-    padding: 1.5rem;
+    grid-column: content-half / full-end;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  @media (min-width: 1280px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 }
 
