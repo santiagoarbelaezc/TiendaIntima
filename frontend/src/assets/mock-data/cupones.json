@@ -1,0 +1,20 @@
+[
+  {
+    "id": "cup-10",
+    "codigo": "HOLA10",
+    "descripcion": "10% de descuento en tu primera compra",
+    "tipo": "porcentaje",
+    "valor": 10,
+    "minimo": 120000,
+    "activo": true
+  },
+  {
+    "id": "cup-20",
+    "codigo": "CASA20",
+    "descripcion": "Ahorra $20.000 en pedidos seleccionados",
+    "tipo": "valor",
+    "valor": 20000,
+    "minimo": 180000,
+    "activo": true
+  }
+]

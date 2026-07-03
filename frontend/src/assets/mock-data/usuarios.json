@@ -1,0 +1,21 @@
+[
+  {
+    "id": "u1",
+    "nombre": "Laura Gómez",
+    "email": "laura@demo.com",
+    "password": "123456",
+    "telefono": "3001234567",
+    "fechaRegistro": "2026-05-14T10:20:00.000Z",
+    "direcciones": [
+      {
+        "id": "dir-1",
+        "alias": "Casa",
+        "lineas": ["Calle 123 #45-67", "Apto 301"],
+        "ciudad": "Medellín",
+        "departamento": "Antioquia",
+        "telefono": "3001234567",
+        "principal": true
+      }
+    ]
+  }
+]

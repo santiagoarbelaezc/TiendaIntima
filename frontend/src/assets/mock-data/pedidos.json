@@ -1,0 +1,25 @@
+[
+  {
+    "id": "PED-1042",
+    "usuarioId": "u1",
+    "fecha": "2026-06-21T14:40:00.000Z",
+    "estado": "Entregado",
+    "metodoPago": "Nequi",
+    "metodoEntrega": "domicilio",
+    "direccion": {
+      "id": "dir-1",
+      "alias": "Casa",
+      "lineas": ["Calle 123 #45-67", "Apto 301"],
+      "ciudad": "Medellín",
+      "departamento": "Antioquia",
+      "telefono": "3001234567",
+      "principal": true
+    },
+    "items": [],
+    "subtotal": 184000,
+    "descuento": 18400,
+    "envio": 0,
+    "total": 165600,
+    "cuponAplicado": "HOLA10"
+  }
+]

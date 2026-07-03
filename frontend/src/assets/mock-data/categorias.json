@@ -1,0 +1,29 @@
+[
+  {
+    "id": "cat-pijamas",
+    "nombre": "Pijamas",
+    "slug": "pijamas",
+    "descripcion": "Sets suaves, versátiles y pensados para descanso con estilo.",
+    "imagen": "assets/images/category-pijamas.svg",
+    "acento": "#EAC7D2",
+    "subcategorias": ["Set corto", "Set largo", "Camisería"]
+  },
+  {
+    "id": "cat-interior",
+    "nombre": "Ropa interior",
+    "slug": "ropa-interior",
+    "descripcion": "Piezas cómodas, delicadas y de ajuste impecable.",
+    "imagen": "assets/images/category-ropa-interior.svg",
+    "acento": "#D59AAD",
+    "subcategorias": ["Brasier", "Panty", "Body"]
+  },
+  {
+    "id": "cat-novedades",
+    "nombre": "Novedades",
+    "slug": "novedades",
+    "descripcion": "Lo más reciente de la colección, listo para estrenar.",
+    "imagen": "assets/images/category-novedades.svg",
+    "acento": "#F3E7EB",
+    "subcategorias": ["Nueva temporada", "Edición limitada", "Favoritos"]
+  }
+]
