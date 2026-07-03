@@ -14,4 +14,9 @@ import type { Categoria } from '../../models/categoria';
 export class MegaMenuComponent {
   @Input() categories: Categoria[] = [];
   @Input() activeSlug = '';
+
+  get highlightImage(): string {
+    const activeCategory = this.categories.find((category) => category.slug === this.activeSlug);
+    return activeCategory?.imagen ?? this.categories[0]?.imagen ?? '';
+  }
 }

@@ -1,0 +1,72 @@
+<div class="mx-auto max-w-7xl px-4 py-6 md:px-6 xl:px-8 xl:py-8" *ngIf="product(); else emptyTemplate">
+  <div class="grid gap-8 lg:grid-cols-[1fr_0.9fr]">
+    <section class="grid gap-4 lg:grid-cols-[88px_1fr]">
+      <div class="order-2 flex gap-3 overflow-x-auto lg:order-1 lg:flex-col">
+        <button *ngFor="let image of product()?.imagenes" type="button" class="overflow-hidden rounded-[22px] border border-black/10 bg-white" (click)="selectedImage.set(image)">
+          <img [src]="image" [alt]="product()?.nombre ?? 'Producto'" class="h-24 w-20 object-cover lg:h-24 lg:w-24">
+        </button>
+      </div>
+      <div class="order-1 overflow-hidden rounded-[32px] bg-white shadow-soft lg:order-2">
+        <img [src]="selectedImage() || product()?.imagenes[0]" [alt]="product()?.nombre ?? 'Producto'" class="h-full min-h-[560px] w-full object-cover">
+      </div>
+    </section>
+
+    <section class="space-y-6 rounded-[32px] border border-black/10 bg-white p-6 shadow-soft lg:p-8">
+      <div class="flex flex-wrap gap-2">
+        <app-badge *ngFor="let label of product()?.etiquetas" [label]="label" tone="accent"></app-badge>
+      </div>
+      <div class="space-y-3">
+        <p class="text-xs uppercase tracking-[0.35em] text-black/45">{{ product()?.categoriaNombre }}</p>
+        <h1 class="section-title text-5xl text-[#111111]">{{ product()?.nombre }}</h1>
+        <app-rating-stars [rating]="product()?.calificacion ?? 0" [reviewCount]="product()?.reseñas ?? 0"></app-rating-stars>
+        <app-price-tag [price]="product()?.precio ?? 0" [previousPrice]="product()?.precioAnterior"></app-price-tag>
+      </div>
+
+      <p class="text-sm leading-7 text-black/65">{{ product()?.descripcion }}</p>
+
+      <div class="space-y-3">
+        <div class="flex items-center justify-between gap-3">
+          <p class="text-sm font-semibold">Talla</p>
+          <button type="button" class="text-xs uppercase tracking-[0.3em] text-black/45 underline decoration-black/20 underline-offset-4" (click)="showSizeGuide.set(!showSizeGuide())">Guía de tallas</button>
+        </div>
+        <app-size-selector [sizes]="product()?.tallas ?? []" [selected]="selectedSize()" (selectedChange)="selectedSize.set($event)"></app-size-selector>
+      </div>
+
+      <div class="space-y-3">
+        <p class="text-sm font-semibold">Color</p>
+        <app-color-swatch [colors]="product()?.colores ?? []" [selected]="selectedColor() ?? undefined" (selectedChange)="selectedColor.set($event)"></app-color-swatch>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <app-quantity-input [value]="quantity()" (valueChange)="quantity.set($event)"></app-quantity-input>
+        <button type="button" (click)="addToCart()" class="rounded-full bg-[#111111] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#1f1f1f]">Agregar al carrito</button>
+      </div>
+
+      <div class="space-y-4 rounded-[24px] bg-[#FAFAFA] p-5">
+        <div>
+          <p class="text-sm font-semibold">Detalles</p>
+          <p class="mt-2 text-sm leading-7 text-black/65">{{ product()?.descripcion }}</p>
+        </div>
+        <ul class="grid gap-2 text-sm text-black/65 md:grid-cols-2">
+          <li *ngFor="let highlight of product()?.destacados">• {{ highlight }}</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <section class="mt-10 space-y-6">
+    <div>
+      <p class="text-xs uppercase tracking-[0.35em] text-black/45">Combina con</p>
+      <h2 class="section-title text-4xl text-[#111111]">Productos relacionados</h2>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <app-product-card *ngFor="let relatedProduct of relatedProducts()" [product]="relatedProduct"></app-product-card>
+    </div>
+  </section>
+</div>
+
+<ng-template #emptyTemplate>
+  <div class="mx-auto max-w-7xl px-4 py-10 md:px-6 xl:px-8">
+    <app-empty-state title="Producto no encontrado" description="Revisa el catálogo para descubrir piezas disponibles." actionLabel="Ir al catálogo" actionRoute="/catalogo"></app-empty-state>
+  </div>
+</ng-template>

@@ -1,0 +1,15 @@
+<section class="overflow-hidden rounded-[36px] border border-black/10 bg-white shadow-soft">
+  <div class="grid items-center gap-8 lg:grid-cols-2">
+    <div class="space-y-6 p-6 sm:p-8 lg:p-12">
+      <p class="text-xs uppercase tracking-[0.35em] text-black/45">Colección Tiendaintima</p>
+      <h1 class="section-title max-w-xl text-5xl leading-[0.92] text-[#111111] sm:text-6xl">{{ title }}</h1>
+      <p class="max-w-lg text-base leading-7 text-black/65">{{ subtitle }}</p>
+      <a [routerLink]="ctaLink">
+        <app-button>{{ ctaLabel }}</app-button>
+      </a>
+    </div>
+    <div class="relative min-h-[420px] bg-[#F6EFEA]">
+      <img [src]="image" [alt]="title" class="h-full w-full object-cover">
+    </div>
+  </div>
+</section>

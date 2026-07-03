@@ -1,0 +1,11 @@
+<section class="grid gap-6 rounded-[32px] border border-black/10 bg-white p-6 shadow-soft lg:grid-cols-[1fr_auto] lg:items-center lg:p-8">
+  <div>
+    <p class="text-xs uppercase tracking-[0.35em] text-black/45">Newsletter</p>
+    <h2 class="section-title mt-2 text-4xl text-[#111111]">Recibe lanzamientos y beneficios exclusivos</h2>
+    <p class="mt-3 max-w-2xl text-sm leading-7 text-black/65">Anuncios de nuevas colecciones, promociones selectas y recordatorios suaves para volver a visitar la tienda.</p>
+  </div>
+  <form class="flex flex-col gap-3 sm:flex-row" [formGroup]="form" (ngSubmit)="submit()">
+    <input formControlName="email" type="email" placeholder="Tu correo" class="min-w-[260px] rounded-full border border-black/10 px-4 py-3 text-sm outline-none focus:border-black/30">
+    <app-button type="submit">Suscribirme</app-button>
+  </form>
+</section>

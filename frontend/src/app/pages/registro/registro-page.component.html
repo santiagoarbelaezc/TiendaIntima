@@ -1,0 +1,15 @@
+<div class="mx-auto flex max-w-xl flex-col gap-6 px-4 py-8 md:px-6 xl:py-12">
+  <div class="space-y-3 text-center">
+    <p class="text-xs uppercase tracking-[0.35em] text-black/45">Registro</p>
+    <h1 class="section-title text-5xl text-[#111111]">Crea tu cuenta</h1>
+  </div>
+
+  <form class="space-y-4 rounded-[32px] border border-black/10 bg-white p-6 shadow-soft" [formGroup]="form" (ngSubmit)="submit()">
+    <label class="block space-y-2 text-sm"><span class="font-semibold">Nombre</span><input formControlName="nombre" class="w-full rounded-full border border-black/10 px-4 py-3"></label>
+    <label class="block space-y-2 text-sm"><span class="font-semibold">Correo</span><input formControlName="email" type="email" class="w-full rounded-full border border-black/10 px-4 py-3"></label>
+    <label class="block space-y-2 text-sm"><span class="font-semibold">Teléfono</span><input formControlName="telefono" class="w-full rounded-full border border-black/10 px-4 py-3"></label>
+    <label class="block space-y-2 text-sm"><span class="font-semibold">Contraseña</span><input formControlName="password" type="password" class="w-full rounded-full border border-black/10 px-4 py-3"></label>
+    <p class="text-sm text-green-700" *ngIf="successMessage()">{{ successMessage() }}</p>
+    <app-button type="submit">Crear cuenta</app-button>
+  </form>
+</div>

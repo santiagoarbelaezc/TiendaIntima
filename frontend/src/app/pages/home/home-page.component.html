@@ -1,0 +1,49 @@
+<div class="mx-auto flex max-w-7xl flex-col gap-10 px-4 py-6 md:px-6 xl:px-8 xl:py-8">
+  <app-hero
+    title="Descanso elegante, texturas suaves y piezas pensadas para sentirte en casa"
+    subtitle="Una tienda boutique de pijamas, ropa interior y prendas de descanso con una experiencia cálida, minimalista y cercana."
+    image="assets/images/hero-main.svg"
+    ctaLabel="Explorar colección"
+    ctaLink="/catalogo"
+  ></app-hero>
+
+  <section class="grid gap-4 md:grid-cols-3">
+    <a *ngFor="let category of categories()" [routerLink]="['/catalogo']" [queryParams]="{ categoria: category.slug }" class="overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-soft transition hover:-translate-y-1">
+      <img [src]="category.imagen" [alt]="category.nombre" class="h-72 w-full object-cover">
+      <div class="p-5">
+        <p class="text-xs uppercase tracking-[0.3em] text-black/45">{{ category.slug }}</p>
+        <h2 class="section-title mt-2 text-3xl text-[#111111]">{{ category.nombre }}</h2>
+        <p class="mt-3 text-sm leading-6 text-black/65">{{ category.descripcion }}</p>
+      </div>
+    </a>
+  </section>
+
+  <section class="grid gap-5">
+    <div class="flex items-end justify-between gap-4">
+      <div>
+        <p class="text-xs uppercase tracking-[0.35em] text-black/45">Más vendidos</p>
+        <h2 class="section-title text-4xl text-[#111111]">Favoritos de la comunidad</h2>
+      </div>
+      <a routerLink="/catalogo" class="text-sm font-semibold text-black/60 underline decoration-black/20 underline-offset-4">Ver todo</a>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <app-product-card *ngFor="let product of featuredProducts()" [product]="product"></app-product-card>
+    </div>
+  </section>
+
+  <app-banner-promocional
+    title="Compra sets seleccionados y recibe envío a domicilio"
+    description="Beneficios activos para pedidos elegidos, con una experiencia de compra rápida y sin fricciones."
+    image="assets/images/banner-promo.svg"
+  ></app-banner-promocional>
+
+  <section class="grid gap-6 rounded-[32px] border border-black/10 bg-white p-6 shadow-soft md:grid-cols-[0.8fr_1.2fr] md:p-8">
+    <div>
+      <p class="text-xs uppercase tracking-[0.35em] text-black/45">Nosotros</p>
+      <h2 class="section-title mt-2 text-4xl text-[#111111]">Una boutique cercana para momentos de descanso</h2>
+    </div>
+    <p class="text-sm leading-7 text-black/65">Tiendaintima combina moda íntima y descanso con una curaduría suave, femenina y funcional. Pensamos cada colección para acompañarte en rutinas reales, tardes en casa y regalos con intención.</p>
+  </section>
+
+  <app-newsletter-signup></app-newsletter-signup>
+</div>

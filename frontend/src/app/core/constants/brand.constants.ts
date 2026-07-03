@@ -18,3 +18,10 @@ export const socialLinks = [
   { label: 'Instagram', href: 'https://instagram.com/tiendaintima' },
   { label: 'WhatsApp', href: 'https://wa.me/573001234567' }
 ];
+
+export const footerLinks = [
+  { label: 'Nosotros', path: '/nosotros' },
+  { label: 'Contacto', path: '/contacto' },
+  { label: 'Mi cuenta', path: '/mi-cuenta' },
+  { label: 'Carrito', path: '/carrito' }
+];
