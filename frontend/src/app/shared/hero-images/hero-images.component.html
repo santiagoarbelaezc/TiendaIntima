@@ -1,0 +1,35 @@
+<div class="hero-images-shell">
+  <div class="hero-carousel-mobile">
+    <div class="carousel-track-container" #scrollContainer (scroll)="onScroll()">
+      <div class="carousel-track">
+        <div class="carousel-slide" *ngFor="let item of items; let i = index" [id]="'slide-' + i">
+          <img [src]="item.img" [alt]="item.title" class="slide-img" loading="lazy">
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <p class="slide-eyebrow">Tiendaintima</p>
+              <h2 class="slide-title">{{ item.title }}</h2>
+              <p class="slide-subtitle">{{ item.subtitle }}</p>
+              <a [routerLink]="item.link" class="slide-cta">Descubrir</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="carousel-dots">
+      <button *ngFor="let dot of items; let i = index" (click)="scrollToSlide(i)" [class.active]="i === currentSlide" class="dot-btn" type="button"></button>
+    </div>
+  </div>
+
+  <section class="hero-desktop-grid">
+    <a *ngFor="let item of items" [routerLink]="item.link" class="hero-desktop-card group">
+      <img [src]="item.img" [alt]="item.title" class="bg-img" loading="lazy">
+      <div class="card-overlay"></div>
+      <div class="content">
+        <p class="card-eyebrow">Colección</p>
+        <h3>{{ item.title }}</h3>
+        <span class="btn mt-2 inline-block">Ver colección</span>
+      </div>
+    </a>
+  </section>
+</div>
