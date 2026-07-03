@@ -53,30 +53,11 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.syncCurrentSlide();
     this.startAutoplay();
-
-    // Prevent vertical wheel scroll from moving the horizontal carousel
-    const container = this.scrollContainer?.nativeElement;
-    if (container) {
-      container.addEventListener('wheel', this.onWheel, { passive: false });
-    }
   }
 
   ngOnDestroy(): void {
     this.stopAutoplay();
-    const container = this.scrollContainer?.nativeElement;
-    if (container) {
-      container.removeEventListener('wheel', this.onWheel);
-    }
   }
-
-  readonly onWheel = (event: WheelEvent): void => {
-    // If the scroll is primarily vertical, prevent the carousel from moving
-    // and redirect the scroll to the page instead
-    if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
-      event.preventDefault();
-      window.scrollBy({ top: event.deltaY, behavior: 'auto' });
-    }
-  };
 
   scrollToSlide(index: number): void {
     const container = this.scrollContainer?.nativeElement;
