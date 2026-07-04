@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { filter } from 'rxjs/operators';
 
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -8,10 +10,24 @@ import { TopBarPromocionalComponent } from './shared/top-bar-promocional/top-bar
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TopBarPromocionalComponent, NavbarComponent, FooterComponent],
+  imports: [CommonModule, RouterOutlet, TopBarPromocionalComponent, NavbarComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Tiendaintima';
+  private readonly router = inject(Router);
+  readonly isAdminRoute = signal(false);
+
+  constructor() {
+    this.isAdminRoute.set(this.router.url.startsWith('/admin'));
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      const url = event.urlAfterRedirects || event.url || '';
+      this.isAdminRoute.set(url.startsWith('/admin'));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 }
+

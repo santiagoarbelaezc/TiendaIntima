@@ -41,4 +41,4 @@ export class NavbarComponent {
   toggleMobileMenu(): void {
     this.mobileMenuOpen.update((isOpen) => !isOpen);
   }
-}
+}

@@ -1,8 +1,8 @@
 <div class="space-y-8 animate-in fade-in duration-300">
   <!-- Header -->
   <div>
-    <h1 class="text-3xl font-extrabold tracking-tight text-[#111111]">Analíticas y Métricas</h1>
-    <p class="text-sm text-black/60 mt-1">Explora la distribución de ventas, conversión y preferencias de los clientes.</p>
+    <h1 class="admin-title text-4xl text-[#111111]">Analíticas y Métricas</h1>
+    <p class="text-sm text-black/60 mt-1 font-editorial">Explora la distribución de ventas, conversión y preferencias de los clientes.</p>
   </div>
 
   <div *ngIf="stats() as data; else loading">
@@ -11,12 +11,12 @@
       <!-- Ventas por Categoría -->
       <div class="rounded-[28px] border border-black/10 bg-white p-6 shadow-soft flex flex-col">
         <div class="mb-6">
-          <h3 class="text-lg font-bold text-[#111111]">Ventas por Categoría (%)</h3>
-          <p class="text-xs text-black/50">Participación en los ingresos totales del mes</p>
+          <h3 class="admin-title text-xl text-[#111111]">Ventas por Categoría (%)</h3>
+          <p class="text-xs text-black/50 font-editorial">Participación en los ingresos totales del mes</p>
         </div>
         <div class="flex-1 min-h-[300px]">
           <app-chart-wrapper 
-            type="bar" 
+            type="pie" 
             [labels]="data.ventasPorCategoria.labels" 
             [data]="data.ventasPorCategoria.data"
             labelName="Participación (%)"
@@ -27,8 +27,8 @@
       <!-- Métodos de Pago -->
       <div class="rounded-[28px] border border-black/10 bg-white p-6 shadow-soft flex flex-col">
         <div class="mb-6">
-          <h3 class="text-lg font-bold text-[#111111]">Métodos de Pago Utilizados</h3>
-          <p class="text-xs text-black/50">Distribución porcentual de las transacciones</p>
+          <h3 class="admin-title text-xl text-[#111111]">Métodos de Pago Utilizados</h3>
+          <p class="text-xs text-black/50 font-editorial">Distribución porcentual de las transacciones</p>
         </div>
         <div class="flex-1 min-h-[300px]">
           <app-chart-wrapper 
@@ -44,8 +44,8 @@
     <!-- Embudo de Conversión -->
     <div class="mt-8 rounded-[28px] border border-black/10 bg-white p-6 sm:p-8 shadow-soft">
       <div class="mb-8">
-        <h3 class="text-xl font-bold text-[#111111]">Embudo de Conversión del Mes</h3>
-        <p class="text-xs sm:text-sm text-black/50 mt-1">Seguimiento desde la primera visita en la tienda hasta la compra exitosa</p>
+        <h3 class="admin-title text-2xl text-[#111111]">Embudo de Conversión del Mes</h3>
+        <p class="text-xs sm:text-sm text-black/50 mt-1 font-editorial">Seguimiento desde la primera visita en la tienda hasta la compra exitosa</p>
       </div>
 
       <div class="space-y-6">

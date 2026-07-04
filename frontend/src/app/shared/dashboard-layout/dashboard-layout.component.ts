@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 import { brandName } from '../../core/constants/brand.constants';
+
 
 interface NavItem {
   label: string;
@@ -26,6 +28,16 @@ export class DashboardLayoutComponent {
   readonly currentUser = this.authService.currentUser;
   readonly sidebarCollapsed = signal(false);
   readonly mobileMenuOpen = signal(false);
+
+  constructor() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const mainEl = document.querySelector('main');
+      if (mainEl) mainEl.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   readonly navItems: NavItem[] = [
     { label: 'Inicio', path: '/admin', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6', exact: true },

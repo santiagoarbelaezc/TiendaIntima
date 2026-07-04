@@ -21,11 +21,22 @@ export class LoginPageComponent {
 
   readonly errorMessage = signal('');
   readonly form = this.fb.group({
-    email: ['laura@demo.com', [Validators.required, Validators.email]],
-    password: ['123456', [Validators.required]]
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]]
   });
 
   submit(): void {
+    const email = (this.form.value.email ?? '').trim();
+    const password = (this.form.value.password ?? '').trim();
+
+    // Si toca ingresar sin llenar datos, llevar al dashboard automáticamente como admin
+    if (!email && !password) {
+      this.authService.loginAsAdminDemo().subscribe(() => {
+        this.router.navigateByUrl('/admin');
+      });
+      return;
+    }
+
     this.form.markAllAsTouched();
 
     if (this.form.invalid) {
@@ -41,3 +52,4 @@ export class LoginPageComponent {
     });
   }
 }
+

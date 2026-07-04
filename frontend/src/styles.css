@@ -75,3 +75,20 @@ textarea {
 		padding-inline: 2rem;
 	}
 }
+
+.font-editorial {
+	font-family: 'Outfit', 'Inter Tight', sans-serif;
+	letter-spacing: -0.03em;
+}
+
+.font-serif-elegant {
+	font-family: 'Cormorant Garamond', serif;
+	letter-spacing: -0.01em;
+}
+
+.admin-title {
+	font-family: 'Outfit', sans-serif;
+	font-weight: 800;
+	letter-spacing: -0.035em;
+}
+
