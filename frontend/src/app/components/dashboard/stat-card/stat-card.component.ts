@@ -14,4 +14,6 @@ export class StatCardComponent {
   @Input() prefix?: string;
   @Input() suffix?: string;
   @Input() iconPath?: string;
+
+  readonly Math = Math;
 }

@@ -1,0 +1,29 @@
+<div class="rounded-[28px] border border-black/10 bg-white p-6 shadow-soft transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+  <div class="flex items-center justify-between gap-4">
+    <p class="text-xs font-semibold uppercase tracking-wider text-black/45">{{ title }}</p>
+    <div *ngIf="iconPath" class="h-10 w-10 rounded-2xl bg-[#FAFAFA] border border-black/5 flex items-center justify-center text-[#111111]">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" [attr.d]="iconPath" />
+      </svg>
+    </div>
+  </div>
+
+  <div class="mt-4 flex items-baseline gap-2">
+    <span *ngIf="prefix" class="text-xl font-bold text-black/40">{{ prefix }}</span>
+    <h3 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#111111]">{{ value }}</h3>
+    <span *ngIf="suffix" class="text-sm font-semibold text-black/60">{{ suffix }}</span>
+  </div>
+
+  <div *ngIf="delta !== undefined" class="mt-4 flex items-center gap-1.5 text-xs font-bold">
+    <span 
+      class="inline-flex items-center gap-0.5 px-2 py-1 rounded-full"
+      [ngClass]="delta >= 0 ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'"
+    >
+      <svg class="w-3.5 h-3.5" [ngClass]="{'rotate-180': delta < 0}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+      </svg>
+      <span>{{ Math.abs(delta) }}%</span>
+    </span>
+    <span class="text-black/40 font-medium">vs mes anterior</span>
+  </div>
+</div>
