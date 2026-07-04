@@ -1,0 +1,105 @@
+<div class="space-y-8 animate-in fade-in duration-300">
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <h1 class="text-3xl font-extrabold tracking-tight text-[#111111]">Reportes de Ventas</h1>
+      <p class="text-sm text-black/60 mt-1">Genera reportes financieros, exporta historiales en CSV y audita pedidos.</p>
+    </div>
+    <button 
+      type="button" 
+      (click)="exportCsv()"
+      class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#111111] text-white text-sm font-bold hover:bg-black/80 transition shadow-soft flex-shrink-0"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+      </svg>
+      <span>Exportar CSV</span>
+    </button>
+  </div>
+
+  <!-- Tarjetas Rápida de Métricas Financieras -->
+  <div *ngIf="stats() as data" class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+    <div class="rounded-[28px] border border-black/10 bg-white p-6 shadow-soft flex items-center justify-between">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-black/45">Ingresos Totales (30d)</p>
+        <h3 class="text-3xl font-extrabold text-[#111111] mt-2">${{ data.kpis.ventasMes | number:'1.0-0' }}</h3>
+      </div>
+      <div class="h-12 w-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg">
+        +$
+      </div>
+    </div>
+    <div class="rounded-[28px] border border-black/10 bg-white p-6 shadow-soft flex items-center justify-between">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-black/45">Ticket Promedio</p>
+        <h3 class="text-3xl font-extrabold text-[#111111] mt-2">${{ data.kpis.ticketPromedio | number:'1.0-0' }}</h3>
+      </div>
+      <div class="h-12 w-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold text-lg">
+        %
+      </div>
+    </div>
+    <div class="rounded-[28px] border border-black/10 bg-white p-6 shadow-soft flex items-center justify-between">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-black/45">Total Transacciones</p>
+        <h3 class="text-3xl font-extrabold text-[#111111] mt-2">{{ data.ultimosPedidos.length }} pedidos</h3>
+      </div>
+      <div class="h-12 w-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-lg">
+        #
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtros por Estado -->
+  <div class="flex flex-wrap items-center gap-2 border-b border-black/10 pb-4">
+    <span class="text-xs font-bold text-black/40 mr-2 uppercase tracking-wider">Filtrar por:</span>
+    <button 
+      type="button" 
+      (click)="setFilter('todos')"
+      class="px-4 py-2 rounded-full text-xs font-bold transition"
+      [ngClass]="selectedFilter() === 'todos' ? 'bg-[#111111] text-white shadow-soft' : 'bg-white border border-black/10 text-black/60 hover:bg-black/5 hover:text-[#111111]'"
+    >
+      Todos
+    </button>
+    <button 
+      type="button" 
+      (click)="setFilter('pendiente')"
+      class="px-4 py-2 rounded-full text-xs font-bold transition"
+      [ngClass]="selectedFilter() === 'pendiente' ? 'bg-amber-600 text-white shadow-soft' : 'bg-white border border-black/10 text-black/60 hover:bg-black/5 hover:text-[#111111]'"
+    >
+      Pendientes
+    </button>
+    <button 
+      type="button" 
+      (click)="setFilter('enviado')"
+      class="px-4 py-2 rounded-full text-xs font-bold transition"
+      [ngClass]="selectedFilter() === 'enviado' ? 'bg-sky-600 text-white shadow-soft' : 'bg-white border border-black/10 text-black/60 hover:bg-black/5 hover:text-[#111111]'"
+    >
+      Enviados
+    </button>
+    <button 
+      type="button" 
+      (click)="setFilter('entregado')"
+      class="px-4 py-2 rounded-full text-xs font-bold transition"
+      [ngClass]="selectedFilter() === 'entregado' ? 'bg-emerald-600 text-white shadow-soft' : 'bg-white border border-black/10 text-black/60 hover:bg-black/5 hover:text-[#111111]'"
+    >
+      Entregados
+    </button>
+    <button 
+      type="button" 
+      (click)="setFilter('cancelado')"
+      class="px-4 py-2 rounded-full text-xs font-bold transition"
+      [ngClass]="selectedFilter() === 'cancelado' ? 'bg-rose-600 text-white shadow-soft' : 'bg-white border border-black/10 text-black/60 hover:bg-black/5 hover:text-[#111111]'"
+    >
+      Cancelados
+    </button>
+  </div>
+
+  <!-- Tabla de Reporte de Ventas -->
+  <app-data-table 
+    [columns]="columns" 
+    [data]="filteredPedidos" 
+    searchKey="cliente" 
+    searchPlaceholder="Buscar pedido por nombre del cliente..."
+    emptyMessage="No se encontraron pedidos con este filtro."
+    (actionClick)="onTableAction($event)"
+  ></app-data-table>
+</div>
