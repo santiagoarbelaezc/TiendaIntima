@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { adminGuard } from './core/guards/admin.guard';
 
 export const routes: Routes = [
 	{ path: '', loadComponent: () => import('./pages/home/home-page.component').then((m) => m.HomePageComponent) },
@@ -12,5 +13,20 @@ export const routes: Routes = [
 	{ path: 'registro', loadComponent: () => import('./pages/registro/registro-page.component').then((m) => m.RegistroPageComponent) },
 	{ path: 'nosotros', loadComponent: () => import('./pages/nosotros/nosotros-page.component').then((m) => m.NosotrosPageComponent) },
 	{ path: 'contacto', loadComponent: () => import('./pages/contacto/contacto-page.component').then((m) => m.ContactoPageComponent) },
+	{
+		path: 'admin',
+		canActivate: [adminGuard],
+		loadComponent: () => import('./shared/dashboard-layout/dashboard-layout.component').then((m) => m.DashboardLayoutComponent),
+		children: [
+			{ path: '', loadComponent: () => import('./pages/dashboard/inicio/dashboard-inicio.component').then((m) => m.DashboardInicioComponent) },
+			{ path: 'analiticas', loadComponent: () => import('./pages/dashboard/analiticas/dashboard-analiticas.component').then((m) => m.DashboardAnaliticasComponent) },
+			{ path: 'usuarios', loadComponent: () => import('./pages/dashboard/usuarios/dashboard-usuarios.component').then((m) => m.DashboardUsuariosComponent) },
+			{ path: 'productos', loadComponent: () => import('./pages/dashboard/productos/dashboard-productos.component').then((m) => m.DashboardProductosComponent) },
+			{ path: 'categorias', loadComponent: () => import('./pages/dashboard/categorias/dashboard-categorias.component').then((m) => m.DashboardCategoriasComponent) },
+			{ path: 'personalizar', loadComponent: () => import('./pages/dashboard/personalizar/dashboard-personalizar.component').then((m) => m.DashboardPersonalizarComponent) },
+			{ path: 'reportes', loadComponent: () => import('./pages/dashboard/reportes/dashboard-reportes.component').then((m) => m.DashboardReportesComponent) }
+		]
+	},
 	{ path: '**', redirectTo: '' }
 ];
+
