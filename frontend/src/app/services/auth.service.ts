@@ -46,6 +46,29 @@ export class AuthService {
     );
   }
 
+  loginAsAdminDemo(): Observable<Usuario> {
+    return this.users$.pipe(
+      map((users) => {
+        const user = users.find((item) => item.rol === 'admin' || item.email.toLowerCase() === 'laura@demo.com');
+        if (!user) {
+          const fallbackAdmin: Usuario = {
+            id: 'u1',
+            nombre: 'Laura Gómez (Admin)',
+            email: 'laura@demo.com',
+            password: '123456',
+            telefono: '3001234567',
+            fechaRegistro: new Date().toISOString(),
+            rol: 'admin',
+            direcciones: []
+          };
+          return fallbackAdmin;
+        }
+        return user;
+      }),
+      tap((user) => this.currentUserSignal.set(user))
+    );
+  }
+
   register(payload: Pick<Usuario, 'nombre' | 'email' | 'telefono'> & { password: string }): Observable<Usuario> {
     const user: Usuario = {
       id: `u-${Date.now()}`,
