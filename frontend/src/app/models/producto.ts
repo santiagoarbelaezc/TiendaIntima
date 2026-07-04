@@ -27,4 +27,5 @@ export interface Producto {
   disponible: boolean;
   nuevo: boolean;
   bestseller: boolean;
+  stock?: number;
 }

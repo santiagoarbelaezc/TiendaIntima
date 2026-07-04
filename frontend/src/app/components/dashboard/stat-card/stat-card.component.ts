@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
 })
 export class StatCardComponent {
   @Input({ required: true }) title!: string;
-  @Input({ required: true }) value!: string | number;
+  @Input({ required: true }) value!: string | number | null | undefined;
   @Input() delta?: number; // porcentaje positivo o negativo
   @Input() prefix?: string;
   @Input() suffix?: string;

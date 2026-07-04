@@ -74,7 +74,9 @@ export class DashboardCategoriasComponent {
         nombre: val.nombre!,
         slug: val.nombre!.toLowerCase().replace(/\s+/g, '-'),
         descripcion: val.descripcion!,
-        imagen: val.imagen!
+        imagen: val.imagen!,
+        acento: c.acento || '#EAC7D2',
+        subcategorias: c.subcategorias || []
       } : c);
       this.categoriasSignal.set(updated);
     } else {
@@ -83,7 +85,9 @@ export class DashboardCategoriasComponent {
         nombre: val.nombre!,
         slug: val.nombre!.toLowerCase().replace(/\s+/g, '-'),
         descripcion: val.descripcion!,
-        imagen: val.imagen!
+        imagen: val.imagen!,
+        acento: '#EAC7D2',
+        subcategorias: []
       };
       this.categoriasSignal.set([...current, newCat]);
     }
