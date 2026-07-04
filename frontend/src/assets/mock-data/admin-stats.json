@@ -1,0 +1,46 @@
+{
+  "kpis": {
+    "ventasMes": 4850000,
+    "ventasDelta": 14.2,
+    "pedidosPendientes": 8,
+    "pedidosDelta": -5.0,
+    "nuevosUsuarios": 34,
+    "usuariosDelta": 22.5,
+    "ticketPromedio": 142600,
+    "ticketDelta": 4.8
+  },
+  "ventasPorDia": {
+    "labels": ["1 Jun", "5 Jun", "10 Jun", "15 Jun", "20 Jun", "25 Jun", "30 Jun", "4 Jul"],
+    "data": [450000, 620000, 380000, 890000, 740000, 950000, 510000, 820000]
+  },
+  "ventasPorCategoria": {
+    "labels": ["Pijamas", "Ropa interior", "Promociones", "Novedades"],
+    "data": [45, 30, 15, 10]
+  },
+  "metodosPago": {
+    "labels": ["Tarjeta de Crédito", "PSE / Débito", "Nequi / Daviplata", "Contraentrega"],
+    "data": [40, 35, 20, 5]
+  },
+  "embudoConversion": [
+    { "etapa": "Visitas a la tienda", "valor": 12450, "porcentaje": 100 },
+    { "etapa": "Vieron un producto", "valor": 6800, "porcentaje": 54.6 },
+    { "etapa": "Añadieron al carrito", "valor": 1920, "porcentaje": 15.4 },
+    { "etapa": "Iniciaron checkout", "valor": 840, "porcentaje": 6.7 },
+    { "etapa": "Compra completada", "valor": 412, "porcentaje": 3.3 }
+  ],
+  "topProductos": [
+    { "id": "p1", "nombre": "Pijama de Satén Rosa Victoria", "categoria": "pijamas", "ventas": 84, "ingresos": 11760000, "stock": 12 },
+    { "id": "p2", "nombre": "Conjunto Encaje Negro Seducción", "categoria": "ropa-interior", "ventas": 65, "ingresos": 5850000, "stock": 8 },
+    { "id": "p3", "nombre": "Pijama Algodón Orgánico Celeste", "categoria": "pijamas", "ventas": 52, "ingresos": 6240000, "stock": 19 },
+    { "id": "p4", "nombre": "Bralette Sin Costuras Beige", "categoria": "ropa-interior", "ventas": 48, "ingresos": 2880000, "stock": 25 },
+    { "id": "p5", "nombre": "Bata de Seda Esmeralda", "categoria": "novedades", "ventas": 31, "ingresos": 5580000, "stock": 5 }
+  ],
+  "ultimosPedidos": [
+    { "id": "ped-108", "cliente": "Carolina Morales", "fecha": "2026-07-04T09:15:00.000Z", "total": 230000, "estado": "pendiente", "items": 2 },
+    { "id": "ped-107", "cliente": "Valentina Rendón", "fecha": "2026-07-03T18:30:00.000Z", "total": 140000, "estado": "enviado", "items": 1 },
+    { "id": "ped-106", "cliente": "Daniela Jaramillo", "fecha": "2026-07-03T11:20:00.000Z", "total": 380000, "estado": "enviado", "items": 3 },
+    { "id": "ped-105", "cliente": "Sofia Castro", "fecha": "2026-07-02T16:45:00.000Z", "total": 90000, "estado": "entregado", "items": 1 },
+    { "id": "ped-104", "cliente": "Mariana López", "fecha": "2026-07-01T14:10:00.000Z", "total": 310000, "estado": "entregado", "items": 2 },
+    { "id": "ped-103", "cliente": "Camila Giraldo", "fecha": "2026-06-30T10:05:00.000Z", "total": 180000, "estado": "cancelado", "items": 2 }
+  ]
+}

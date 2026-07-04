@@ -1,0 +1,8 @@
+/* Estilos personalizados para scrollbar en el panel admin */
+aside nav::-webkit-scrollbar {
+  width: 4px;
+}
+aside nav::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}

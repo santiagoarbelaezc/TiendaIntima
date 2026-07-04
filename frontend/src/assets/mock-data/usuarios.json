@@ -1,11 +1,12 @@
 [
   {
     "id": "u1",
-    "nombre": "Laura Gómez",
+    "nombre": "Laura Gómez (Admin)",
     "email": "laura@demo.com",
     "password": "123456",
     "telefono": "3001234567",
     "fechaRegistro": "2026-05-14T10:20:00.000Z",
+    "rol": "admin",
     "direcciones": [
       {
         "id": "dir-1",
@@ -17,5 +18,45 @@
         "principal": true
       }
     ]
+  },
+  {
+    "id": "u2",
+    "nombre": "Carolina Morales",
+    "email": "carolina@cliente.com",
+    "password": "123456",
+    "telefono": "3119876543",
+    "fechaRegistro": "2026-06-01T14:10:00.000Z",
+    "rol": "cliente",
+    "direcciones": [
+      {
+        "id": "dir-2",
+        "alias": "Trabajo",
+        "lineas": ["Cra 43A #1-50", "Oficina 802"],
+        "ciudad": "Medellín",
+        "departamento": "Antioquia",
+        "telefono": "3119876543",
+        "principal": true
+      }
+    ]
+  },
+  {
+    "id": "u3",
+    "nombre": "Valentina Rendón",
+    "email": "valentina@cliente.com",
+    "password": "123456",
+    "telefono": "3204567890",
+    "fechaRegistro": "2026-06-15T09:30:00.000Z",
+    "rol": "cliente",
+    "direcciones": []
+  },
+  {
+    "id": "u4",
+    "nombre": "Daniela Jaramillo",
+    "email": "daniela@cliente.com",
+    "password": "123456",
+    "telefono": "3103334455",
+    "fechaRegistro": "2026-06-28T18:45:00.000Z",
+    "rol": "cliente",
+    "direcciones": []
   }
 ]

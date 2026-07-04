@@ -8,4 +8,5 @@ export interface Usuario {
   telefono: string;
   fechaRegistro: string;
   direcciones: Direccion[];
+  rol?: 'cliente' | 'admin';
 }
