@@ -7,6 +7,13 @@
   &::-webkit-scrollbar {
     display: none;
   }
+  will-change: scroll-position;
+}
+
+.carousel-track-container img {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 @media (min-width: 1024px) {

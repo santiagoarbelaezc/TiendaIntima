@@ -1,7 +1,7 @@
 <div class="page-shell flex min-h-screen flex-col">
 	<app-top-bar-promocional *ngIf="!isAdminRoute()"></app-top-bar-promocional>
 	<app-navbar *ngIf="!isAdminRoute()"></app-navbar>
-	<main class="flex-1">
+	<main [ngClass]="(!isAdminRoute() && !isHomePage()) ? 'pt-24 lg:pt-28' : ''" class="flex-1">
 		<router-outlet></router-outlet>
 	</main>
 	<app-footer *ngIf="!isAdminRoute()"></app-footer>

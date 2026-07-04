@@ -13,6 +13,7 @@
 }
 
 html {
+	background-color: #000000;
 	scroll-behavior: smooth;
 }
 
@@ -90,5 +91,18 @@ textarea {
 	font-family: 'Outfit', sans-serif;
 	font-weight: 800;
 	letter-spacing: -0.035em;
+}
+
+/* Bloqueo estricto de desbordamiento horizontal */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+  position: relative;
+}
+
+/* Optimización de rendimiento para scroll fluido */
+.optimize-render {
+  content-visibility: auto;
+  contain-intrinsic-size: 500px;
 }
 

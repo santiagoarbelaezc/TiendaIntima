@@ -16,4 +16,5 @@ import { RatingStarsComponent } from '../rating-stars/rating-stars.component';
 })
 export class ProductCardComponent {
   @Input({ required: true }) product!: Producto;
+  @Input() theme: 'light' | 'dark' = 'light';
 }

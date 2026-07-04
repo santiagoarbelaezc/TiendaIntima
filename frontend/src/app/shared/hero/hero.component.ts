@@ -43,10 +43,10 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
     {
       img: 'assets/images/ropa-interior-hero.png',
       img2: 'assets/images/ropa-interior-hero-2.png',
-      title: 'Seducción Encaje',
-      subtitle: 'Detalles de tirantes y transparencias.',
-      description: 'Siente la sensualidad del encaje premium con designs provocativos, sensuales y un ajuste perfecto que destaca tu silueta única.',
-      promoTag: 'NUEVA COLECCIÓN LINGERIE',
+      title: 'Encaje Premium',
+      subtitle: 'Detalles delicados y texturas suaves.',
+      description: 'Siente la comodidad y ligereza del encaje de alta gama con diseños femeninos, versátiles y un ajuste impecable para tu día a día.',
+      promoTag: 'NUEVA COLECCIÓN',
       promoText: '10% OFF extra en tu primer pedido con el código INTTIMA10',
       promoIcon: 'discount',
       link: '/catalogo?categoria=ropa-interior',
@@ -56,10 +56,10 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
       img: 'assets/images/novedades-hero-2.png', // Rotado: antes novedades-hero
       img2: 'assets/images/novedades-hero.png',   // Rotado: antes novedades-hero-2
       title: 'Detalles Únicos',
-      subtitle: 'La combinación perfecta de erotismo y elegancia.',
-      description: 'Prendas con tiras cruzadas, arneses y aberturas sugerentes diseñadas para sorprender y disfrutar de tu sensualidad sin límites.',
-      promoTag: 'NOVEDADES HOT',
-      promoText: 'Empaque de lujo discreto en todas tus compras',
+      subtitle: 'La armonía perfecta de sofisticación y comodidad.',
+      description: 'Descubre piezas exclusivas confeccionadas con texturas selectas y acabados limpios que elevan tu armario de descanso.',
+      promoTag: 'NOVEDADES EXCLUSIVAS',
+      promoText: 'Empaque de lujo de cortesía en todas tus compras',
       promoIcon: 'gift',
       link: '/catalogo?filter=nuevo',
       ctaText: 'Ver Novedades'
