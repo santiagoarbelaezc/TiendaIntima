@@ -1,0 +1,95 @@
+<div class="space-y-8 animate-in fade-in duration-300">
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <h1 class="text-3xl font-extrabold tracking-tight text-[#111111]">Catálogo de Productos</h1>
+      <p class="text-sm text-black/60 mt-1">Supervisa inventario, precios, descuentos y agrega nuevas colecciones.</p>
+    </div>
+    <button 
+      type="button" 
+      (click)="openNewModal()"
+      class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#111111] text-white text-sm font-bold hover:bg-black/80 transition shadow-soft flex-shrink-0"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+      <span>Nuevo Producto</span>
+    </button>
+  </div>
+
+  <!-- Tabla de Productos -->
+  <app-data-table 
+    [columns]="columns" 
+    [data]="formattedProductos" 
+    searchKey="nombre" 
+    searchPlaceholder="Buscar producto por nombre..."
+    emptyMessage="No se encontraron productos registrados."
+    (actionClick)="onTableAction($event)"
+  ></app-data-table>
+
+  <!-- Modal Formulario Producto -->
+  <div *ngIf="showModal()" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="fixed inset-0 bg-black/40 backdrop-blur-sm" (click)="closeModal()"></div>
+    
+    <div class="relative w-full max-w-xl rounded-[32px] bg-white p-6 sm:p-8 shadow-2xl z-10 animate-in zoom-in-95 duration-200 border border-black/10 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-black/5 pb-4">
+        <h3 class="text-xl font-extrabold text-[#111111]">
+          {{ editingProducto() ? 'Editar Producto' : 'Crear Nuevo Producto' }}
+        </h3>
+        <button type="button" (click)="closeModal()" class="text-black/40 hover:text-[#111111] p-1">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="saveProducto()" class="mt-6 space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Nombre de la Prenda</label>
+          <input formControlName="nombre" type="text" placeholder="Ej: Pijama de Satén Victoria" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 focus:ring-2 focus:ring-black/5 outline-none" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Categoría</label>
+            <select formControlName="categoria" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 focus:ring-2 focus:ring-black/5 outline-none bg-white">
+              <option value="pijamas">Pijamas</option>
+              <option value="ropa-interior">Ropa Interior</option>
+              <option value="novedades">Novedades</option>
+              <option value="promociones">Promociones</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Unidades en Stock</label>
+            <input formControlName="stock" type="number" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 focus:ring-2 focus:ring-black/5 outline-none" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Precio Normal ($)</label>
+            <input formControlName="precio" type="number" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 focus:ring-2 focus:ring-black/5 outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Precio Promo ($ opcional)</label>
+            <input formControlName="precioPromocional" type="number" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 focus:ring-2 focus:ring-black/5 outline-none" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Descripción</label>
+          <textarea formControlName="descripcion" rows="3" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 focus:ring-2 focus:ring-black/5 outline-none"></textarea>
+        </div>
+
+        <div class="pt-4 flex items-center justify-end gap-3 border-t border-black/5">
+          <button type="button" (click)="closeModal()" class="px-6 py-3 rounded-full text-xs font-bold text-black/60 hover:bg-black/5 transition">
+            Cancelar
+          </button>
+          <button type="submit" class="px-8 py-3 rounded-full bg-[#111111] text-white text-xs font-bold hover:bg-black/80 transition shadow-soft">
+            {{ editingProducto() ? 'Guardar Cambios' : 'Crear Producto' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
