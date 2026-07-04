@@ -1,0 +1,171 @@
+<div class="space-y-8 animate-in fade-in duration-300">
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <h1 class="text-3xl font-extrabold tracking-tight text-[#111111]">Personalizar Sitio Web</h1>
+      <p class="text-sm text-black/60 mt-1">Configura la identidad de marca, mensajes promocionales y el contenido del hero.</p>
+    </div>
+  </div>
+
+  <!-- Pestañas de Navegación -->
+  <div class="flex items-center gap-2 border-b border-black/10 pb-4">
+    <button 
+      type="button" 
+      (click)="setTab('marca')"
+      class="px-5 py-2.5 rounded-full text-xs font-bold transition"
+      [ngClass]="activeTab() === 'marca' ? 'bg-[#111111] text-white shadow-soft' : 'text-black/60 hover:bg-black/5 hover:text-[#111111]'"
+    >
+      Marca y Topbar
+    </button>
+    <button 
+      type="button" 
+      (click)="setTab('hero')"
+      class="px-5 py-2.5 rounded-full text-xs font-bold transition"
+      [ngClass]="activeTab() === 'hero' ? 'bg-[#111111] text-white shadow-soft' : 'text-black/60 hover:bg-black/5 hover:text-[#111111]'"
+    >
+      Banner Principal (Hero)
+    </button>
+    <button 
+      type="button" 
+      (click)="setTab('redes')"
+      class="px-5 py-2.5 rounded-full text-xs font-bold transition"
+      [ngClass]="activeTab() === 'redes' ? 'bg-[#111111] text-white shadow-soft' : 'text-black/60 hover:bg-black/5 hover:text-[#111111]'"
+    >
+      Redes Sociales
+    </button>
+  </div>
+
+  <!-- Contenedor Principal con Formulario y Vista Previa -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <!-- Formulario (7 columnas) -->
+    <form [formGroup]="form" (ngSubmit)="save()" class="lg:col-span-7 space-y-6 rounded-[28px] border border-black/10 bg-white p-6 sm:p-8 shadow-soft">
+      <!-- Tab 1: Marca y Topbar -->
+      <div *ngIf="activeTab() === 'marca'" class="space-y-6 animate-in fade-in duration-200">
+        <h3 class="text-lg font-bold text-[#111111] border-b border-black/5 pb-3">Identidad General</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Nombre de Marca</label>
+            <input formControlName="brandName" type="text" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Slogan o Lema</label>
+            <input formControlName="slogan" type="text" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
+          </div>
+        </div>
+
+        <h3 class="text-lg font-bold text-[#111111] border-b border-black/5 pb-3 pt-4">Barra Superior de Avisos (Top Bar)</h3>
+        <div class="flex items-center gap-3">
+          <input formControlName="topBarActive" type="checkbox" id="tba" class="h-5 w-5 rounded border-black/20 text-[#111111] focus:ring-black/10" />
+          <label for="tba" class="text-sm font-semibold text-[#111111]">Activar barra superior promocional</label>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1">Mensaje Promocional 1</label>
+            <input formControlName="topBarMsg1" type="text" placeholder="Ej: Envíos gratis por compras superiores a $150.000" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1">Mensaje Promocional 2</label>
+            <input formControlName="topBarMsg2" type="text" placeholder="Ej: Nueva colección de pijamas disponible" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Hero -->
+      <div *ngIf="activeTab() === 'hero'" class="space-y-6 animate-in fade-in duration-200">
+        <h3 class="text-lg font-bold text-[#111111] border-b border-black/5 pb-3">Sección Hero de la Tienda</h3>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Título Principal (H1)</label>
+          <input formControlName="heroTitle" type="text" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none font-bold text-base" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Subtítulo o Descripción</label>
+          <textarea formControlName="heroSubtitle" rows="4" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Texto del Botón de Acción (CTA)</label>
+          <input formControlName="heroCta" type="text" class="w-full max-w-xs rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
+        </div>
+      </div>
+
+      <!-- Tab 3: Redes -->
+      <div *ngIf="activeTab() === 'redes'" class="space-y-6 animate-in fade-in duration-200">
+        <h3 class="text-lg font-bold text-[#111111] border-b border-black/5 pb-3">Enchufes Sociales</h3>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Enlace Oficial de Instagram</label>
+          <input formControlName="instagramUrl" type="url" placeholder="https://instagram.com/tu-tienda" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Enlace o Número de WhatsApp</label>
+          <input formControlName="whatsappUrl" type="url" placeholder="https://wa.me/57300..." class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
+        </div>
+      </div>
+
+      <!-- Alerta de éxito -->
+      <div *ngIf="successMessage()" class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center gap-2 animate-in fade-in">
+        <svg class="w-5 h-5 flex-shrink-0 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        <span>{{ successMessage() }}</span>
+      </div>
+
+      <!-- Botón Submit -->
+      <div class="pt-4 border-t border-black/5 flex justify-end">
+        <button 
+          type="submit" 
+          class="px-8 py-3.5 rounded-full bg-[#111111] text-white text-sm font-bold hover:bg-black/80 transition shadow-soft flex items-center gap-2"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span>Guardar Configuración</span>
+        </button>
+      </div>
+    </form>
+
+    <!-- Vista Previa en Vivo (5 columnas) -->
+    <div class="lg:col-span-5 sticky top-28 space-y-4">
+      <div class="flex items-center justify-between text-xs font-bold text-black/50 uppercase tracking-wider px-2">
+        <span>Vista Previa en Tiempo Real</span>
+        <span class="text-emerald-600">&bull; En Vivo</span>
+      </div>
+
+      <!-- Miniatura Topbar & Navbar -->
+      <div class="rounded-[28px] border border-black/10 bg-white overflow-hidden shadow-soft">
+        <div *ngIf="form.value.topBarActive" class="bg-[#111111] text-white px-4 py-2 text-center text-[10px] font-medium truncate">
+          {{ form.value.topBarMsg1 || 'Mensaje promocional de ejemplo' }}
+        </div>
+        <div class="p-4 border-b border-black/5 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-[#111111] text-white font-bold text-[10px] flex items-center justify-center">T</span>
+            <div>
+              <p class="section-title text-sm font-bold leading-none text-[#111111]">{{ form.value.brandName || 'Marca' }}</p>
+              <p class="text-[8px] uppercase tracking-widest text-black/45">{{ form.value.slogan || 'Slogan' }}</p>
+            </div>
+          </div>
+          <div class="flex gap-2 text-[10px] font-bold text-black/40">
+            <span>Inicio</span>
+            <span>Pijamas</span>
+          </div>
+        </div>
+
+        <!-- Miniatura Hero Preview -->
+        <div class="p-6 bg-[#FAFAFA] text-center space-y-3">
+          <span class="inline-block px-2.5 py-1 rounded-full bg-[#EAC7D2]/40 text-[#111111] text-[9px] font-extrabold uppercase tracking-widest">
+            Nueva Colección 2026
+          </span>
+          <h4 class="text-lg font-extrabold text-[#111111] leading-tight max-w-xs mx-auto">
+            {{ form.value.heroTitle || 'Título de ejemplo para el hero' }}
+          </h4>
+          <p class="text-[11px] text-black/60 line-clamp-3 max-w-xs mx-auto">
+            {{ form.value.heroSubtitle || 'Subtítulo o descripción de la tienda' }}
+          </p>
+          <div class="pt-2">
+            <span class="inline-block px-5 py-2 rounded-full bg-[#111111] text-white text-[10px] font-bold shadow-sm">
+              {{ form.value.heroCta || 'Ver colección' }} &rarr;
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
