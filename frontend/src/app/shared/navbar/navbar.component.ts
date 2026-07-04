@@ -23,6 +23,14 @@ export class NavbarComponent {
   readonly mobileMenuOpen = signal(false);
   readonly activeMegaMenu = signal('');
   readonly showMegaMenu = computed(() => this.activeMegaMenu().length > 0);
+  readonly scrolled = signal(false);
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    if (typeof window !== 'undefined') {
+      this.scrolled.set(window.scrollY > 40);
+    }
+  }
 
   @HostListener('document:keydown.escape')
   closeMenus(): void {

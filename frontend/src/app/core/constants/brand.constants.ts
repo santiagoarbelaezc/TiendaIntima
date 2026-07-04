@@ -8,8 +8,10 @@ export const topBarMessages = [
 
 export const navigationItems = [
   { label: 'Inicio', path: '/' },
-  { label: 'Pijamas', path: '/catalogo', category: 'pijamas' },
   { label: 'Ropa interior', path: '/catalogo', category: 'ropa-interior' },
+  { label: 'Pijamas', path: '/catalogo', category: 'pijamas' },
+  { label: 'Lencería', path: '/catalogo', category: 'lenceria' },
+  { label: 'Hombre', path: '/catalogo', category: 'hombre' },
   { label: 'Novedades', path: '/catalogo', filter: 'nuevo' },
   { label: 'Promociones', path: '/catalogo', filter: 'promo' }
 ];

@@ -10,32 +10,85 @@
         [id]="'slide-' + i"
         class="relative h-full w-screen flex-none snap-center"
       >
-        <img
-          [src]="item.img"
-          [alt]="item.title"
-          class="h-full w-full object-cover brightness-[0.8] contrast-[1.05] saturate-[0.9]"
-          loading="lazy"
-        />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 lg:bg-gradient-to-r lg:from-black/80 lg:via-black/40 lg:to-transparent"></div>
+        <!-- Contenedor de doble imagen para el banner -->
+        <div class="absolute inset-0 flex h-full w-full">
+          <div class="w-full md:w-1/2 h-full overflow-hidden">
+            <img
+              [src]="item.img"
+              [alt]="item.title"
+              class="h-full w-full object-cover brightness-[0.85] contrast-[1.02] saturate-[1.0] object-top"
+              loading="eager"
+            />
+          </div>
+          <div class="hidden md:block md:w-1/2 h-full overflow-hidden border-l border-white/5">
+            <img
+              [src]="item.img2"
+              [alt]="item.title"
+              class="h-full w-full object-cover brightness-[0.85] contrast-[1.02] saturate-[1.0] object-top"
+              loading="eager"
+            />
+          </div>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10 lg:bg-gradient-to-r lg:from-black/85 lg:via-black/45 lg:to-transparent"></div>
+
         
         <div class="absolute inset-0 flex items-start">
-          <div class="page-container w-full text-white pt-32 pb-10 lg:pt-36">
+          <div class="page-container w-full text-white pt-16 pb-10 lg:pt-20">
             <div class="max-w-3xl">
-              <p class="mb-4 text-[0.85rem] font-bold uppercase tracking-[0.35em] text-white/80">
-                Colección Tiendaintima
+              <!-- Promo Tag -->
+              <p class="mb-3 text-[0.8rem] font-bold uppercase tracking-[0.4em] text-[#EAC7D2]">
+                {{ item.promoTag }}
               </p>
-              <h2 class="section-title mb-8 text-[clamp(4rem,9vw,9.5rem)] font-black leading-[0.9] tracking-[-0.04em]">
+              
+              <!-- Title -->
+              <h2 class="mb-2 text-[clamp(2.5rem,6vw,5.5rem)] font-extrabold leading-[1.0] tracking-[-0.03em] font-editorial uppercase">
                 {{ item.title }}
               </h2>
-              <p class="mb-12 max-w-lg text-xl leading-relaxed text-white/90 lg:text-2xl">
+              
+              <!-- Subtitle -->
+              <p class="mb-4 text-xl lg:text-3xl font-medium font-serif-elegant italic text-white/95 leading-relaxed">
                 {{ item.subtitle }}
               </p>
-              <a
-                [routerLink]="item.link"
-                class="inline-flex items-center justify-center rounded-full bg-white px-8 py-4 text-[0.9rem] font-bold uppercase tracking-[0.15em] text-[#111111] transition duration-300 hover:bg-[#F6EFEA] hover:shadow-lg hover:-translate-y-0.5"
-              >
-                {{ item.ctaText }}
-              </a>
+              
+              <!-- Description -->
+              <p class="mb-6 max-w-xl text-sm lg:text-base leading-relaxed text-white/80 font-editorial">
+                {{ item.description }}
+              </p>
+              
+              <!-- Promo Text Badge -->
+              <div class="mb-8 inline-flex items-center gap-3 rounded-full bg-black/45 backdrop-blur-lg border border-white/10 p-1.5 pr-5 text-[11px] font-medium tracking-wide text-white font-editorial shadow-2xl">
+                <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#EAC7D2] text-[#111111] shadow-soft flex-shrink-0">
+                  <!-- Shipping Icon (Truck) -->
+                  <svg *ngIf="item.promoIcon === 'shipping'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V15a1 1 0 01-1 1h-1" />
+                  </svg>
+                  <!-- Discount Icon (%) -->
+                  <svg *ngIf="item.promoIcon === 'discount'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 15L15 9M11 9.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm5 5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                  </svg>
+                  <!-- Gift Icon (Box) -->
+                  <svg *ngIf="item.promoIcon === 'gift'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v14M19 12H5M20 8H4v4h16V8zm-8-4a3 3 0 00-3 3h6a3 3 0 00-3-3z" />
+                  </svg>
+                </span>
+                <span class="flex items-center gap-2">
+                  <span class="font-bold text-[#EAC7D2] uppercase tracking-[0.15em] text-[9px] bg-white/10 px-2 py-0.5 rounded-full border border-white/5" *ngIf="item.promoIcon === 'shipping'">Envío</span>
+                  <span class="font-bold text-[#EAC7D2] uppercase tracking-[0.15em] text-[9px] bg-white/10 px-2 py-0.5 rounded-full border border-white/5" *ngIf="item.promoIcon === 'discount'">Descuento</span>
+                  <span class="font-bold text-[#EAC7D2] uppercase tracking-[0.15em] text-[9px] bg-white/10 px-2 py-0.5 rounded-full border border-white/5" *ngIf="item.promoIcon === 'gift'">Detalle</span>
+                  <span class="text-white/95 font-medium leading-none">{{ item.promoText }}</span>
+                </span>
+              </div>
+              
+              <!-- CTA Button -->
+              <div>
+                <a
+                  [routerLink]="item.link"
+                  class="inline-flex items-center justify-center rounded-full bg-white px-8 py-4 text-[0.85rem] font-bold uppercase tracking-[0.2em] text-[#111111] transition duration-300 hover:bg-[#EAC7D2] hover:shadow-lg hover:-translate-y-0.5 font-editorial"
+                >
+                  {{ item.ctaText }}
+                </a>
+              </div>
             </div>
           </div>
         </div>

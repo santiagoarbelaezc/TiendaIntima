@@ -6,8 +6,13 @@ import { ButtonComponent } from '../../components/button/button.component';
 
 export interface HeroImageItem {
   img: string;
+  img2: string;
   title: string;
   subtitle: string;
+  description: string;
+  promoTag: string;
+  promoText: string;
+  promoIcon: string;
   link: string;
   ctaText: string;
 }
@@ -25,26 +30,44 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   readonly items: HeroImageItem[] = [
     {
       img: 'assets/images/pijamas-hero.png',
-      title: 'Pijamas suaves',
-      subtitle: 'Siluetas relajadas para noches tranquilas.',
+      img2: 'assets/images/pijamas-hero-2.png',
+      title: 'Noches de Satén',
+      subtitle: 'Siluetas fluidas y sofisticadas.',
+      description: 'Lujo sutil y máxima suavidad para tus momentos de descanso. Diseños delicados creados en satén premium que acarician tu piel.',
+      promoTag: 'EDICIÓN EXCLUSIVA',
+      promoText: 'Envío gratis por compras superiores a $150.000',
+      promoIcon: 'shipping',
       link: '/catalogo?categoria=pijamas',
-      ctaText: 'Ver pijamas'
+      ctaText: 'Explorar Colección'
     },
     {
       img: 'assets/images/ropa-interior-hero.png',
-      title: 'Ropa interior',
-      subtitle: 'Piezas delicadas con ajuste cómodo.',
+      img2: 'assets/images/ropa-interior-hero-2.png',
+      title: 'Seducción Encaje',
+      subtitle: 'Detalles de tirantes y transparencias.',
+      description: 'Siente la sensualidad del encaje premium con designs provocativos, sensuales y un ajuste perfecto que destaca tu silueta única.',
+      promoTag: 'NUEVA COLECCIÓN LINGERIE',
+      promoText: '10% OFF extra en tu primer pedido con el código INTTIMA10',
+      promoIcon: 'discount',
       link: '/catalogo?categoria=ropa-interior',
-      ctaText: 'Ver ropa interior'
+      ctaText: 'Ver Diseños'
     },
     {
-      img: 'assets/images/novedades-hero.png',
-      title: 'Novedades',
-      subtitle: 'Texturas nuevas para renovar tu armario.',
+      img: 'assets/images/novedades-hero-2.png', // Rotado: antes novedades-hero
+      img2: 'assets/images/novedades-hero.png',   // Rotado: antes novedades-hero-2
+      title: 'Detalles Únicos',
+      subtitle: 'La combinación perfecta de erotismo y elegancia.',
+      description: 'Prendas con tiras cruzadas, arneses y aberturas sugerentes diseñadas para sorprender y disfrutar de tu sensualidad sin límites.',
+      promoTag: 'NOVEDADES HOT',
+      promoText: 'Empaque de lujo discreto en todas tus compras',
+      promoIcon: 'gift',
       link: '/catalogo?filter=nuevo',
-      ctaText: 'Descubrir novedades'
+      ctaText: 'Ver Novedades'
     }
   ];
+
+
+
 
   currentSlide = 0;
   private autoplayInterval?: ReturnType<typeof setInterval>;

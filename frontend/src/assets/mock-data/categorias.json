@@ -4,7 +4,7 @@
     "nombre": "Pijamas",
     "slug": "pijamas",
     "descripcion": "Sets suaves, versátiles y pensados para descanso con estilo.",
-    "imagen": "assets/images/category-pijamas.svg",
+    "imagen": "assets/images/category-pijamas.png",
     "acento": "#EAC7D2",
     "subcategorias": ["Set corto", "Set largo", "Camisería"]
   },
@@ -13,16 +13,34 @@
     "nombre": "Ropa interior",
     "slug": "ropa-interior",
     "descripcion": "Piezas cómodas, delicadas y de ajuste impecable.",
-    "imagen": "assets/images/category-ropa-interior.svg",
+    "imagen": "assets/images/category-ropa-interior.png",
     "acento": "#D59AAD",
     "subcategorias": ["Brasier", "Panty", "Body"]
+  },
+  {
+    "id": "cat-lenceria",
+    "nombre": "Lencería",
+    "slug": "lenceria",
+    "descripcion": "Encajes finos, arneses y siluetas sensuales de lujo.",
+    "imagen": "assets/images/card/t1.png",
+    "acento": "#111111",
+    "subcategorias": ["Bralette", "Conjunto", "Córset"]
+  },
+  {
+    "id": "cat-hombre",
+    "nombre": "Hombre",
+    "slug": "hombre",
+    "descripcion": "Línea de descanso masculina cómoda y moderna.",
+    "imagen": "assets/images/card/h1.jpeg",
+    "acento": "#8C8C8C",
+    "subcategorias": ["Pijama", "Bóxer", "Camiseta"]
   },
   {
     "id": "cat-novedades",
     "nombre": "Novedades",
     "slug": "novedades",
     "descripcion": "Lo más reciente de la colección, listo para estrenar.",
-    "imagen": "assets/images/category-novedades.svg",
+    "imagen": "assets/images/category-novedades.png",
     "acento": "#F3E7EB",
     "subcategorias": ["Nueva temporada", "Edición limitada", "Favoritos"]
   }
