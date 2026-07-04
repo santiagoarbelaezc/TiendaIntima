@@ -53,7 +53,7 @@ export class DashboardUsuariosComponent {
     if (!user) return;
 
     const current = this.usersSignal().length > 0 ? this.usersSignal() : this.initialUsers();
-    const newRol = user.rol === 'admin' ? 'cliente' : 'admin';
+    const newRol: 'cliente' | 'admin' = user.rol === 'admin' ? 'cliente' : 'admin';
     
     const updated = current.map(u => u.id === user.id ? { ...u, rol: newRol } : u);
     this.usersSignal.set(updated);

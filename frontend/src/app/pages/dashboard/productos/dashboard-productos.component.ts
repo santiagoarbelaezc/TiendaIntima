@@ -33,7 +33,7 @@ export class DashboardProductosComponent {
 
   readonly columns: ColumnDef[] = [
     { key: 'nombre', header: 'Nombre del Producto', type: 'text' },
-    { key: 'categoria', header: 'Categoría', type: 'badge', align: 'center' },
+    { key: 'categoriaNombre', header: 'Categoría', type: 'badge', align: 'center' },
     { key: 'precio', header: 'Precio Normal', type: 'currency', align: 'right' },
     { key: 'stockDisplay', header: 'Stock', type: 'text', align: 'center' },
     { key: 'estadoDisplay', header: 'Estado', type: 'badge', align: 'center' }
@@ -43,6 +43,7 @@ export class DashboardProductosComponent {
     const list = this.productosSignal().length > 0 ? this.productosSignal() : this.initialProductos();
     return list.map(p => ({
       ...p,
+      categoriaNombre: p.categoriaNombre || p.categoriaSlug || 'General',
       stockDisplay: `${p.stock || 10} unids.`,
       estadoDisplay: (p.stock || 10) > 0 ? 'Activo' : 'Agotado'
     }));
@@ -66,9 +67,9 @@ export class DashboardProductosComponent {
       this.editingProducto.set(event.row);
       this.form.patchValue({
         nombre: event.row.nombre,
-        categoria: event.row.categoria,
+        categoria: event.row.categoriaSlug || event.row.categoriaNombre || 'pijamas',
         precio: event.row.precio,
-        precioPromocional: event.row.precioPromocional || 0,
+        precioPromocional: event.row.precioAnterior || 0,
         stock: event.row.stock || 10,
         descripcion: event.row.descripcion || ''
       });
@@ -95,9 +96,10 @@ export class DashboardProductosComponent {
       const updated = current.map(p => p.id === id ? {
         ...p,
         nombre: val.nombre!,
-        categoria: val.categoria!,
+        categoriaSlug: val.categoria!,
+        categoriaNombre: val.categoria!,
         precio: Number(val.precio),
-        precioPromocional: Number(val.precioPromocional) > 0 ? Number(val.precioPromocional) : undefined,
+        precioAnterior: Number(val.precioPromocional) > 0 ? Number(val.precioPromocional) : undefined,
         stock: Number(val.stock),
         descripcion: val.descripcion!
       } : p);
@@ -107,17 +109,30 @@ export class DashboardProductosComponent {
         id: `p-${Date.now()}`,
         nombre: val.nombre!,
         slug: val.nombre!.toLowerCase().replace(/\s+/g, '-'),
-        categoria: val.categoria!,
-        precio: Number(val.precio),
-        precioPromocional: Number(val.precioPromocional) > 0 ? Number(val.precioPromocional) : undefined,
-        stock: Number(val.stock),
+        categoriaSlug: val.categoria!,
+        categoriaNombre: val.categoria!,
+        subcategoria: 'general',
         descripcion: val.descripcion!,
+        descripcionCorta: val.descripcion!.slice(0, 50),
+        precio: Number(val.precio),
+        precioAnterior: Number(val.precioPromocional) > 0 ? Number(val.precioPromocional) : undefined,
+        stock: Number(val.stock),
         imagenes: ['assets/images/placeholder.jpg'],
         tallas: ['S', 'M', 'L'],
-        colores: ['Rosa', 'Negro'],
+        colores: [
+          { nombre: 'Rosa', hex: '#EAC7D2' },
+          { nombre: 'Negro', hex: '#111111' }
+        ],
         calificacion: 5.0,
-        calificacionConteo: 1,
-        esNuevo: true
+        resenas: 1,
+        etiquetas: ['nuevo'],
+        destacados: ['Confort premium'],
+        composicion: '100% Algodón / Satén',
+        cuidados: ['Lavar a mano', 'No usar blanqueador'],
+        relacionadoCon: [],
+        disponible: true,
+        nuevo: true,
+        bestseller: false
       };
       this.productosSignal.set([newProd, ...current]);
     }
