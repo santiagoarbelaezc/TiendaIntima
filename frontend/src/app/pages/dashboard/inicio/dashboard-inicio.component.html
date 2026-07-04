@@ -1,0 +1,154 @@
+<div class="space-y-8 animate-in fade-in duration-300">
+  <!-- Header de la sección -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <h1 class="text-3xl font-extrabold tracking-tight text-[#111111]">Resumen General</h1>
+      <p class="text-sm text-black/60 mt-1">Aquí tienes un vistazo de cómo va el rendimiento de Tiendaintima hoy.</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <a 
+        routerLink="/admin/productos" 
+        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#111111] text-white text-xs font-bold hover:bg-black/80 transition shadow-soft"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        <span>Nuevo Producto</span>
+      </a>
+      <a 
+        routerLink="/admin/reportes" 
+        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-black/10 bg-white text-[#111111] text-xs font-bold hover:bg-black/5 transition shadow-soft"
+      >
+        <span>Ver Reportes</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Estado de Carga / KPIs -->
+  <div *ngIf="stats() as data; else loading">
+    <!-- Grid 4 KPIs -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <app-stat-card 
+        title="Ventas del Mes" 
+        [value]="data.kpis.ventasMes | number:'1.0-0'" 
+        prefix="$" 
+        [delta]="data.kpis.ventasDelta"
+        iconPath="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      ></app-stat-card>
+      <app-stat-card 
+        title="Pedidos Pendientes" 
+        [value]="data.kpis.pedidosPendientes" 
+        [delta]="data.kpis.pedidosDelta"
+        iconPath="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+      ></app-stat-card>
+      <app-stat-card 
+        title="Nuevos Usuarios" 
+        [value]="data.kpis.nuevosUsuarios" 
+        [delta]="data.kpis.usuariosDelta"
+        iconPath="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+      ></app-stat-card>
+      <app-stat-card 
+        title="Ticket Promedio" 
+        [value]="data.kpis.ticketPromedio | number:'1.0-0'" 
+        prefix="$" 
+        [delta]="data.kpis.ticketDelta"
+        iconPath="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+      ></app-stat-card>
+    </div>
+
+    <!-- Gráfico Principal y Top Productos -->
+    <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Gráfico de Ventas -->
+      <div class="lg:col-span-2 rounded-[28px] border border-black/10 bg-white p-6 shadow-soft flex flex-col">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h3 class="text-lg font-bold text-[#111111]">Evolución de Ventas</h3>
+            <p class="text-xs text-black/50">Ingresos diarios en los últimos 30 días</p>
+          </div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Tendencia positiva
+          </span>
+        </div>
+        <div class="flex-1 min-h-[320px]">
+          <app-chart-wrapper 
+            type="line" 
+            [labels]="data.ventasPorDia.labels" 
+            [data]="data.ventasPorDia.data"
+            labelName="Ventas Diarias ($)"
+          ></app-chart-wrapper>
+        </div>
+      </div>
+
+      <!-- Top Productos Más Vendidos -->
+      <div class="rounded-[28px] border border-black/10 bg-white p-6 shadow-soft flex flex-col">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-lg font-bold text-[#111111]">Top Productos</h3>
+          <a routerLink="/admin/productos" class="text-xs font-bold text-black/60 hover:text-[#111111] underline decoration-black/20">Ver todos</a>
+        </div>
+        <div class="space-y-4 flex-1">
+          <div *ngFor="let prod of data.topProductos; let i = index" class="flex items-center gap-3.5 p-3 rounded-2xl hover:bg-[#FAFAFA] transition border border-transparent hover:border-black/5">
+            <span class="w-7 h-7 rounded-full bg-[#111111] text-white font-bold text-xs flex items-center justify-center flex-shrink-0">
+              #{{ i + 1 }}
+            </span>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-bold text-[#111111] truncate">{{ prod.nombre }}</p>
+              <p class="text-[11px] text-black/50 capitalize">{{ prod.categoria }} &bull; Stock: <span class="font-semibold text-black/80">{{ prod.stock }}</span></p>
+            </div>
+            <div class="text-right">
+              <p class="text-xs font-bold text-[#111111]">{{ prod.ventas }} vend.</p>
+              <p class="text-[11px] text-emerald-600 font-semibold">${{ prod.ingresos | number:'1.0-0' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Últimos Pedidos -->
+    <div class="mt-8 rounded-[28px] border border-black/10 bg-white p-6 shadow-soft">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h3 class="text-lg font-bold text-[#111111]">Pedidos Recientes</h3>
+          <p class="text-xs text-black/50">Últimas transacciones procesadas en la tienda</p>
+        </div>
+        <a routerLink="/admin/reportes" class="text-xs font-bold px-4 py-2 rounded-xl bg-[#FAFAFA] border border-black/10 hover:bg-black/5 transition">
+          Administrar Pedidos
+        </a>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-black/5 bg-[#FAFAFA] text-[11px] font-bold uppercase tracking-wider text-black/50">
+              <th class="px-4 py-3">ID Pedido</th>
+              <th class="px-4 py-3">Cliente</th>
+              <th class="px-4 py-3">Fecha</th>
+              <th class="px-4 py-3">Items</th>
+              <th class="px-4 py-3">Total</th>
+              <th class="px-4 py-3 text-right">Estado</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-black/5 text-sm">
+            <tr *ngFor="let ped of data.ultimosPedidos" class="hover:bg-black/[0.015] transition">
+              <td class="px-4 py-3.5 font-bold text-[#111111]">{{ ped.id }}</td>
+              <td class="px-4 py-3.5 font-medium text-black/80">{{ ped.cliente }}</td>
+              <td class="px-4 py-3.5 text-black/50 text-xs">{{ ped.fecha | date:'shortDate' }}</td>
+              <td class="px-4 py-3.5 font-medium text-black/70">{{ ped.items }} unid.</td>
+              <td class="px-4 py-3.5 font-bold text-[#111111]">${{ ped.total | number:'1.0-0' }}</td>
+              <td class="px-4 py-3.5 text-right">
+                <app-status-badge [status]="ped.estado"></app-status-badge>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div class="py-20 flex flex-col items-center justify-center gap-4 text-black/40">
+      <div class="w-8 h-8 border-3 border-black/10 border-t-[#111111] rounded-full animate-spin"></div>
+      <p class="text-sm font-medium">Cargando métricas en vivo...</p>
+    </div>
+  </ng-template>
+</div>

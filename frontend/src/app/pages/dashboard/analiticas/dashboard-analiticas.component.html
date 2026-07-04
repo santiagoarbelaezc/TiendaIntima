@@ -1,0 +1,81 @@
+<div class="space-y-8 animate-in fade-in duration-300">
+  <!-- Header -->
+  <div>
+    <h1 class="text-3xl font-extrabold tracking-tight text-[#111111]">Analíticas y Métricas</h1>
+    <p class="text-sm text-black/60 mt-1">Explora la distribución de ventas, conversión y preferencias de los clientes.</p>
+  </div>
+
+  <div *ngIf="stats() as data; else loading">
+    <!-- Grid de Gráficos -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Ventas por Categoría -->
+      <div class="rounded-[28px] border border-black/10 bg-white p-6 shadow-soft flex flex-col">
+        <div class="mb-6">
+          <h3 class="text-lg font-bold text-[#111111]">Ventas por Categoría (%)</h3>
+          <p class="text-xs text-black/50">Participación en los ingresos totales del mes</p>
+        </div>
+        <div class="flex-1 min-h-[300px]">
+          <app-chart-wrapper 
+            type="bar" 
+            [labels]="data.ventasPorCategoria.labels" 
+            [data]="data.ventasPorCategoria.data"
+            labelName="Participación (%)"
+          ></app-chart-wrapper>
+        </div>
+      </div>
+
+      <!-- Métodos de Pago -->
+      <div class="rounded-[28px] border border-black/10 bg-white p-6 shadow-soft flex flex-col">
+        <div class="mb-6">
+          <h3 class="text-lg font-bold text-[#111111]">Métodos de Pago Utilizados</h3>
+          <p class="text-xs text-black/50">Distribución porcentual de las transacciones</p>
+        </div>
+        <div class="flex-1 min-h-[300px]">
+          <app-chart-wrapper 
+            type="doughnut" 
+            [labels]="data.metodosPago.labels" 
+            [data]="data.metodosPago.data"
+            labelName="Uso (%)"
+          ></app-chart-wrapper>
+        </div>
+      </div>
+    </div>
+
+    <!-- Embudo de Conversión -->
+    <div class="mt-8 rounded-[28px] border border-black/10 bg-white p-6 sm:p-8 shadow-soft">
+      <div class="mb-8">
+        <h3 class="text-xl font-bold text-[#111111]">Embudo de Conversión del Mes</h3>
+        <p class="text-xs sm:text-sm text-black/50 mt-1">Seguimiento desde la primera visita en la tienda hasta la compra exitosa</p>
+      </div>
+
+      <div class="space-y-6">
+        <div *ngFor="let step of data.embudoConversion; let i = index" class="space-y-2">
+          <div class="flex items-center justify-between text-sm font-bold text-[#111111]">
+            <span class="flex items-center gap-2">
+              <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-black/5 text-xs text-black/60">{{ i + 1 }}</span>
+              <span>{{ step.etapa }}</span>
+            </span>
+            <div class="flex items-center gap-3">
+              <span class="text-black/50 font-medium">{{ step.valor | number }} usuarios</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-[#111111] text-white">{{ step.porcentaje }}%</span>
+            </div>
+          </div>
+          <!-- Barra de Progreso -->
+          <div class="h-3.5 w-full bg-[#FAFAFA] rounded-full overflow-hidden border border-black/5 p-0.5">
+            <div 
+              class="h-full rounded-full transition-all duration-1000 bg-gradient-to-r from-[#111111] to-[#EAC7D2]"
+              [style.width.%]="step.porcentaje"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div class="py-20 flex flex-col items-center justify-center gap-4 text-black/40">
+      <div class="w-8 h-8 border-3 border-black/10 border-t-[#111111] rounded-full animate-spin"></div>
+      <p class="text-sm font-medium">Analizando datos y generando gráficas...</p>
+    </div>
+  </ng-template>
+</div>
