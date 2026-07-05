@@ -89,8 +89,8 @@ textarea {
 
 .admin-title {
 	font-family: 'Outfit', sans-serif;
-	font-weight: 800;
-	letter-spacing: -0.035em;
+	font-weight: 600;
+	letter-spacing: -0.02em;
 }
 
 /* Bloqueo estricto de desbordamiento horizontal */
