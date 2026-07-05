@@ -10,7 +10,7 @@ export const navigationItems = [
   { label: 'Inicio', path: '/' },
   { label: 'Ropa interior', path: '/catalogo', category: 'ropa-interior' },
   { label: 'Pijamas', path: '/catalogo', category: 'pijamas' },
-  { label: 'Lencería', path: '/catalogo', category: 'lenceria' },
+  { label: 'Lencería', path: '/lenceria' },
   { label: 'Hombre', path: '/catalogo', category: 'hombre' },
   { label: 'Novedades', path: '/catalogo', filter: 'nuevo' },
   { label: 'Promociones', path: '/catalogo', filter: 'promo' }

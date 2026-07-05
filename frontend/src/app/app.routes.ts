@@ -5,6 +5,7 @@ import { adminGuard } from './core/guards/admin.guard';
 export const routes: Routes = [
 	{ path: '', loadComponent: () => import('./pages/home/home-page.component').then((m) => m.HomePageComponent) },
 	{ path: 'catalogo', loadComponent: () => import('./pages/catalogo/catalogo-page.component').then((m) => m.CatalogoPageComponent) },
+	{ path: 'lenceria', loadComponent: () => import('./pages/lenceria/lenceria-page.component').then((m) => m.LenceriaPageComponent) },
 	{ path: 'producto/:slug', loadComponent: () => import('./pages/producto-detalle/producto-detalle-page.component').then((m) => m.ProductoDetallePageComponent) },
 	{ path: 'carrito', loadComponent: () => import('./pages/carrito/carrito-page.component').then((m) => m.CarritoPageComponent) },
 	{ path: 'checkout', loadComponent: () => import('./pages/checkout/checkout-page.component').then((m) => m.CheckoutPageComponent) },

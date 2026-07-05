@@ -1,5 +1,5 @@
 <header 
-  [ngClass]="(!isHomePage() || scrolled()) ? 'bg-white/95 text-[#111111] border-black/5 shadow-soft py-2' : 'bg-transparent text-white border-transparent py-4'"
+  [ngClass]="(!isDarkBackgroundPage() || scrolled()) ? 'bg-white/95 text-[#111111] border-black/5 shadow-soft py-2' : 'bg-transparent text-white border-transparent py-4'"
   class="fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 backdrop-blur-md"
 >
   <div class="page-container flex items-center justify-between gap-4">
@@ -11,9 +11,9 @@
     </button>
 
     <a routerLink="/" class="flex items-center gap-3">
-      <span class="flex h-10 w-10 items-center justify-center rounded-full bg-current text-white font-bold transition-colors duration-300" [ngClass]="(!isHomePage() || scrolled()) ? 'text-[#111111] bg-[#111111] text-white' : 'text-white bg-white text-[#111111]'">T</span>
+      <span class="flex h-10 w-10 items-center justify-center rounded-full bg-current text-white font-bold transition-colors duration-300" [ngClass]="(!isDarkBackgroundPage() || scrolled()) ? 'text-[#111111] bg-[#111111] text-white' : 'text-white bg-white text-[#111111]'">T</span>
       <div>
-        <p class="section-title text-2xl leading-none transition-colors duration-300" [ngClass]="(!isHomePage() || scrolled()) ? 'text-[#111111]' : 'text-white'">{{ brandName }}</p>
+        <p class="section-title text-2xl leading-none transition-colors duration-300" [ngClass]="(!isDarkBackgroundPage() || scrolled()) ? 'text-[#111111]' : 'text-white'">{{ brandName }}</p>
         <p class="text-[11px] uppercase tracking-[0.28em] opacity-60">Moda íntima y descanso</p>
       </div>
     </a>

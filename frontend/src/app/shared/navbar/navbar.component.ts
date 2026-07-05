@@ -26,16 +26,16 @@ export class NavbarComponent {
   readonly activeMegaMenu = signal('');
   readonly showMegaMenu = computed(() => this.activeMegaMenu().length > 0);
   readonly scrolled = signal(false);
-  readonly isHomePage = signal(true);
+  readonly isDarkBackgroundPage = signal(true);
 
   constructor() {
-    this.isHomePage.set(this.router.url === '/' || this.router.url === '');
+    this.isDarkBackgroundPage.set(this.router.url === '/' || this.router.url === '' || this.router.url === '/lenceria');
 
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
       const url = event.urlAfterRedirects || event.url || '';
-      this.isHomePage.set(url === '/' || url === '' || url === '/#');
+      this.isDarkBackgroundPage.set(url === '/' || url === '' || url === '/lenceria' || url === '/#');
     });
   }
 

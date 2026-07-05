@@ -1,0 +1,68 @@
+<!-- Hero de Lencería Premium -->
+<header class="relative overflow-hidden bg-[#0A0A0A] py-20 lg:py-32 border-b border-white/5">
+  <div class="page-container grid gap-12 lg:grid-cols-2 lg:items-center">
+    <!-- Texto de Hero -->
+    <div class="space-y-6 animate-in fade-in slide-in-from-bottom duration-700">
+      <div class="inline-flex items-center gap-2 rounded-full border border-[#EAC7D2]/25 bg-[#EAC7D2]/5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-[#EAC7D2]">
+        Colección Exclusiva
+      </div>
+      <h1 class="font-serif-elegant text-5xl font-extrabold italic leading-tight tracking-wide text-white lg:text-7xl">
+        Sensualidad & <br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#EAC7D2] to-[#D59AAD]">Diseño de Lujo</span>
+      </h1>
+      <p class="font-editorial max-w-xl text-lg leading-relaxed text-white/70">
+        Una curaduría de piezas íntimas diseñadas en encajes finos, arneses ajustables y aberturas delicadas. Celebra tu cuerpo con siluetas que combinan poder, comodidad y elegancia.
+      </p>
+      <div class="flex flex-wrap gap-4 pt-4">
+        <a href="#productos" class="inline-flex h-12 items-center justify-center rounded-full bg-white px-8 text-sm font-bold uppercase tracking-[0.15em] text-[#111111] transition hover:bg-[#EAC7D2] hover:scale-[1.02] duration-300">
+          Explorar Colección
+        </a>
+      </div>
+    </div>
+
+    <!-- Imagen de Hero -->
+    <div class="relative aspect-[4/5] overflow-hidden rounded-[32px] border border-white/10 shadow-2xl animate-in fade-in zoom-in duration-700">
+      <img src="assets/images/card/t1.png" alt="Lencería Premium de Lujo" class="h-full w-full object-cover object-center transition duration-700 hover:scale-102">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+    </div>
+  </div>
+</header>
+
+<!-- Contenedor del Catálogo y Productos -->
+<main id="productos" class="page-container py-16 space-y-12">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
+    <div>
+      <p class="text-xs uppercase tracking-[0.35em] text-white/40">Catálogo</p>
+      <h2 class="font-serif-elegant italic text-4xl text-white mt-1">Nuestra Selección</h2>
+    </div>
+    <p class="text-sm text-white/50">{{ lenceriaProducts().length }} piezas exclusivas encontradas</p>
+  </div>
+
+  <!-- Grid de Productos -->
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <app-product-card 
+      *ngFor="let product of lenceriaProducts()" 
+      [product]="product" 
+      theme="dark"
+      class="animate-in fade-in duration-500"
+    ></app-product-card>
+  </div>
+
+  <!-- Banner Promocional Exclusivo -->
+  <div class="pt-8">
+    <section class="overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-r from-[#141414] to-[#0A0A0A] text-white shadow-2xl">
+      <div class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+        <div class="space-y-4 p-8 sm:p-12 lg:p-16">
+          <span class="text-xs uppercase tracking-[0.35em] text-[#EAC7D2]/80">Servicio de Cortesía</span>
+          <h3 class="font-serif-elegant italic text-3xl sm:text-4xl text-white leading-tight">Empaque de Lujo 100% Discreto</h3>
+          <p class="font-editorial max-w-xl text-sm leading-7 text-white/70">
+            Cada pedido de nuestra colección de lencería es preparado con la máxima discreción. Tu orden se entrega en una caja boutique minimalista negra sellada, sin etiquetas de marca externas ni descripciones del contenido, garantizando tu total privacidad.
+          </p>
+        </div>
+        <div class="h-64 lg:h-full min-h-[300px]">
+          <img src="assets/images/card/t5.png" alt="Empaque de lujo discreto" class="h-full w-full object-cover object-center opacity-85">
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

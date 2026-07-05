@@ -21,14 +21,14 @@ export class AppComponent {
 
   constructor() {
     this.isAdminRoute.set(this.router.url.startsWith('/admin'));
-    this.isHomePage.set(this.router.url === '/' || this.router.url === '');
+    this.isHomePage.set(this.router.url === '/' || this.router.url === '' || this.router.url === '/lenceria');
 
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
       const url = event.urlAfterRedirects || event.url || '';
       this.isAdminRoute.set(url.startsWith('/admin'));
-      this.isHomePage.set(url === '/' || url === '' || url === '/#');
+      this.isHomePage.set(url === '/' || url === '' || url === '/lenceria' || url === '/#');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
