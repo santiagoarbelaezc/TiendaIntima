@@ -1,6 +1,35 @@
 <div class="flex flex-col gap-10 pb-6 xl:pb-8">
   <app-hero></app-hero>
 
+  <!-- Banner Promocional de Registro -->
+  <div class="page-container">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8 rounded-[40px] border border-white/5 bg-gradient-to-br from-[#111111] via-[#1A1A1A] to-[#251D21] p-8 sm:p-12 md:p-16 text-white shadow-2xl relative overflow-hidden group">
+      <!-- Glow effect background -->
+      <div class="absolute -right-10 -bottom-10 h-64 w-64 rounded-full bg-[#EAC7D2]/10 blur-3xl group-hover:bg-[#EAC7D2]/20 transition-all duration-700"></div>
+      
+      <div class="space-y-4 text-center md:text-left relative z-10">
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-[#EAC7D2] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#111111] shadow-md">
+          Regalo de Bienvenida
+        </span>
+        <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white tracking-wide">
+          Regístrate para obtener <br class="hidden lg:block">los mejores descuentos
+        </h2>
+        <p class="text-sm sm:text-base text-white/70 max-w-2xl font-editorial leading-relaxed">
+          Únete hoy a la comunidad exclusiva de Tiendaintima. Obtén un **10% de descuento de cortesía** en tu primera orden, acceso a ventas anticipadas y lanzamientos de edición limitada antes que nadie.
+        </p>
+      </div>
+      
+      <div class="relative z-10 flex-shrink-0">
+        <a 
+          routerLink="/registro" 
+          class="inline-flex h-14 items-center justify-center rounded-full bg-white px-10 text-xs font-bold uppercase tracking-[0.2em] text-[#111111] transition duration-300 hover:bg-[#EAC7D2] hover:scale-105 shadow-lg"
+        >
+          Crear mi Cuenta
+        </a>
+      </div>
+    </div>
+  </div>
+
   <section class="page-container grid gap-4 md:grid-cols-3">
     <a *ngFor="let category of categories()" [routerLink]="['/catalogo']" [queryParams]="{ categoria: category.slug }" class="overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-soft transition hover:-translate-y-1">
       <img [src]="category.imagen" [alt]="category.nombre" class="h-72 w-full object-cover">

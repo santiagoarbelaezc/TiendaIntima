@@ -1,42 +1,173 @@
-<!-- Hero de Lencería Premium -->
-<header class="relative overflow-hidden bg-[#0A0A0A] py-20 lg:py-32 border-b border-white/5">
-  <div class="page-container grid gap-12 lg:grid-cols-2 lg:items-center">
-    <!-- Texto de Hero -->
-    <div class="space-y-6 animate-in fade-in slide-in-from-bottom duration-700">
-      <div class="inline-flex items-center gap-2 rounded-full border border-[#EAC7D2]/25 bg-[#EAC7D2]/5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-[#EAC7D2]">
-        Colección Exclusiva
-      </div>
-      <h1 class="font-serif-elegant text-5xl font-extrabold italic leading-tight tracking-wide text-white lg:text-7xl">
-        Sensualidad & <br>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#EAC7D2] to-[#D59AAD]">Diseño de Lujo</span>
-      </h1>
-      <p class="font-editorial max-w-xl text-lg leading-relaxed text-white/70">
-        Una curaduría de piezas íntimas diseñadas en encajes finos, arneses ajustables y aberturas delicadas. Celebra tu cuerpo con siluetas que combinan poder, comodidad y elegancia.
-      </p>
-      <div class="flex flex-wrap gap-4 pt-4">
-        <a href="#productos" class="inline-flex h-12 items-center justify-center rounded-full bg-white px-8 text-sm font-bold uppercase tracking-[0.15em] text-[#111111] transition hover:bg-[#EAC7D2] hover:scale-[1.02] duration-300">
-          Explorar Colección
-        </a>
-      </div>
-    </div>
+<!-- Hero Carousel Lencería Premium -->
+<div class="relative w-full h-[85vh] min-h-[40rem] max-h-[60rem] overflow-hidden bg-[#0A0A0A] border-b border-white/5">
+  <!-- Carrusel Track -->
+  <div
+    #scrollContainer
+    (scroll)="onScroll()"
+    class="carousel-track-container h-full w-full overflow-hidden scroll-smooth"
+  >
+    <div class="flex h-full w-max">
+      <div
+        *ngFor="let item of carouselItems; let i = index"
+        [id]="'lenceria-slide-' + i"
+        class="relative h-full w-screen flex-none snap-center"
+      >
+        <!-- Imágenes divididas lado a lado -->
+        <div class="absolute inset-0 flex h-full w-full">
+          <div class="w-full md:w-1/2 h-full overflow-hidden">
+            <img
+              [src]="item.img"
+              [alt]="item.title"
+              class="h-full w-full object-cover brightness-[0.75] contrast-[1.05] saturate-[1.0] object-top"
+              loading="eager"
+            />
+          </div>
+          <div class="hidden md:block md:w-1/2 h-full overflow-hidden border-l border-white/5">
+            <img
+              [src]="item.img2"
+              [alt]="item.title"
+              class="h-full w-full object-cover brightness-[0.70] contrast-[1.05] saturate-[1.0] object-top"
+              loading="eager"
+            />
+          </div>
+        </div>
+        
+        <!-- Degradado de Overlay Oscuro -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/25 lg:bg-gradient-to-r lg:from-black/90 lg:via-black/50 lg:to-transparent"></div>
 
-    <!-- Imagen de Hero -->
-    <div class="relative aspect-[4/5] overflow-hidden rounded-[32px] border border-white/10 shadow-2xl animate-in fade-in zoom-in duration-700">
-      <img src="assets/images/card/t1.png" alt="Lencería Premium de Lujo" class="h-full w-full object-cover object-center transition duration-700 hover:scale-102">
-      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+        <!-- Contenido de Texto -->
+        <div class="absolute inset-0 flex items-start">
+          <div class="page-container w-full text-white pt-28 pb-10 lg:pt-36">
+            <div class="max-w-3xl">
+              <!-- Promo Tag -->
+              <p class="mb-3 text-[0.8rem] font-bold uppercase tracking-[0.4em] text-[#EAC7D2]">
+                {{ item.promoTag }}
+              </p>
+              
+              <!-- Title -->
+              <h2 class="mb-2 text-[clamp(2.5rem,6vw,5.5rem)] font-extrabold leading-[1.0] tracking-[-0.03em] font-editorial uppercase">
+                {{ item.title }}
+              </h2>
+              
+              <!-- Subtitle -->
+              <p class="mb-4 text-xl lg:text-3xl font-medium font-serif-elegant italic text-white/95 leading-relaxed">
+                {{ item.subtitle }}
+              </p>
+              
+              <!-- Description -->
+              <p class="mb-6 max-w-xl text-sm lg:text-base leading-relaxed text-white/80 font-editorial">
+                {{ item.description }}
+              </p>
+              
+              <!-- Promo Text Badge -->
+              <div class="mb-8 inline-flex items-center gap-3 rounded-full bg-black/50 backdrop-blur-md border border-white/10 p-1.5 pr-5 text-[11px] font-medium tracking-wide text-white font-editorial shadow-2xl">
+                <!-- Promo Icon -->
+                <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#EAC7D2] text-[#111111] shadow-soft flex-shrink-0">
+                  <ng-container [ngSwitch]="item.promoIcon">
+                    <!-- Gift Icon -->
+                    <svg *ngSwitchCase="'gift'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                    </svg>
+                    <!-- Shipping Icon -->
+                    <svg *ngSwitchCase="'shipping'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125a1.125 1.125 0 0 0 1.125-1.125V9.75M3.75 14.25h12m0 0V9.75m0 4.25h3.75M12 9.75V3.75m0 0a1.125 1.125 0 0 1 1.125-1.125h2.25A1.125 1.125 0 0 1 16.5 3.75v6m-9 0h9" />
+                    </svg>
+                  </ng-container>
+                </span>
+                <span>{{ item.promoText }}</span>
+              </div>
+
+              <!-- CTA Button -->
+              <div>
+                <a
+                  href="#productos"
+                  class="inline-flex h-12 items-center justify-center rounded-full bg-white px-8 text-xs font-bold uppercase tracking-[0.18em] text-[#111111] transition duration-300 hover:bg-[#EAC7D2] hover:scale-105"
+                >
+                  {{ item.ctaText }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</header>
+
+  <!-- Carrusel Navigation Dots -->
+  <div class="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center gap-3">
+    <button
+      *ngFor="let item of carouselItems; let idx = index"
+      type="button"
+      [ngClass]="currentSlide === idx ? 'w-8 bg-[#EAC7D2]' : 'w-2.5 bg-white/30 hover:bg-white/60'"
+      class="h-2.5 rounded-full transition-all duration-300"
+      (click)="scrollToSlide(idx)"
+    ></button>
+  </div>
+</div>
 
 <!-- Contenedor del Catálogo y Productos -->
-<main id="productos" class="page-container py-16 space-y-12">
-  <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
+<main id="productos" class="page-container py-20 space-y-16 bg-[#080808]">
+  <!-- Encabezado de Catálogo -->
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-6">
     <div>
-      <p class="text-xs uppercase tracking-[0.35em] text-white/40">Catálogo</p>
-      <h2 class="font-serif-elegant italic text-4xl text-white mt-1">Nuestra Selección</h2>
+      <p class="text-xs uppercase tracking-[0.35em] text-[#EAC7D2]">Catálogo</p>
+      <h2 class="font-serif-elegant italic text-4xl text-white mt-1">Tu Selección Curada</h2>
     </div>
-    <p class="text-sm text-white/50">{{ lenceriaProducts().length }} piezas exclusivas encontradas</p>
+    <p class="text-sm text-white/50">{{ lenceriaProducts().length }} piezas exclusivas disponibles</p>
   </div>
+
+  <!-- Carrusel Lookbook (t1 - t5) -->
+  <section class="space-y-6">
+    <div class="flex items-end justify-between gap-4">
+      <div>
+        <p class="text-xs uppercase tracking-[0.35em] text-[#EAC7D2]">Colección</p>
+        <h3 class="font-serif-elegant italic text-3xl text-white mt-1">Galería Lookbook Lencería</h3>
+      </div>
+      <p class="text-xs text-white/40">Desliza horizontalmente</p>
+    </div>
+    
+    <div class="carousel-track-container flex gap-5 pb-4 overflow-x-auto snap-x snap-mandatory">
+      <div class="group relative flex-none w-[260px] sm:w-[300px] aspect-[3/4] overflow-hidden rounded-[24px] border border-white/10 bg-[#0E0E0E] snap-start">
+        <img src="assets/images/card/t1.png" alt="Diseño 1" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#EAC7D2]">Look 01</p>
+          <h4 class="text-lg font-semibold text-white mt-1 font-editorial">Conjunto Choker</h4>
+        </div>
+      </div>
+      
+      <div class="group relative flex-none w-[260px] sm:w-[300px] aspect-[3/4] overflow-hidden rounded-[24px] border border-white/10 bg-[#0E0E0E] snap-start">
+        <img src="assets/images/card/t2.png" alt="Diseño 2" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#EAC7D2]">Look 02</p>
+          <h4 class="text-lg font-semibold text-white mt-1 font-editorial">Bralette Encaje</h4>
+        </div>
+      </div>
+      
+      <div class="group relative flex-none w-[260px] sm:w-[300px] aspect-[3/4] overflow-hidden rounded-[24px] border border-white/10 bg-[#0E0E0E] snap-start">
+        <img src="assets/images/card/t3.png" alt="Diseño 3" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#EAC7D2]">Look 03</p>
+          <h4 class="text-lg font-semibold text-white mt-1 font-editorial">Seducción Vino</h4>
+        </div>
+      </div>
+      
+      <div class="group relative flex-none w-[260px] sm:w-[300px] aspect-[3/4] overflow-hidden rounded-[24px] border border-white/10 bg-[#0E0E0E] snap-start">
+        <img src="assets/images/card/t4.png" alt="Diseño 4" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#EAC7D2]">Look 04</p>
+          <h4 class="text-lg font-semibold text-white mt-1 font-editorial">Lace Strappy</h4>
+        </div>
+      </div>
+      
+      <div class="group relative flex-none w-[260px] sm:w-[300px] aspect-[3/4] overflow-hidden rounded-[24px] border border-white/10 bg-[#0E0E0E] snap-start">
+        <img src="assets/images/card/t5.png" alt="Diseño 5" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#EAC7D2]">Look 05</p>
+          <h4 class="text-lg font-semibold text-white mt-1 font-editorial">Tentación Azul</h4>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Grid de Productos -->
   <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

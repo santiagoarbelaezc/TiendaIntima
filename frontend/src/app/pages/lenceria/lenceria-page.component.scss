@@ -4,3 +4,21 @@
   color: #ffffff;
   min-height: 100vh;
 }
+
+.carousel-track-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  will-change: scroll-position;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.carousel-track-container img {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
