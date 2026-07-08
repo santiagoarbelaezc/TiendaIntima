@@ -21,8 +21,8 @@ export class LoginPageComponent {
 
   readonly errorMessage = signal('');
   readonly form = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]]
+    email: ['laura@demo.com', [Validators.required, Validators.email]],
+    password: ['123456', [Validators.required]]
   });
 
   submit(): void {
@@ -44,8 +44,9 @@ export class LoginPageComponent {
     }
 
     this.authService.login(this.form.value.email ?? '', this.form.value.password ?? '').subscribe({
-      next: () => {
-        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/mi-cuenta';
+      next: (user) => {
+        const defaultUrl = user.rol === 'admin' ? '/admin' : '/mi-cuenta';
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? defaultUrl;
         this.router.navigateByUrl(returnUrl);
       },
       error: () => this.errorMessage.set('No pudimos validar esos datos de acceso.')
