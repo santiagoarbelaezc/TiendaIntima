@@ -1,22 +1,24 @@
 <article 
   [ngClass]="theme === 'dark' ? 'bg-[#141414] border-white/5 text-white shadow-none' : 'bg-white border-black/10 text-[#111111] shadow-[0_16px_40px_rgba(17,17,17,0.06)]'"
-  class="group overflow-hidden rounded-[28px] border transition duration-300 hover:-translate-y-1 hover:shadow-soft"
+  class="group overflow-hidden rounded-2xl border transition duration-300 hover:-translate-y-1 hover:shadow-soft flex flex-col justify-between h-full"
 >
-  <a [routerLink]="['/producto', product.slug]" class="block">
-    <div class="relative aspect-[4/5] overflow-hidden bg-[#F5F0EB]/10">
+  <a [routerLink]="['/producto', product.slug]" class="flex flex-col h-full">
+    <div class="relative aspect-[4/5] overflow-hidden bg-[#F5F0EB]/10 flex-shrink-0">
       <img [src]="product.imagenes[0]" [alt]="product.nombre" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy">
       <div class="absolute left-4 top-4 flex flex-wrap gap-2">
         <app-badge *ngFor="let label of product.etiquetas.slice(0, 2)" [label]="label" tone="dark"></app-badge>
       </div>
     </div>
-    <div class="space-y-3 p-5">
-      <div class="space-y-1">
+    <div class="p-5 flex flex-col justify-between flex-grow gap-4">
+      <div class="space-y-1.5">
         <p class="text-xs uppercase tracking-[0.3em]" [ngClass]="theme === 'dark' ? 'text-white/50' : 'text-black/45'">{{ product.categoriaNombre }}</p>
-        <h3 class="text-lg font-semibold" [ngClass]="theme === 'dark' ? 'text-white' : 'text-[#111111]'">{{ product.nombre }}</h3>
-        <p class="text-sm leading-6" [ngClass]="theme === 'dark' ? 'text-white/70' : 'text-black/65'">{{ product.descripcionCorta }}</p>
+        <h3 class="text-lg font-semibold leading-snug" [ngClass]="theme === 'dark' ? 'text-white' : 'text-[#111111]'">{{ product.nombre }}</h3>
+        <p class="text-sm leading-6 line-clamp-2" [ngClass]="theme === 'dark' ? 'text-white/70' : 'text-black/65'">{{ product.descripcionCorta }}</p>
       </div>
-      <app-rating-stars [rating]="product.calificacion" [reviewCount]="product.resenas" [compact]="true"></app-rating-stars>
-      <app-price-tag [price]="product.precio" [previousPrice]="product.precioAnterior"></app-price-tag>
+      <div class="pt-3 border-t border-black/5 flex flex-col gap-2">
+        <app-rating-stars [rating]="product.calificacion" [reviewCount]="product.resenas" [compact]="true"></app-rating-stars>
+        <app-price-tag [price]="product.precio" [previousPrice]="product.precioAnterior"></app-price-tag>
+      </div>
     </div>
   </a>
 </article>

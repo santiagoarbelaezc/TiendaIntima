@@ -4,14 +4,9 @@
   <!-- Nuestras Categorías Destacadas (Debajo del Hero) -->
   <app-categorias-destacadas></app-categorias-destacadas>
 
-  <!-- Sección de Beneficios -->
-  <div class="page-container">
-    <app-beneficios></app-beneficios>
-  </div>
-
   <!-- Banner Promocional de Registro -->
-  <div class="page-container">
-    <div class="flex flex-col md:flex-row items-center justify-between gap-8 rounded-[40px] border border-black/10 bg-white p-8 sm:p-12 md:p-16 text-[#111111] shadow-soft relative overflow-hidden group">
+  <div class="page-container-wide">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8 rounded-2xl sm:rounded-[20px] border border-black/10 bg-white p-8 sm:p-12 md:p-16 text-[#111111] shadow-soft relative overflow-hidden group">
       
       <div class="space-y-4 text-center md:text-left relative z-10">
         <span class="inline-flex items-center gap-1.5 rounded-full bg-[#EAC7D2] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#111111] shadow-sm">
@@ -36,8 +31,8 @@
     </div>
   </div>
 
-  <!-- Favoritos de la comunidad -->
-  <section class="page-container grid gap-6">
+  <!-- Favoritos de la comunidad (Más vendidos) -->
+  <section class="page-container-wide grid gap-6">
     <div class="flex items-end justify-between gap-4">
       <div>
         <p class="text-xs uppercase tracking-[0.35em] text-[#EAC7D2] font-bold">Más vendidos</p>
@@ -45,14 +40,102 @@
       </div>
       <a routerLink="/catalogo" class="text-sm font-bold text-black/60 hover:text-[#111111] underline decoration-black/20 underline-offset-4 font-editorial">Ver todo</a>
     </div>
-    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       <app-product-card *ngFor="let product of featuredProducts()" [product]="product"></app-product-card>
     </div>
   </section>
 
-  <!-- Colección Íntima & Descanso (Reemplazo familiar de la antigua sección erótica) -->
-  <section class="page-container">
-    <div class="bg-[#FAFAFA] rounded-[40px] p-8 sm:p-12 lg:p-16 border border-black/10 shadow-soft space-y-10">
+  <!-- Sección de Beneficios -->
+  <div class="page-container-wide">
+    <app-beneficios></app-beneficios>
+  </div>
+
+  <!-- Sección Para Él & Editorial de Pijamas (Ubicada debajo de Beneficios) -->
+  <section class="page-container-wide grid gap-8 lg:grid-cols-2">
+    
+    <!-- Para Él (Línea Masculina con formas rectangulares rectas y gran imagen) -->
+    <div class="relative overflow-hidden rounded-2xl sm:rounded-[20px] border border-black/10 bg-white shadow-soft grid lg:grid-cols-[1fr_1.1fr] items-stretch group">
+      
+      <!-- Contenido textual con acentos rectos en palo rosa (#EAC7D2) -->
+      <div class="p-8 sm:p-12 lg:p-14 flex flex-col justify-between space-y-8 relative z-10">
+        <div class="space-y-4">
+          <div>
+            <span class="inline-flex items-center gap-2 rounded-none bg-[#EAC7D2] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-[#111111] shadow-sm">
+              <span class="w-2 h-2 rounded-none bg-[#111111]"></span>
+              Línea Masculina
+            </span>
+          </div>
+          <!-- Forma rectangular horizontal recta de color secundario -->
+          <div class="w-16 h-1.5 bg-[#EAC7D2] rounded-none"></div>
+          <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl text-[#111111] leading-tight pt-2">Comodidad y Estilo Para Él</h2>
+          <p class="text-base sm:text-lg text-black/65 leading-relaxed font-editorial">Bóxers de algodón premium y prendas de descanso que combinan suavidad, libertad de movimiento y un ajuste impecable.</p>
+        </div>
+
+        <div class="pt-4">
+          <a routerLink="/catalogo" [queryParams]="{ categoria: 'hombre' }" class="inline-flex items-center justify-center rounded-none bg-[#111111] px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-white hover:bg-[#EAC7D2] hover:text-[#111111] transition duration-300 font-editorial shadow-md">
+            Explorar Colección &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Contenedor de imagen grande con bloques rectangulares rectos en color palo rosa -->
+      <div class="relative p-6 sm:p-8 lg:py-8 lg:pr-8 lg:pl-0 flex items-stretch min-h-[420px] sm:min-h-[500px]">
+        <!-- Bloques rectangulares rectos detrás de la imagen (#EAC7D2) -->
+        <div class="absolute top-4 right-4 sm:top-6 sm:right-6 w-48 sm:w-64 h-48 sm:h-64 bg-[#EAC7D2] rounded-xl sm:rounded-2xl -z-10"></div>
+        <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-2 w-56 sm:w-72 h-56 sm:h-72 bg-[#EAC7D2]/35 rounded-xl sm:rounded-2xl border border-[#EAC7D2] -z-10"></div>
+        <div class="absolute top-1/2 left-1/4 w-32 h-32 bg-[#EAC7D2]/50 -z-10"></div>
+        
+        <!-- Imagen en formato grande y recto -->
+        <div class="relative z-10 h-full w-full min-h-[380px] sm:min-h-[460px] rounded-xl sm:rounded-2xl overflow-hidden shadow-lg border border-black/10 bg-white">
+          <img src="assets/images/card/h1.jpeg" alt="Para Él" class="h-full w-full object-cover object-top transition duration-700 group-hover:scale-105">
+        </div>
+      </div>
+    </div>
+
+    <!-- Editorial Pijamas (Boutique Lookbook con formas rectangulares rectas e imágenes grandes) -->
+    <div class="relative overflow-hidden rounded-2xl sm:rounded-[20px] border border-black/10 bg-[#FAFAFA] shadow-soft flex flex-col justify-between group">
+      
+      <!-- Contenido textual superior con acento recto -->
+      <div class="p-8 sm:p-12 lg:p-14 pb-6 sm:pb-8 space-y-4 relative z-10">
+        <div>
+          <span class="inline-flex items-center gap-2 rounded-none bg-[#EAC7D2] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-[#111111] shadow-sm">
+            <span class="w-2 h-2 rounded-none bg-[#111111]"></span>
+            Boutique Lookbook
+          </span>
+        </div>
+        <!-- Forma rectangular horizontal recta de color secundario -->
+        <div class="w-16 h-1.5 bg-[#EAC7D2] rounded-none"></div>
+        <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl text-[#111111] leading-tight pt-2">Nueva Temporada de Descanso</h2>
+        <p class="text-base sm:text-lg text-black/65 leading-relaxed font-editorial max-w-xl">Texturas fluidas de satén y algodón de tacto nublado diseñadas para tus mejores momentos de paz en casa.</p>
+        <div class="pt-2">
+          <a routerLink="/catalogo" [queryParams]="{ categoria: 'pijamas' }" class="inline-flex items-center gap-2 text-sm font-bold text-[#111111] hover:text-[#EAC7D2] underline decoration-[#EAC7D2] decoration-2 underline-offset-4 font-editorial">Ver Pijamas de Lujo &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Grilla inferior con fotos grandes y bloques rectangulares rectos en color palo rosa -->
+      <div class="relative p-6 sm:p-8 lg:p-10 pt-2 flex-grow flex items-stretch">
+        <!-- Bloques rectangulares rectos que enmarcan las dos fotos (#EAC7D2) -->
+        <div class="absolute top-2 inset-x-8 sm:inset-x-12 h-3 bg-[#EAC7D2] rounded-none"></div>
+        <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 w-48 sm:w-64 h-48 sm:h-64 bg-[#EAC7D2]/45 rounded-xl sm:rounded-2xl border border-[#EAC7D2] -z-10"></div>
+        <div class="absolute top-6 right-4 sm:top-8 sm:right-6 w-48 sm:w-64 h-48 sm:h-64 bg-[#EAC7D2] rounded-xl sm:rounded-2xl -z-10 opacity-80"></div>
+        <!-- Barra rectangular recta en la base inferior -->
+        <div class="absolute bottom-0 left-0 w-full h-3 bg-[#EAC7D2]"></div>
+        
+        <div class="grid grid-cols-2 gap-4 sm:gap-6 w-full relative z-10">
+          <div class="rounded-xl sm:rounded-2xl overflow-hidden aspect-[3/4] sm:aspect-[4/5] min-h-[340px] sm:min-h-[420px] bg-white shadow-lg border border-black/10">
+            <img src="assets/images/card/p1.jpeg" alt="Pijama Look 1" class="h-full w-full object-cover object-top transition duration-700 group-hover:scale-105">
+          </div>
+          <div class="rounded-xl sm:rounded-2xl overflow-hidden aspect-[3/4] sm:aspect-[4/5] min-h-[340px] sm:min-h-[420px] bg-white shadow-lg border border-black/10">
+            <img src="assets/images/card/p2.jpeg" alt="Pijama Look 2" class="h-full w-full object-cover object-top transition duration-700 group-hover:scale-105">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colección Íntima & Descanso -->
+  <section class="page-container-wide">
+    <div class="bg-[#FAFAFA] rounded-2xl sm:rounded-[20px] p-8 sm:p-12 lg:p-16 border border-black/10 shadow-soft space-y-10">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <p class="text-xs uppercase tracking-[0.4em] text-[#EAC7D2] font-bold">Comodidad con Intención</p>
@@ -97,39 +180,10 @@
     </div>
   </section>
 
-  <!-- Sección Para Él & Editorial de Pijamas -->
-  <section class="page-container grid gap-8 md:grid-cols-2">
-    <!-- Para Él -->
-    <div class="overflow-hidden rounded-[36px] border border-black/10 bg-white shadow-soft grid sm:grid-cols-[1.1fr_0.9fr] items-center">
-      <div class="p-6 sm:p-8 lg:p-10 space-y-4">
-        <p class="text-xs uppercase tracking-[0.35em] text-[#EAC7D2] font-bold">Línea Masculina</p>
-        <h2 class="section-title text-3xl sm:text-4xl text-[#111111] leading-tight">Comodidad y Estilo Para Él</h2>
-        <p class="text-sm text-black/65 leading-relaxed font-editorial">Bóxers de algodón premium y prendas de descanso que combinan suavidad, libertad de movimiento y un ajuste impecable.</p>
-        <a routerLink="/catalogo" [queryParams]="{ categoria: 'hombre' }" class="inline-flex items-center justify-center rounded-full bg-[#111111] px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-white hover:bg-[#EAC7D2] hover:text-[#111111] transition duration-300 font-editorial">Explorar</a>
-      </div>
-      <div class="h-full min-h-[300px]">
-        <img src="assets/images/card/h1.jpeg" alt="Para Él" class="h-full w-full object-cover object-top">
-      </div>
-    </div>
-
-    <!-- Editorial Pijamas -->
-    <div class="overflow-hidden rounded-[36px] border border-black/10 bg-[#FAFAFA] shadow-soft flex flex-col justify-between">
-      <div class="p-6 sm:p-8 lg:p-10 space-y-4">
-        <p class="text-xs uppercase tracking-[0.35em] text-[#EAC7D2] font-bold">Boutique Lookbook</p>
-        <h2 class="section-title text-3xl sm:text-4xl text-[#111111] leading-tight">Nueva Temporada de Descanso</h2>
-        <p class="text-sm text-black/65 leading-relaxed font-editorial">Texturas fluidas de satén y algodón de tacto nublado diseñadas para tus mejores momentos de paz en casa.</p>
-        <a routerLink="/catalogo" [queryParams]="{ categoria: 'pijamas' }" class="text-sm font-bold text-black/60 hover:text-[#111111] underline decoration-black/20 underline-offset-4 font-editorial">Ver Pijamas de Lujo</a>
-      </div>
-      <div class="grid grid-cols-2 gap-3 p-6 pt-0">
-        <div class="rounded-2xl overflow-hidden aspect-[4/5] bg-white shadow-sm border border-black/5">
-          <img src="assets/images/card/p1.jpeg" alt="Pijama Look 1" class="h-full w-full object-cover object-top transition duration-500 hover:scale-105">
-        </div>
-        <div class="rounded-2xl overflow-hidden aspect-[4/5] bg-white shadow-sm border border-black/5">
-          <img src="assets/images/card/p2.jpeg" alt="Pijama Look 2" class="h-full w-full object-cover object-top transition duration-500 hover:scale-105">
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Componente Aquí estamos ubicados - Google Maps (Ubicado debajo de Colección Íntima & Descanso) -->
+  <div class="page-container-wide">
+    <app-mapa-ubicacion></app-mapa-ubicacion>
+  </div>
 
   <!-- Componente Galería (Nuevo) -->
   <div class="page-container">
@@ -141,40 +195,12 @@
     <app-testimonios></app-testimonios>
   </div>
 
-  <!-- Componente Aquí estamos ubicados - Google Maps (Nuevo) -->
-  <div class="page-container">
-    <app-mapa-ubicacion></app-mapa-ubicacion>
-  </div>
-
   <!-- Banner Promocional -->
-  <div class="page-container optimize-render">
+  <div class="page-container-wide optimize-render">
     <app-banner-promocional
       title="Compra sets seleccionados y recibe envío a domicilio"
-      description="Beneficios activos para pedidos elegidos, con una experiencia de compra rápida y sin fricciones en toda Colombia."
+      description="Beneficios activos para pedidos elegidos, con una experiencia de compra rápida y sin fricciones con envío exclusivo en Calarcá, Quindío."
       image="assets/images/banner-promo.png"
     ></app-banner-promocional>
-  </div>
-
-  <!-- Sección Nosotros -->
-  <div class="page-container optimize-render">
-    <section class="grid gap-8 rounded-[40px] border border-black/10 bg-white p-8 sm:p-12 md:p-16 md:grid-cols-[0.8fr_1.2fr] shadow-soft">
-      <div>
-        <p class="text-xs uppercase tracking-[0.35em] text-[#EAC7D2] font-bold">Nosotros</p>
-        <h2 class="section-title mt-2 text-4xl text-[#111111] leading-tight">Una boutique cercana para momentos de descanso</h2>
-      </div>
-      <div class="space-y-4 text-sm sm:text-base leading-relaxed text-black/65 font-editorial">
-        <p>
-          En Tiendaintima, creemos que la belleza de la moda interior reside en la perfecta armonía entre el diseño sutil y el bienestar diario. Nos dedicamos a seleccionar y confeccionar prendas de descanso y moda íntima con una curaduría profundamente enfocada en la suavidad, la funcionalidad y la feminidad contemporánea.
-        </p>
-        <p>
-          Cada una de nuestras piezas —desde la delicada ropa interior hasta nuestras icónicas pijamas de satén y algodón nublado— está pensada para acompañarte en tus rutinas reales, tardes tranquilas en casa y momentos de autocuidado. Creemos en la elegancia sin esfuerzo y en los detalles que transforman el descanso diario en una experiencia de lujo íntimo.
-        </p>
-      </div>
-    </section>
-  </div>
-
-  <!-- Newsletter Signup -->
-  <div class="page-container optimize-render">
-    <app-newsletter-signup></app-newsletter-signup>
   </div>
 </div>

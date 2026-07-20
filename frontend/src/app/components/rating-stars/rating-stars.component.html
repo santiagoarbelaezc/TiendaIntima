@@ -1,6 +1,7 @@
-<div class="flex items-center gap-2 text-xs text-black/60">
-  <div class="flex gap-1 text-[#D59AAD]">
+<div class="flex items-center gap-1.5 text-xs font-semibold text-black/70">
+  <div class="flex items-center gap-0.5 text-[#D59AAD] text-sm">
     <span *ngFor="let filled of stars">{{ filled ? '★' : '☆' }}</span>
   </div>
-  <span *ngIf="!compact">{{ rating.toFixed(1) }} · {{ reviewCount }} reseñas</span>
+  <span *ngIf="compact" class="text-xs font-bold text-black/65">{{ rating.toFixed(1) }}</span>
+  <span *ngIf="!compact" class="text-xs text-black/65">{{ rating.toFixed(1) }} · {{ reviewCount }} reseñas</span>
 </div>

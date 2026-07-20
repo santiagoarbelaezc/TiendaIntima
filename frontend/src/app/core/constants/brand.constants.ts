@@ -1,7 +1,7 @@
 export const brandName = 'Tiendaintima';
 
 export const topBarMessages = [
-  'Envíos a domicilio en Pereira y toda Colombia',
+  'Envíos a domicilio exclusivos en Calarcá, Quindío',
   'Nueva colección de pijamas y descanso',
   'Promo especial: 10% OFF en tu primera compra'
 ];

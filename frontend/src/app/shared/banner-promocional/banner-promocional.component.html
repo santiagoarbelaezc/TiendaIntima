@@ -1,10 +1,25 @@
-<section class="overflow-hidden rounded-[32px] bg-[#111111] text-white shadow-soft">
-  <div class="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-    <div class="space-y-4 p-6 sm:p-8 lg:p-12">
-      <p class="text-xs uppercase tracking-[0.35em] text-white/55">Promoción especial</p>
-      <h2 class="section-title text-4xl leading-none sm:text-5xl">{{ title }}</h2>
-      <p class="max-w-xl text-sm leading-7 text-white/75">{{ description }}</p>
+<section class="overflow-hidden rounded-2xl sm:rounded-[20px] bg-[#111111] text-white shadow-soft border border-white/10 group">
+  <div class="grid lg:grid-cols-[1.15fr_0.85fr] items-stretch">
+    <!-- Contenido de texto con acentos rectos (#EAC7D2) -->
+    <div class="flex flex-col justify-center space-y-6 p-8 sm:p-12 lg:p-16 relative z-10">
+      <div class="space-y-4">
+        <div>
+          <span class="inline-flex items-center gap-2 rounded-none bg-[#EAC7D2] px-3.5 py-1 text-xs font-bold uppercase tracking-[0.25em] text-[#111111]">
+            <span class="w-1.5 h-1.5 rounded-none bg-[#111111]"></span>
+            Promoción Especial
+          </span>
+        </div>
+        <!-- Forma rectangular recta de acento horizontal -->
+        <div class="w-14 h-1.5 bg-[#EAC7D2] rounded-none"></div>
+        <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-wide text-white">{{ title }}</h2>
+      </div>
+      
+      <p class="max-w-xl text-sm sm:text-base leading-relaxed text-white/75 font-editorial">{{ description }}</p>
     </div>
-    <img [src]="image" alt="Promoción Tiendaintima" class="h-full w-full object-cover">
+
+    <!-- Contenedor de imagen que ocupa todo el alto sin distorsiones ni cortes -->
+    <div class="relative min-h-[300px] sm:min-h-[380px] lg:min-h-full h-full overflow-hidden bg-black/40">
+      <img [src]="image" alt="Promoción Tiendaintima" class="absolute inset-0 h-full w-full object-cover object-center transition duration-700 group-hover:scale-105">
+    </div>
   </div>
 </section>

@@ -77,6 +77,24 @@ textarea {
 	}
 }
 
+.page-container-wide {
+	width: min(96%, 106rem);
+	margin-inline: auto;
+	padding-inline: 1rem;
+}
+
+@media (min-width: 768px) {
+	.page-container-wide {
+		padding-inline: 1.5rem;
+	}
+}
+
+@media (min-width: 1280px) {
+	.page-container-wide {
+		padding-inline: 2.5rem;
+	}
+}
+
 .font-editorial {
 	font-family: 'Outfit', 'Inter Tight', sans-serif;
 	letter-spacing: -0.03em;
