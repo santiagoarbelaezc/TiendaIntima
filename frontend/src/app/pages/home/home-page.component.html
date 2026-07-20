@@ -1,7 +1,10 @@
 <div class="flex flex-col gap-12 pb-10 xl:pb-16">
   <app-hero></app-hero>
 
-  <!-- Sección de Beneficios (Nuevo) -->
+  <!-- Nuestras Categorías Destacadas (Debajo del Hero) -->
+  <app-categorias-destacadas></app-categorias-destacadas>
+
+  <!-- Sección de Beneficios -->
   <div class="page-container">
     <app-beneficios></app-beneficios>
   </div>
@@ -32,20 +35,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Categorías Principales -->
-  <section class="page-container grid gap-6 md:grid-cols-3">
-    <a *ngFor="let category of categories()" [routerLink]="['/catalogo']" [queryParams]="{ categoria: category.slug }" class="group overflow-hidden rounded-[32px] border border-black/10 bg-white shadow-soft transition duration-500 hover:-translate-y-1 block">
-      <div class="h-72 w-full overflow-hidden bg-[#FAFAFA]">
-        <img [src]="category.imagen" [alt]="category.nombre" class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
-      </div>
-      <div class="p-6 sm:p-8">
-        <p class="text-xs uppercase tracking-[0.3em] text-[#EAC7D2] font-bold">{{ category.slug }}</p>
-        <h2 class="section-title mt-2 text-3xl text-[#111111] group-hover:text-[#EAC7D2] transition-colors">{{ category.nombre }}</h2>
-        <p class="mt-3 text-sm leading-6 text-black/65 font-editorial">{{ category.descripcion }}</p>
-      </div>
-    </a>
-  </section>
 
   <!-- Favoritos de la comunidad -->
   <section class="page-container grid gap-6">
