@@ -32,7 +32,7 @@
       *ngFor="let cat of categorias" 
       [routerLink]="['/catalogo']" 
       [queryParams]="{ categoria: cat.slug }" 
-      class="group relative aspect-[3/4] overflow-hidden rounded-[32px] sm:rounded-[38px] bg-[#FAFAFA] border border-black/10 shadow-soft transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl block cursor-pointer"
+      class="group relative aspect-[3/4] overflow-hidden rounded-2xl sm:rounded-[20px] bg-[#FAFAFA] border border-black/10 shadow-soft transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl block cursor-pointer"
     >
       <!-- Imagen de fondo con zoom suave -->
       <img 
