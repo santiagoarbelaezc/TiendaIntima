@@ -1,0 +1,75 @@
+<section class="page-container py-4 sm:py-6">
+  <!-- Cabecera de Sección -->
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-12">
+    <div class="space-y-3">
+      <span class="inline-flex items-center gap-2 rounded-full bg-[#EAC7D2]/25 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.3em] text-[#111111] border border-[#EAC7D2]/40">
+        <span class="h-1.5 w-1.5 rounded-full bg-[#111111]"></span>
+        Nuestras Categorías
+      </span>
+      <h2 class="section-title text-4xl sm:text-5xl lg:text-6xl text-[#111111] tracking-tight leading-none">
+        Explora por Colección
+      </h2>
+      <p class="text-sm sm:text-base text-black/65 max-w-xl font-editorial leading-relaxed pt-1">
+        Curaduría íntima confeccionada con encajes finos, satén fluido y algodón nublado para cada momento y estilo de vida.
+      </p>
+    </div>
+    <div class="flex-shrink-0">
+      <a 
+        routerLink="/catalogo" 
+        class="inline-flex items-center gap-2 rounded-full border border-black/15 bg-white px-7 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-[#111111] transition duration-300 hover:bg-[#111111] hover:text-white hover:border-black shadow-sm font-editorial group"
+      >
+        <span>Ver todo el Catálogo</span>
+        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Grilla de las 4 Categorías -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+    <a 
+      *ngFor="let cat of categorias" 
+      [routerLink]="['/catalogo']" 
+      [queryParams]="{ categoria: cat.slug }" 
+      class="group relative aspect-[3/4] overflow-hidden rounded-[32px] sm:rounded-[38px] bg-[#FAFAFA] border border-black/10 shadow-soft transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl block cursor-pointer"
+    >
+      <!-- Imagen de fondo con zoom suave -->
+      <img 
+        [src]="cat.imagen" 
+        [alt]="cat.nombre" 
+        class="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-110"
+      >
+
+      <!-- Superposición oscura con gradiente para legibilidad y elegancia -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent transition-opacity duration-500 group-hover:from-black/95"></div>
+
+      <!-- Contenido de la tarjeta -->
+      <div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white z-10">
+        <div class="transform transition-transform duration-500 group-hover:-translate-y-1">
+          <!-- Subtítulo -->
+          <p class="text-[11px] font-bold uppercase tracking-[0.3em] text-[#EAC7D2] mb-1.5 opacity-90 group-hover:opacity-100 transition-opacity font-editorial">
+            {{ cat.subtitulo }}
+          </p>
+          
+          <!-- Título principal -->
+          <h3 class="font-serif-elegant text-3xl sm:text-4xl font-bold leading-tight tracking-normal text-white group-hover:text-[#EAC7D2] transition-colors duration-300">
+            {{ cat.nombre }}
+          </h3>
+
+          <!-- Línea decorativa y botón CTA -->
+          <div class="mt-4 pt-4 border-t border-white/15 flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-[0.2em] text-white/90 group-hover:text-white transition duration-300 font-editorial">
+              Explorar
+            </span>
+            <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-sm transition-all duration-300 group-hover:bg-[#EAC7D2] group-hover:text-[#111111] group-hover:scale-110">
+              <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
