@@ -8,9 +8,9 @@ export const topBarMessages = [
 
 export const navigationItems = [
   { label: 'Inicio', path: '/' },
+  { label: 'Catálogo', path: '/catalogo' },
   { label: 'Ropa interior', path: '/catalogo', category: 'ropa-interior' },
   { label: 'Pijamas', path: '/catalogo', category: 'pijamas' },
-  { label: 'Galería', path: '/galeria' },
   { label: 'Hombre', path: '/catalogo', category: 'hombre' },
   { label: 'Novedades', path: '/catalogo', filter: 'nuevo' },
   { label: 'Promociones', path: '/catalogo', filter: 'promo' }
