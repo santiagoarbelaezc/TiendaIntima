@@ -3,45 +3,108 @@
     "id": "cat-pijamas",
     "nombre": "Pijamas",
     "slug": "pijamas",
-    "descripcion": "Sets suaves, versátiles y pensados para descanso con estilo.",
-    "imagen": "assets/images/category-pijamas.png",
+    "descripcion": "Sets de satén y algodón nublado pensados para tu descanso y confort en el hogar.",
+    "imagen": "assets/images/hero_pijamas_1.png",
     "acento": "#EAC7D2",
-    "subcategorias": ["Set corto", "Set largo", "Camisería"]
+    "subcategorias": ["Set corto", "Set largo", "Camisería", "Batas"]
   },
   {
-    "id": "cat-interior",
-    "nombre": "Ropa interior",
-    "slug": "ropa-interior",
-    "descripcion": "Piezas cómodas, delicadas y de ajuste impecable.",
-    "imagen": "assets/images/category-ropa-interior.png",
-    "acento": "#D59AAD",
-    "subcategorias": ["Brasier", "Panty", "Body"]
+    "id": "cat-fajas",
+    "nombre": "Fajas",
+    "slug": "fajas",
+    "descripcion": "Control inteligente, siluetas moldeadoras y máxima discreción bajo tu ropa diaria.",
+    "imagen": "assets/images/card/mock_faja_1.png",
+    "acento": "#D8B4A0",
+    "subcategorias": ["Body Moldeador", "Faja Short", "Panty Faja", "Alta Compresión"]
   },
   {
-    "id": "cat-lenceria",
-    "nombre": "Lencería",
-    "slug": "lenceria",
-    "descripcion": "Encajes finos, arneses y siluetas sensuales de lujo.",
-    "imagen": "assets/images/card/t1.png",
-    "acento": "#111111",
-    "subcategorias": ["Bralette", "Conjunto", "Córset"]
+    "id": "cat-brasieres",
+    "nombre": "Brasieres",
+    "slug": "brasieres",
+    "descripcion": "Soporte ergonómico, sin costuras molestas y encajes suaves para tu rutina.",
+    "imagen": "assets/images/card/c2.png",
+    "acento": "#E9D8CF",
+    "subcategorias": ["Sin varilla", "Soporte suave", "Bralettes", "Deportivos"]
+  },
+  {
+    "id": "cat-panties",
+    "nombre": "Panties",
+    "slug": "panties",
+    "descripcion": "Algodón hipoalergénico, microfibra seamless y diseños invisibles.",
+    "imagen": "assets/images/card/c5.png",
+    "acento": "#F4EAE6",
+    "subcategorias": ["Seamless", "Descaderados", "Panty Faja", "Bikini"]
+  },
+  {
+    "id": "cat-trajes-de-bano",
+    "nombre": "Trajes de Baño",
+    "slug": "trajes-de-bano",
+    "descripcion": "Estilo resort, tejidos con protección UV y siluetas que realzan tu figura bajo el sol.",
+    "imagen": "assets/images/card/c4.png",
+    "acento": "#C8DCE5",
+    "subcategorias": ["Enteros", "Bikinis", "Salidas de baño"]
+  },
+  {
+    "id": "cat-novias",
+    "nombre": "Novias",
+    "slug": "novias",
+    "descripcion": "Seda marfil, encaje francés y batas delicadas para tu gran día y luna de miel.",
+    "imagen": "assets/images/galeria_1.png",
+    "acento": "#F8F6F0",
+    "subcategorias": ["Batas nupciales", "Lencería de novia", "Sets de seda"]
+  },
+  {
+    "id": "cat-uso-exterior",
+    "nombre": "Uso Exterior",
+    "slug": "uso-exterior",
+    "descripcion": "Loungewear moderno y conjuntos cómodos para salir de casa o relajarte el fin de semana.",
+    "imagen": "assets/images/hero_novedades_2.png",
+    "acento": "#D5C8B8",
+    "subcategorias": ["Conjuntos casuales", "Pantalones amplios", "Tops relajados"]
+  },
+  {
+    "id": "cat-ofertas",
+    "nombre": "Ofertas",
+    "slug": "ofertas",
+    "descripcion": "Selección especial con precios reducidos y descuentos exclusivos por temporada.",
+    "imagen": "assets/images/card/c1.png",
+    "acento": "#E6A8B8",
+    "subcategorias": ["Outlet", "Promoción especial", "Últimas unidades"]
   },
   {
     "id": "cat-hombre",
     "nombre": "Hombre",
     "slug": "hombre",
-    "descripcion": "Línea de descanso masculina cómoda y moderna.",
+    "descripcion": "Línea de descanso masculina: bóxers de algodón premium y pijamas anatómicas.",
     "imagen": "assets/images/card/h1.jpeg",
     "acento": "#8C8C8C",
-    "subcategorias": ["Pijama", "Bóxer", "Camiseta"]
+    "subcategorias": ["Bóxer", "Pijama masculina", "Camisetas descanso"]
+  },
+  {
+    "id": "cat-ropa-interior",
+    "nombre": "Ropa interior",
+    "slug": "ropa-interior",
+    "descripcion": "Curaduría completa de piezas íntimas para cada día del año.",
+    "imagen": "assets/images/hero_interior_1.png",
+    "acento": "#D59AAD",
+    "subcategorias": ["Brasier", "Panty", "Conjunto diario"]
+  },
+  {
+    "id": "cat-lenceria",
+    "nombre": "Lencería",
+    "slug": "lenceria",
+    "descripcion": "Detalles delicados en encaje y transparencias sutiles con elegancia.",
+    "imagen": "assets/images/card/t1.png",
+    "acento": "#111111",
+    "subcategorias": ["Bralette", "Conjunto encaje", "Batas finas"]
   },
   {
     "id": "cat-novedades",
     "nombre": "Novedades",
     "slug": "novedades",
-    "descripcion": "Lo más reciente de la colección, listo para estrenar.",
-    "imagen": "assets/images/category-novedades.png",
-    "acento": "#F3E7EB",
-    "subcategorias": ["Nueva temporada", "Edición limitada", "Favoritos"]
+    "descripcion": "Lo más reciente de nuestra boutique, listo para estrenar en tu hogar.",
+    "imagen": "assets/images/hero_novedades_1.png",
+    "acento": "#EAC7D2",
+    "subcategorias": ["Nueva temporada", "Edición limitada", "Recién llegados"]
   }
 ]

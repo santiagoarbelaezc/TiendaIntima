@@ -29,40 +29,40 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
 
   readonly items: HeroImageItem[] = [
     {
-      img: 'assets/images/pijamas-hero.png',
-      img2: 'assets/images/pijamas-hero-2.png',
-      title: 'Noches de Satén',
-      subtitle: 'Siluetas fluidas y sofisticadas.',
-      description: 'Lujo sutil y máxima suavidad para tus momentos de descanso. Diseños delicados creados en satén premium que acarician tu piel.',
-      promoTag: 'EDICIÓN EXCLUSIVA',
-      promoText: 'Envío gratis por compras superiores a $150.000',
+      img: 'assets/images/hero_pijamas_1.png',
+      img2: 'assets/images/hero_pijamas_2.png',
+      title: 'Momento de Descanso',
+      subtitle: 'Suavidad y calidez para tu hogar.',
+      description: 'Disfruta tus mañanas y noches con nuestras pijamas de algodón nublado y satén. Diseñadas para abrazar tu tranquilidad y bienestar en familia.',
+      promoTag: 'COLECCIÓN HOGAR & PIJAMAS',
+      promoText: 'Envío gratis a toda Colombia en pedidos mayores a $150.000',
       promoIcon: 'shipping',
       link: '/catalogo?categoria=pijamas',
+      ctaText: 'Ver Pijamas'
+    },
+    {
+      img: 'assets/images/hero_interior_1.png',
+      img2: 'assets/images/hero_interior_2.png',
+      title: 'Suavidad Cotidiana',
+      subtitle: 'Comodidad natural y ajuste impecable.',
+      description: 'Prendas íntimas con tejidos suaves y transpirables pensadas para tu ritmo diario. Menos costuras molestas, más libertad de movimiento.',
+      promoTag: 'ROPA INTERIOR CÓMODA',
+      promoText: '10% OFF en tu primera compra con el código INTIMA10',
+      promoIcon: 'discount',
+      link: '/catalogo?categoria=ropa-interior',
       ctaText: 'Explorar Colección'
     },
     {
-      img: 'assets/images/ropa-interior-hero.png',
-      img2: 'assets/images/ropa-interior-hero-2.png',
-      title: 'Encaje Premium',
-      subtitle: 'Detalles delicados y texturas suaves.',
-      description: 'Siente la comodidad y ligereza del encaje de alta gama con diseños femeninos, versátiles y un ajuste impecable para tu día a día.',
-      promoTag: 'NUEVA COLECCIÓN',
-      promoText: '10% OFF extra en tu primer pedido con el código INTTIMA10',
-      promoIcon: 'discount',
-      link: '/catalogo?categoria=ropa-interior',
-      ctaText: 'Ver Diseños'
-    },
-    {
-      img: 'assets/images/novedades-hero-2.png', // Rotado: antes novedades-hero
-      img2: 'assets/images/novedades-hero.png',   // Rotado: antes novedades-hero-2
-      title: 'Detalles Únicos',
-      subtitle: 'La armonía perfecta de sofisticación y comodidad.',
-      description: 'Descubre piezas exclusivas confeccionadas con texturas selectas y acabados limpios que elevan tu armario de descanso.',
-      promoTag: 'NOVEDADES EXCLUSIVAS',
-      promoText: 'Empaque de lujo de cortesía en todas tus compras',
+      img: 'assets/images/hero_novedades_1.png',
+      img2: 'assets/images/hero_novedades_2.png',
+      title: 'Tu Espacio de Paz',
+      subtitle: 'Armonía y detalles que enamoran.',
+      description: 'Conoce nuestras nuevas batas florales y conjuntos de descanso para compartir un café por la mañana o relajarte al final del día.',
+      promoTag: 'NOVEDADES DE TEMPORADA',
+      promoText: 'Empaque de regalo exclusivo de cortesía en todas tus órdenes',
       promoIcon: 'gift',
-      link: '/catalogo?filter=nuevo',
-      ctaText: 'Ver Novedades'
+      link: '/galeria',
+      ctaText: 'Ver Galería'
     }
   ];
 

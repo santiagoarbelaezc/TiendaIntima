@@ -1,21 +1,64 @@
 <footer class="border-t border-black/10 bg-[#111111] text-white">
-  <div class="page-container grid gap-10 py-12 md:grid-cols-2">
+  <div class="page-container grid gap-10 py-14 lg:grid-cols-4 md:grid-cols-2">
+    
+    <!-- Columna 1: Marca y descripción -->
     <div class="space-y-4">
-      <p class="section-title text-4xl">Tiendaintima</p>
-      <p class="max-w-md text-sm leading-7 text-white/70">Moda íntima y descanso con una curaduría cálida, femenina y minimalista. Boutique física y servicio a domicilio.</p>
-    </div>
-    <div class="grid gap-8 sm:grid-cols-2">
-      <div>
-        <p class="text-xs uppercase tracking-[0.3em] text-white/45">Explora</p>
-        <ul class="mt-4 space-y-3 text-sm text-white/75">
-          <li *ngFor="let item of footerLinks"><a [routerLink]="item.path" class="transition hover:text-white">{{ item.label }}</a></li>
-        </ul>
+      <span class="flex items-center gap-3">
+        <span class="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#111111] font-bold">T</span>
+        <p class="section-title text-4xl tracking-tight">Tiendaintima</p>
+      </span>
+      <p class="text-sm leading-7 text-white/70 font-editorial">
+        Moda íntima, pijamas y prendas de descanso pensadas para brindarte suavidad, elegancia cotidiana y bienestar en casa. Boutique física y envíos a toda Colombia.
+      </p>
+      <div class="flex items-center gap-3 pt-2">
+        <a *ngFor="let item of socialLinks" [href]="item.href" target="_blank" rel="noreferrer" class="inline-flex h-9 px-4 items-center justify-center rounded-full bg-white/10 text-xs font-semibold hover:bg-[#EAC7D2] hover:text-[#111111] transition duration-300">
+          {{ item.label }}
+        </a>
       </div>
-      <div>
-        <p class="text-xs uppercase tracking-[0.3em] text-white/45">Redes</p>
-        <ul class="mt-4 space-y-3 text-sm text-white/75">
-          <li *ngFor="let item of socialLinks"><a [href]="item.href" target="_blank" rel="noreferrer" class="transition hover:text-white">{{ item.label }}</a></li>
-        </ul>
+    </div>
+
+    <!-- Columna 2: Navegación -->
+    <div>
+      <p class="text-xs uppercase tracking-[0.3em] text-[#EAC7D2] font-bold">Explora</p>
+      <ul class="mt-4 space-y-3 text-sm text-white/75 font-editorial">
+        <li><a routerLink="/" class="transition hover:text-white">Inicio</a></li>
+        <li><a routerLink="/catalogo" [queryParams]="{ categoria: 'ropa-interior' }" class="transition hover:text-white">Ropa interior</a></li>
+        <li><a routerLink="/catalogo" [queryParams]="{ categoria: 'pijamas' }" class="transition hover:text-white">Pijamas</a></li>
+        <li><a routerLink="/galeria" class="transition hover:text-white">Galería de Colección</a></li>
+        <li *ngFor="let item of footerLinks"><a [routerLink]="item.path" class="transition hover:text-white">{{ item.label }}</a></li>
+      </ul>
+    </div>
+
+    <!-- Columna 3: Información Legal y Políticas -->
+    <div>
+      <p class="text-xs uppercase tracking-[0.3em] text-[#EAC7D2] font-bold">Legal y Ayuda</p>
+      <ul class="mt-4 space-y-3 text-sm text-white/75 font-editorial">
+        <li *ngFor="let item of legalLinks"><a [routerLink]="item.path" class="transition hover:text-white hover:underline">{{ item.label }}</a></li>
+        <li><a routerLink="/contacto" class="transition hover:text-white">Soporte y Garantías</a></li>
+        <li><a routerLink="/nosotros" class="transition hover:text-white">Acerca de la Tienda</a></li>
+      </ul>
+    </div>
+
+    <!-- Columna 4: Ubicación y Horarios -->
+    <div class="space-y-3 text-sm text-white/75 font-editorial">
+      <p class="text-xs uppercase tracking-[0.3em] text-[#EAC7D2] font-bold">Boutique & Atención</p>
+      <p class="pt-1"><strong class="text-white font-semibold">Dirección:</strong> Pereira, Risaralda / Eje Cafetero, Colombia.</p>
+      <p><strong class="text-white font-semibold">Horario:</strong> Lunes a Sábado de 9:00 AM a 7:00 PM.</p>
+      <p><strong class="text-white font-semibold">WhatsApp:</strong> +57 300 123 4567</p>
+      <div class="pt-2">
+        <a routerLink="/contacto" class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#EAC7D2] hover:text-white transition">
+          Ver mapa de ubicación &rarr;
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="border-t border-white/10 py-6">
+    <div class="page-container flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/45 font-editorial">
+      <p>&copy; 2026 TIENDA INTIMA S.A.S. — Todos los derechos reservados. Porque tú mereces lo mejor.</p>
+      <div class="flex items-center gap-6">
+        <a *ngFor="let item of legalLinks" [routerLink]="item.path" class="hover:text-white/80 transition">{{ item.label }}</a>
       </div>
     </div>
   </div>

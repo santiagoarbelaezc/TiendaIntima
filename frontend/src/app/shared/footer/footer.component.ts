@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { footerLinks, socialLinks } from '../../core/constants/brand.constants';
+import { footerLinks, socialLinks, legalLinks } from '../../core/constants/brand.constants';
 
 @Component({
   selector: 'app-footer',
@@ -14,4 +14,5 @@ import { footerLinks, socialLinks } from '../../core/constants/brand.constants';
 export class FooterComponent {
   readonly footerLinks = footerLinks;
   readonly socialLinks = socialLinks;
+  readonly legalLinks = legalLinks;
 }

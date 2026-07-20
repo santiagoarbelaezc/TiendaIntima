@@ -3,16 +3,31 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 
-import { BannerPromocionalComponent } from '../../shared/banner-promocional/banner-promocional.component';
-import { HeroComponent } from '../../shared/hero/hero.component';
-import { NewsletterSignupComponent } from '../../shared/newsletter-signup/newsletter-signup.component';
-import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { ProductosService } from '../../services/productos.service';
+import { HeroComponent } from '../../shared/hero/hero.component';
+import { ProductCardComponent } from '../../components/product-card/product-card.component';
+import { BannerPromocionalComponent } from '../../shared/banner-promocional/banner-promocional.component';
+import { NewsletterSignupComponent } from '../../shared/newsletter-signup/newsletter-signup.component';
+import { BeneficiosComponent } from '../../shared/beneficios/beneficios.component';
+import { GaleriaComponent } from '../../shared/galeria/galeria.component';
+import { TestimoniosComponent } from '../../shared/testimonios/testimonios.component';
+import { MapaUbicacionComponent } from '../../shared/mapa-ubicacion/mapa-ubicacion.component';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, HeroComponent, BannerPromocionalComponent, NewsletterSignupComponent, ProductCardComponent],
+  imports: [
+    CommonModule, 
+    RouterLink, 
+    HeroComponent, 
+    BannerPromocionalComponent, 
+    NewsletterSignupComponent, 
+    ProductCardComponent,
+    BeneficiosComponent,
+    GaleriaComponent,
+    TestimoniosComponent,
+    MapaUbicacionComponent
+  ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })

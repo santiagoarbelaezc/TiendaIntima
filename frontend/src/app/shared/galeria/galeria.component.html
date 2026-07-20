@@ -1,0 +1,35 @@
+<section class="space-y-8 py-8">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div>
+      <p class="text-xs uppercase tracking-[0.35em] text-[#EAC7D2] font-bold">Inspiración e Intimidad</p>
+      <h2 class="section-title mt-2 text-4xl lg:text-5xl text-[#111111]">Galería de Estilo y Descanso</h2>
+      <p class="text-sm text-black/60 mt-1 max-w-xl font-editorial">Una mirada a nuestros tejidos, caídas fluidas y momentos de calma en casa que inspiran cada pieza de la boutique.</p>
+    </div>
+    <a routerLink="/galeria" class="inline-flex items-center justify-center rounded-full border border-black/15 bg-white px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-[#111111] transition hover:bg-[#111111] hover:text-white">
+      Ver Galería Completa
+    </a>
+  </div>
+
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <a
+      *ngFor="let item of items"
+      [routerLink]="['/catalogo']"
+      [queryParams]="{ categoria: item.slug }"
+      class="group gallery-card relative overflow-hidden rounded-[32px] border border-black/10 bg-[#FAFAFA] shadow-soft aspect-[4/5] block"
+    >
+      <img [src]="item.imagen" [alt]="item.titulo" class="h-full w-full object-cover object-center transition duration-700 group-hover:scale-105">
+      
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-90 transition duration-500 group-hover:opacity-100 flex flex-col justify-end p-6 sm:p-8 text-white">
+        <span class="inline-block rounded-full bg-[#EAC7D2] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#111111] w-max mb-2">
+          {{ item.categoria }}
+        </span>
+        <h3 class="section-title text-2xl text-white tracking-wide group-hover:text-[#EAC7D2] transition-colors duration-300">
+          {{ item.titulo }}
+        </h3>
+        <span class="mt-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/70 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+          Explorar prendas &rarr;
+        </span>
+      </div>
+    </a>
+  </div>
+</section>

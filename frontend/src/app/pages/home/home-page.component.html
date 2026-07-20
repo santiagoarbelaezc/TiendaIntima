@@ -1,5 +1,10 @@
-<div class="flex flex-col gap-10 pb-6 xl:pb-8">
+<div class="flex flex-col gap-12 pb-10 xl:pb-16">
   <app-hero></app-hero>
+
+  <!-- Sección de Beneficios (Nuevo) -->
+  <div class="page-container">
+    <app-beneficios></app-beneficios>
+  </div>
 
   <!-- Banner Promocional de Registro -->
   <div class="page-container">
@@ -9,7 +14,7 @@
         <span class="inline-flex items-center gap-1.5 rounded-full bg-[#EAC7D2] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#111111] shadow-sm">
           Regalo de Bienvenida
         </span>
-        <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-[#111111] tracking-wide">
+        <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl leading-tight text-[#111111] tracking-wide">
           Regístrate para obtener <br class="hidden lg:block">los mejores descuentos
         </h2>
         <p class="text-sm sm:text-base text-black/65 max-w-2xl font-editorial leading-relaxed">
@@ -20,7 +25,7 @@
       <div class="relative z-10 flex-shrink-0">
         <a 
           routerLink="/registro" 
-          class="inline-flex h-14 items-center justify-center rounded-full bg-[#111111] px-10 text-xs font-bold uppercase tracking-[0.2em] text-white transition duration-300 hover:bg-[#EAC7D2] hover:text-[#111111] hover:scale-105 shadow-md"
+          class="inline-flex h-14 items-center justify-center rounded-full bg-[#111111] px-10 text-xs font-bold uppercase tracking-[0.2em] text-white transition duration-300 hover:bg-[#EAC7D2] hover:text-[#111111] hover:scale-105 shadow-md font-editorial"
         >
           Crear mi Cuenta
         </a>
@@ -28,71 +33,75 @@
     </div>
   </div>
 
-  <section class="page-container grid gap-4 md:grid-cols-3">
-    <a *ngFor="let category of categories()" [routerLink]="['/catalogo']" [queryParams]="{ categoria: category.slug }" class="overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-soft transition hover:-translate-y-1">
-      <img [src]="category.imagen" [alt]="category.nombre" class="h-72 w-full object-cover">
-      <div class="p-5">
-        <p class="text-xs uppercase tracking-[0.3em] text-black/45">{{ category.slug }}</p>
-        <h2 class="section-title mt-2 text-3xl text-[#111111]">{{ category.nombre }}</h2>
-        <p class="mt-3 text-sm leading-6 text-black/65">{{ category.descripcion }}</p>
+  <!-- Categorías Principales -->
+  <section class="page-container grid gap-6 md:grid-cols-3">
+    <a *ngFor="let category of categories()" [routerLink]="['/catalogo']" [queryParams]="{ categoria: category.slug }" class="group overflow-hidden rounded-[32px] border border-black/10 bg-white shadow-soft transition duration-500 hover:-translate-y-1 block">
+      <div class="h-72 w-full overflow-hidden bg-[#FAFAFA]">
+        <img [src]="category.imagen" [alt]="category.nombre" class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
+      </div>
+      <div class="p-6 sm:p-8">
+        <p class="text-xs uppercase tracking-[0.3em] text-[#EAC7D2] font-bold">{{ category.slug }}</p>
+        <h2 class="section-title mt-2 text-3xl text-[#111111] group-hover:text-[#EAC7D2] transition-colors">{{ category.nombre }}</h2>
+        <p class="mt-3 text-sm leading-6 text-black/65 font-editorial">{{ category.descripcion }}</p>
       </div>
     </a>
   </section>
 
-  <section class="page-container grid gap-5">
+  <!-- Favoritos de la comunidad -->
+  <section class="page-container grid gap-6">
     <div class="flex items-end justify-between gap-4">
       <div>
-        <p class="text-xs uppercase tracking-[0.35em] text-black/45">Más vendidos</p>
+        <p class="text-xs uppercase tracking-[0.35em] text-[#EAC7D2] font-bold">Más vendidos</p>
         <h2 class="section-title text-4xl text-[#111111]">Favoritos de la comunidad</h2>
       </div>
-      <a routerLink="/catalogo" class="text-sm font-semibold text-black/60 underline decoration-black/20 underline-offset-4">Ver todo</a>
+      <a routerLink="/catalogo" class="text-sm font-bold text-black/60 hover:text-[#111111] underline decoration-black/20 underline-offset-4 font-editorial">Ver todo</a>
     </div>
-    <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
       <app-product-card *ngFor="let product of featuredProducts()" [product]="product"></app-product-card>
     </div>
   </section>
 
-  <!-- Sección Lencería Erótica (Tema Oscuro) -->
-  <section class="bg-[#0A0A0A] text-white py-16 -mx-4 sm:-mx-8 lg:-mx-12 rounded-[40px] px-6 lg:px-12 border border-white/5 shadow-2xl">
-    <div class="page-container space-y-8">
+  <!-- Colección Íntima & Descanso (Reemplazo familiar de la antigua sección erótica) -->
+  <section class="page-container">
+    <div class="bg-[#FAFAFA] rounded-[40px] p-8 sm:p-12 lg:p-16 border border-black/10 shadow-soft space-y-10">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <p class="text-xs uppercase tracking-[0.4em] text-[#EAC7D2]">Sensualidad Exclusiva</p>
-          <h2 class="section-title mt-2 text-4xl lg:text-5xl font-extrabold font-serif-elegant italic tracking-wide text-white">Colección Lencería Íntima</h2>
-          <p class="text-sm text-white/50 mt-1 max-w-xl">Diseños eróticos en encaje fino, arneses y aberturas diseñadas para celebrar tu sensualidad sin límites.</p>
+          <p class="text-xs uppercase tracking-[0.4em] text-[#EAC7D2] font-bold">Comodidad con Intención</p>
+          <h2 class="section-title mt-2 text-4xl lg:text-5xl tracking-wide text-[#111111]">Colección Íntima & Descanso</h2>
+          <p class="text-sm text-black/65 mt-2 max-w-xl font-editorial">Tejidos de algodón nublado, encaje fino y satén diseñados para abrazar tu tranquilidad en casa y acompañarte en cada momento de paz.</p>
         </div>
-        <a routerLink="/catalogo" [queryParams]="{ categoria: 'lenceria' }" class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-[#111111] transition hover:bg-[#EAC7D2]">Ver Colección Completa</a>
+        <a routerLink="/catalogo" [queryParams]="{ categoria: 'ropa-interior' }" class="inline-flex items-center justify-center rounded-full bg-[#111111] px-8 py-3.5 text-xs font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#EAC7D2] hover:text-[#111111] font-editorial flex-shrink-0">Ver Colección Completa</a>
       </div>
 
-      <div class="grid gap-4 grid-cols-2 md:grid-cols-5">
-        <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] bg-white/5">
-          <img src="assets/images/card/t1.png" alt="Lencería 1" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+      <div class="grid gap-5 grid-cols-2 md:grid-cols-5">
+        <div class="group relative overflow-hidden rounded-[24px] aspect-[3/4] bg-white border border-black/5 shadow-sm">
+          <img src="assets/images/card/c1.png" alt="Prenda de Descanso 1" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
-            <p class="text-xs font-bold uppercase tracking-widest text-white">Conjunto Choker</p>
+            <p class="text-xs font-bold uppercase tracking-widest text-white font-editorial">Pijama Satén Blush</p>
           </div>
         </div>
-        <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] bg-white/5">
-          <img src="assets/images/card/t2.png" alt="Lencería 2" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+        <div class="group relative overflow-hidden rounded-[24px] aspect-[3/4] bg-white border border-black/5 shadow-sm">
+          <img src="assets/images/card/c2.png" alt="Prenda de Descanso 2" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
-            <p class="text-xs font-bold uppercase tracking-widest text-white">Bralette Encaje</p>
+            <p class="text-xs font-bold uppercase tracking-widest text-white font-editorial">Bralette Algodón</p>
           </div>
         </div>
-        <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] bg-white/5">
-          <img src="assets/images/card/t3.png" alt="Lencería 3" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+        <div class="group relative overflow-hidden rounded-[24px] aspect-[3/4] bg-white border border-black/5 shadow-sm">
+          <img src="assets/images/card/c3.png" alt="Prenda de Descanso 3" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
-            <p class="text-xs font-bold uppercase tracking-widest text-white">Seducción Vino</p>
+            <p class="text-xs font-bold uppercase tracking-widest text-white font-editorial">Set Descanso Suave</p>
           </div>
         </div>
-        <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] bg-white/5">
-          <img src="assets/images/card/t4.png" alt="Lencería 4" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+        <div class="group relative overflow-hidden rounded-[24px] aspect-[3/4] bg-white border border-black/5 shadow-sm">
+          <img src="assets/images/card/c4.png" alt="Prenda de Descanso 4" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
-            <p class="text-xs font-bold uppercase tracking-widest text-white">Lace Strappy</p>
+            <p class="text-xs font-bold uppercase tracking-widest text-white font-editorial">Bata Floral Calma</p>
           </div>
         </div>
-        <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] bg-white/5">
-          <img src="assets/images/card/t5.png" alt="Lencería 5" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+        <div class="group relative overflow-hidden rounded-[24px] aspect-[3/4] bg-white border border-black/5 shadow-sm">
+          <img src="assets/images/card/c5.png" alt="Prenda de Descanso 5" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
-            <p class="text-xs font-bold uppercase tracking-widest text-white">Tentación Azul</p>
+            <p class="text-xs font-bold uppercase tracking-widest text-white font-editorial">Top Encaje Crema</p>
           </div>
         </div>
       </div>
@@ -102,12 +111,12 @@
   <!-- Sección Para Él & Editorial de Pijamas -->
   <section class="page-container grid gap-8 md:grid-cols-2">
     <!-- Para Él -->
-    <div class="overflow-hidden rounded-[32px] border border-black/10 bg-white shadow-soft grid grid-cols-[1.1fr_0.9fr] items-center">
+    <div class="overflow-hidden rounded-[36px] border border-black/10 bg-white shadow-soft grid sm:grid-cols-[1.1fr_0.9fr] items-center">
       <div class="p-6 sm:p-8 lg:p-10 space-y-4">
-        <p class="text-xs uppercase tracking-[0.35em] text-black/45">Línea Masculina</p>
-        <h2 class="section-title text-3xl text-[#111111] leading-tight">Comodidad y Estilo Para Él</h2>
-        <p class="text-sm text-black/60 leading-relaxed font-editorial">Bóxers de algodón premium y prendas de descanso que combinan suavidad, libertad de movimiento y un ajuste impecable.</p>
-        <a routerLink="/catalogo" [queryParams]="{ categoria: 'hombre' }" class="inline-flex items-center justify-center rounded-full bg-[#111111] px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-white hover:bg-black/85 transition duration-300">Explorar</a>
+        <p class="text-xs uppercase tracking-[0.35em] text-[#EAC7D2] font-bold">Línea Masculina</p>
+        <h2 class="section-title text-3xl sm:text-4xl text-[#111111] leading-tight">Comodidad y Estilo Para Él</h2>
+        <p class="text-sm text-black/65 leading-relaxed font-editorial">Bóxers de algodón premium y prendas de descanso que combinan suavidad, libertad de movimiento y un ajuste impecable.</p>
+        <a routerLink="/catalogo" [queryParams]="{ categoria: 'hombre' }" class="inline-flex items-center justify-center rounded-full bg-[#111111] px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-white hover:bg-[#EAC7D2] hover:text-[#111111] transition duration-300 font-editorial">Explorar</a>
       </div>
       <div class="h-full min-h-[300px]">
         <img src="assets/images/card/h1.jpeg" alt="Para Él" class="h-full w-full object-cover object-top">
@@ -115,49 +124,67 @@
     </div>
 
     <!-- Editorial Pijamas -->
-    <div class="overflow-hidden rounded-[32px] border border-black/10 bg-[#FAFAFA] shadow-soft flex flex-col justify-between">
+    <div class="overflow-hidden rounded-[36px] border border-black/10 bg-[#FAFAFA] shadow-soft flex flex-col justify-between">
       <div class="p-6 sm:p-8 lg:p-10 space-y-4">
-        <p class="text-xs uppercase tracking-[0.35em] text-black/45">Boutique Lookbook</p>
-        <h2 class="section-title text-3xl text-[#111111] leading-tight">Nueva Temporada de Descanso</h2>
-        <p class="text-sm text-black/60 leading-relaxed font-editorial">Texturas fluidas de satén y algodón de tacto nublado diseñadas para tus mejores momentos de paz en casa.</p>
-        <a routerLink="/catalogo" [queryParams]="{ categoria: 'pijamas' }" class="text-sm font-bold text-black/60 hover:text-[#111111] underline decoration-black/20 underline-offset-4">Ver Pijamas de Lujo</a>
+        <p class="text-xs uppercase tracking-[0.35em] text-[#EAC7D2] font-bold">Boutique Lookbook</p>
+        <h2 class="section-title text-3xl sm:text-4xl text-[#111111] leading-tight">Nueva Temporada de Descanso</h2>
+        <p class="text-sm text-black/65 leading-relaxed font-editorial">Texturas fluidas de satén y algodón de tacto nublado diseñadas para tus mejores momentos de paz en casa.</p>
+        <a routerLink="/catalogo" [queryParams]="{ categoria: 'pijamas' }" class="text-sm font-bold text-black/60 hover:text-[#111111] underline decoration-black/20 underline-offset-4 font-editorial">Ver Pijamas de Lujo</a>
       </div>
-      <div class="grid grid-cols-2 gap-2 p-4 pt-0">
+      <div class="grid grid-cols-2 gap-3 p-6 pt-0">
         <div class="rounded-2xl overflow-hidden aspect-[4/5] bg-white shadow-sm border border-black/5">
-          <img src="assets/images/card/p1.jpeg" alt="Pijama Look 1" class="h-full w-full object-cover object-top transition duration-500 hover:scale-102">
+          <img src="assets/images/card/p1.jpeg" alt="Pijama Look 1" class="h-full w-full object-cover object-top transition duration-500 hover:scale-105">
         </div>
         <div class="rounded-2xl overflow-hidden aspect-[4/5] bg-white shadow-sm border border-black/5">
-          <img src="assets/images/card/p2.jpeg" alt="Pijama Look 2" class="h-full w-full object-cover object-top transition duration-500 hover:scale-102">
+          <img src="assets/images/card/p2.jpeg" alt="Pijama Look 2" class="h-full w-full object-cover object-top transition duration-500 hover:scale-105">
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Componente Galería (Nuevo) -->
+  <div class="page-container">
+    <app-galeria></app-galeria>
+  </div>
+
+  <!-- Componente Testimonios (Nuevo) -->
+  <div class="page-container">
+    <app-testimonios></app-testimonios>
+  </div>
+
+  <!-- Componente Aquí estamos ubicados - Google Maps (Nuevo) -->
+  <div class="page-container">
+    <app-mapa-ubicacion></app-mapa-ubicacion>
+  </div>
+
+  <!-- Banner Promocional -->
   <div class="page-container optimize-render">
     <app-banner-promocional
       title="Compra sets seleccionados y recibe envío a domicilio"
-      description="Beneficios activos para pedidos elegidos, con una experiencia de compra rápida y sin fricciones."
+      description="Beneficios activos para pedidos elegidos, con una experiencia de compra rápida y sin fricciones en toda Colombia."
       image="assets/images/banner-promo.png"
     ></app-banner-promocional>
   </div>
 
+  <!-- Sección Nosotros -->
   <div class="page-container optimize-render">
-    <section class="grid gap-8 rounded-[40px] border border-black/10 bg-white p-8 sm:p-12 md:p-16 md:grid-cols-[0.8fr_1.2fr]">
+    <section class="grid gap-8 rounded-[40px] border border-black/10 bg-white p-8 sm:p-12 md:p-16 md:grid-cols-[0.8fr_1.2fr] shadow-soft">
       <div>
-        <p class="text-xs uppercase tracking-[0.35em] text-black/45">Nosotros</p>
+        <p class="text-xs uppercase tracking-[0.35em] text-[#EAC7D2] font-bold">Nosotros</p>
         <h2 class="section-title mt-2 text-4xl text-[#111111] leading-tight">Una boutique cercana para momentos de descanso</h2>
       </div>
-      <div class="space-y-4 text-sm leading-relaxed text-black/65 font-editorial">
+      <div class="space-y-4 text-sm sm:text-base leading-relaxed text-black/65 font-editorial">
         <p>
           En Tiendaintima, creemos que la belleza de la moda interior reside en la perfecta armonía entre el diseño sutil y el bienestar diario. Nos dedicamos a seleccionar y confeccionar prendas de descanso y moda íntima con una curaduría profundamente enfocada en la suavidad, la funcionalidad y la feminidad contemporánea.
         </p>
         <p>
-          Cada una de nuestras piezas —desde la delicada lencería hasta nuestras icónicas pijamas de satén y algodón nublado— está pensada para acompañarte en tus rutinas reales, tardes tranquilas en casa y momentos de autocuidado. Creemos en la elegancia sin esfuerzo y en los detalles que transforman el descanso diario en una experiencia de lujo íntimo, convirtiendo cada compra en un regalo con intención para ti o para alguien especial.
+          Cada una de nuestras piezas —desde la delicada ropa interior hasta nuestras icónicas pijamas de satén y algodón nublado— está pensada para acompañarte en tus rutinas reales, tardes tranquilas en casa y momentos de autocuidado. Creemos en la elegancia sin esfuerzo y en los detalles que transforman el descanso diario en una experiencia de lujo íntimo.
         </p>
       </div>
     </section>
   </div>
 
+  <!-- Newsletter Signup -->
   <div class="page-container optimize-render">
     <app-newsletter-signup></app-newsletter-signup>
   </div>

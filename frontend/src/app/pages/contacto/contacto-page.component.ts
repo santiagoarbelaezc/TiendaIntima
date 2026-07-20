@@ -3,11 +3,12 @@ import { Component, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ButtonComponent } from '../../components/button/button.component';
+import { MapaUbicacionComponent } from '../../shared/mapa-ubicacion/mapa-ubicacion.component';
 
 @Component({
   selector: 'app-contacto-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
+  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, MapaUbicacionComponent],
   templateUrl: './contacto-page.component.html',
   styleUrl: './contacto-page.component.scss'
 })
