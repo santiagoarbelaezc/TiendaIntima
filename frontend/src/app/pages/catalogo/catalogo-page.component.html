@@ -1,9 +1,9 @@
 <div 
   [ngClass]="categoryQuery() === 'lenceria' ? 'bg-[#0A0A0A] text-white p-6 md:p-10 rounded-[32px] border border-white/5 shadow-2xl' : ''"
-  class="page-container space-y-8 py-8 xl:py-10 transition-all duration-500"
+  class="page-container-wide space-y-6 -mt-6 lg:-mt-8 pt-0 pb-12 xl:pb-16 transition-all duration-500"
 >
-  <!-- Barra horizontal de navegación por pestañas de categoría -->
-  <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none border-b border-black/10" [ngClass]="categoryQuery() === 'lenceria' ? 'border-white/10' : ''">
+  <!-- Barra horizontal de navegación por pestañas de categoría (sin scroll horizontal) -->
+  <div class="flex flex-wrap items-center justify-center gap-2.5 pb-4 border-b border-black/10" [ngClass]="categoryQuery() === 'lenceria' ? 'border-white/10' : ''">
     <button
       *ngFor="let tab of quickTabs"
       type="button"
@@ -17,10 +17,11 @@
     </button>
   </div>
 
-  <div class="grid gap-8 xl:grid-cols-[300px_1fr]">
+  <div class="grid gap-8 xl:grid-cols-[300px_1fr] items-start">
+    <!-- Panel lateral de Filtros Extendido hacia abajo sin scroll interno -->
     <aside 
       [ngClass]="categoryQuery() === 'lenceria' ? 'bg-white/5 border-white/10 text-white shadow-none' : 'bg-white border-black/10 text-[#111111] shadow-soft'"
-      class="space-y-6 rounded-[32px] border p-6 xl:sticky xl:top-28 xl:h-fit transition-colors duration-500"
+      class="space-y-6 rounded-[32px] border p-6 self-start xl:sticky xl:top-28 transition-colors duration-500"
     >
       <div>
         <p class="text-xs uppercase tracking-[0.35em]" [ngClass]="categoryQuery() === 'lenceria' ? 'text-white/40' : 'text-black/45'">Filtro</p>
@@ -31,7 +32,7 @@
         <span class="font-bold" [ngClass]="categoryQuery() === 'lenceria' ? 'text-white/80' : 'text-black/80'">Buscar</span>
         <input 
           [ngModel]="searchTerm()" 
-          (ngModelChange)="searchTerm.set($event)" 
+          (ngModelChange)="onSearchChange($event)" 
           [ngModelOptions]="{ standalone: true }" 
           type="search" 
           placeholder="Encuentra tu prenda..." 
@@ -50,15 +51,71 @@
           class="w-full rounded-full border px-4 py-3 outline-none transition text-sm font-medium"
         >
           <option value="all">Todas las categorías</option>
+          <option value="mujer">Mujer</option>
+          <option value="ropa-interior">Ropa interior</option>
+          <option value="pijamas">Pijamas</option>
+          <option value="lenceria">Lencería</option>
+          <option value="hombre">Hombre</option>
           <option *ngFor="let category of categories()" [value]="category.slug">{{ category.nombre }}</option>
         </select>
       </label>
+
+      <!-- Filtro por Talla -->
+      <div *ngIf="availableTallas().length > 0" class="space-y-2 text-sm font-editorial">
+        <span class="font-bold block" [ngClass]="categoryQuery() === 'lenceria' ? 'text-white/80' : 'text-black/80'">Talla</span>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button
+            *ngFor="let talla of availableTallas()"
+            type="button"
+            (click)="onTallaSelect(talla)"
+            [ngClass]="selectedTalla() === talla
+              ? (categoryQuery() === 'lenceria' ? 'bg-white text-[#111111] font-bold shadow-sm' : 'bg-[#111111] text-white font-bold shadow-sm')
+              : (categoryQuery() === 'lenceria' ? 'bg-white/5 text-white/70 hover:bg-white/15' : 'bg-white border border-black/15 text-black/70 hover:border-black/40')"
+            class="h-9 min-w-[36px] px-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition duration-200 flex items-center justify-center"
+          >
+            {{ talla }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Filtro por Color -->
+      <div *ngIf="availableColores().length > 0" class="space-y-2 text-sm font-editorial">
+        <span class="font-bold block" [ngClass]="categoryQuery() === 'lenceria' ? 'text-white/80' : 'text-black/80'">Color</span>
+        <div class="flex flex-wrap gap-2.5 pt-1">
+          <button
+            *ngFor="let c of availableColores()"
+            type="button"
+            (click)="onColorSelect(c.hex)"
+            [title]="c.nombre"
+            [ngClass]="selectedColor() === c.hex
+              ? 'ring-2 ring-[#EAC7D2] ring-offset-2 scale-110'
+              : 'hover:scale-105 opacity-85 hover:opacity-100'"
+            class="h-7 w-7 rounded-full border border-black/20 transition duration-200 flex items-center justify-center relative shadow-xs"
+            [style.background-color]="c.hex"
+          ></button>
+        </div>
+      </div>
+
+      <!-- Filtro por Tipo de Prenda / Subcategoría -->
+      <div *ngIf="availableTiposPrenda().length > 0" class="space-y-2 text-sm font-editorial">
+        <span class="font-bold block" [ngClass]="categoryQuery() === 'lenceria' ? 'text-white/80' : 'text-black/80'">Tipo de prenda</span>
+        <select
+          [ngModel]="selectedTipoPrenda()"
+          (ngModelChange)="onTipoPrendaChange($event)"
+          [ngModelOptions]="{ standalone: true }"
+          [ngClass]="categoryQuery() === 'lenceria' ? 'bg-[#141414] border-white/15 text-white focus:border-white/40' : 'bg-white border-black/10 text-[#111111] focus:border-[#111111]'"
+          class="w-full rounded-full border px-4 py-3 outline-none transition text-sm font-medium"
+        >
+          <option value="all">Todos los tipos</option>
+          <option *ngFor="let tipo of availableTiposPrenda()" [value]="tipo">{{ tipo }}</option>
+        </select>
+      </div>
 
       <label class="block space-y-2 text-sm font-editorial">
         <span class="font-bold" [ngClass]="categoryQuery() === 'lenceria' ? 'text-white/80' : 'text-black/80'">Ordenar</span>
         <select 
           [ngModel]="sortBy()" 
-          (ngModelChange)="sortBy.set($event)" 
+          (ngModelChange)="onSortChange($event)" 
           [ngModelOptions]="{ standalone: true }" 
           [ngClass]="categoryQuery() === 'lenceria' ? 'bg-[#141414] border-white/15 text-white focus:border-white/40' : 'bg-white border-black/10 text-[#111111] focus:border-[#111111]'"
           class="w-full rounded-full border px-4 py-3 outline-none transition text-sm font-medium"
@@ -69,6 +126,18 @@
           <option value="novedades">Novedades</option>
         </select>
       </label>
+
+      <!-- Botón Limpiar Filtros -->
+      <div *ngIf="searchTerm() || categoryFilter() !== 'all' || selectedTab() !== 'all' || selectedTalla() !== 'all' || selectedColor() !== 'all' || selectedTipoPrenda() !== 'all' || sortBy() !== 'relevancia'" class="pt-2">
+        <button
+          type="button"
+          (click)="clearFilters()"
+          class="w-full rounded-full border border-dashed border-[#EAC7D2] px-4 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-[#111111] transition hover:bg-[#EAC7D2] hover:text-[#111111]"
+          [ngClass]="categoryQuery() === 'lenceria' ? 'text-white hover:text-[#111111]' : ''"
+        >
+          &times; Limpiar todos los filtros
+        </button>
+      </div>
     </aside>
 
     <section class="space-y-6">
@@ -77,21 +146,64 @@
           <p class="text-xs uppercase tracking-[0.35em]" [ngClass]="categoryQuery() === 'lenceria' ? 'text-white/40' : 'text-black/45'">Productos</p>
           <h2 class="section-title text-4xl" [ngClass]="categoryQuery() === 'lenceria' ? 'text-white' : 'text-[#111111]'">Tu selección curada</h2>
         </div>
-        <p class="text-sm font-editorial font-semibold" [ngClass]="categoryQuery() === 'lenceria' ? 'text-white/60' : 'text-black/60'">{{ filteredProducts().length }} productos encontrados</p>
+        <p class="text-sm font-editorial font-semibold" [ngClass]="categoryQuery() === 'lenceria' ? 'text-white/60' : 'text-black/60'">
+          {{ filteredProducts().length }} productos encontrados
+        </p>
       </div>
 
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- Grilla de 4 tarjetas por nivel (xl:grid-cols-4) con paginación -->
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <app-product-card 
-          *ngFor="let product of filteredProducts()" 
+          *ngFor="let product of paginatedProducts()" 
           [product]="product"
           [theme]="categoryQuery() === 'lenceria' ? 'dark' : 'light'"
         ></app-product-card>
       </div>
 
+      <!-- Controles de Paginación -->
+      <div *ngIf="totalPages() > 1 && filteredProducts().length > 0" class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-black/10" [ngClass]="categoryQuery() === 'lenceria' ? 'border-white/10' : ''">
+        <p class="text-xs font-editorial text-black/60" [ngClass]="categoryQuery() === 'lenceria' ? 'text-white/60' : ''">
+          Mostrando página <strong class="font-bold">{{ currentPage() }}</strong> de <strong class="font-bold">{{ totalPages() }}</strong> ({{ filteredProducts().length }} productos en total)
+        </p>
+        <div class="flex items-center gap-1.5">
+          <button
+            type="button"
+            (click)="prevPage()"
+            [disabled]="currentPage() === 1"
+            [ngClass]="currentPage() === 1 ? 'opacity-40 cursor-not-allowed' : 'hover:bg-black/5'"
+            class="px-4 py-2 rounded-full border border-black/15 text-xs font-bold uppercase tracking-wider transition duration-200"
+          >
+            &larr; Anterior
+          </button>
+          
+          <button
+            *ngFor="let pageNum of pagesArray"
+            type="button"
+            (click)="setPage(pageNum)"
+            [ngClass]="currentPage() === pageNum
+              ? (categoryQuery() === 'lenceria' ? 'bg-white text-[#111111] font-bold shadow-sm' : 'bg-[#111111] text-white font-bold shadow-soft')
+              : (categoryQuery() === 'lenceria' ? 'bg-white/5 text-white/70 hover:bg-white/15' : 'bg-white border border-black/15 text-black/70 hover:border-black/40')"
+            class="h-9 w-9 rounded-full text-xs font-semibold transition duration-200 flex items-center justify-center"
+          >
+            {{ pageNum }}
+          </button>
+
+          <button
+            type="button"
+            (click)="nextPage()"
+            [disabled]="currentPage() === totalPages()"
+            [ngClass]="currentPage() === totalPages() ? 'opacity-40 cursor-not-allowed' : 'hover:bg-black/5'"
+            class="px-4 py-2 rounded-full border border-black/15 text-xs font-bold uppercase tracking-wider transition duration-200"
+          >
+            Siguiente &rarr;
+          </button>
+        </div>
+      </div>
+
       <app-empty-state
         *ngIf="filteredProducts().length === 0"
         title="No encontramos resultados"
-        description="Prueba ajustando los filtros de búsqueda, categoría o precio para descubrir otras piezas de la colección."
+        description="Prueba ajustando los filtros de búsqueda, categoría, talla o color para descubrir otras piezas de la colección."
         actionLabel="Ver todos los productos"
         actionRoute="/catalogo"
       ></app-empty-state>
