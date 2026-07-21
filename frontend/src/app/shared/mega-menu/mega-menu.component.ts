@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import type { Categoria } from '../../models/categoria';
@@ -14,6 +14,7 @@ import type { Categoria } from '../../models/categoria';
 export class MegaMenuComponent {
   @Input() categories: Categoria[] = [];
   @Input() activeSlug = '';
+  @Output() itemClick = new EventEmitter<void>();
 
   get highlightImage(): string {
     const activeCategory = this.categories.find((category) => category.slug === this.activeSlug);

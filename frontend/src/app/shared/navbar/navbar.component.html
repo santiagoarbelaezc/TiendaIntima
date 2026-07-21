@@ -46,7 +46,7 @@
   </div>
 
   <div *ngIf="showMegaMenu()" class="page-container hidden pb-4 lg:block" (mouseenter)="openMegaMenu('all')" (mouseleave)="scheduleCloseMegaMenu()">
-    <app-mega-menu [categories]="categories()" [activeSlug]="activeMegaMenu()"></app-mega-menu>
+    <app-mega-menu [categories]="categories()" [activeSlug]="activeMegaMenu()" (itemClick)="closeMegaMenu()"></app-mega-menu>
   </div>
 </header>
 

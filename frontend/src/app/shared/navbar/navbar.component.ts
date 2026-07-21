@@ -39,6 +39,7 @@ export class NavbarComponent implements OnDestroy {
       const url = event.urlAfterRedirects || event.url || '';
       this.isDarkBackgroundPage.set(url === '/' || url === '' || url === '/lenceria' || url === '/#');
       this.mobileMenuOpen.set(false);
+      this.closeMegaMenu();
     });
   }
 
