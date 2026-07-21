@@ -23,10 +23,15 @@ export class CatalogoPageComponent {
   private readonly router = inject(Router);
   private readonly productosService = inject(ProductosService);
 
-  readonly categoryQuery = toSignal(this.route.queryParamMap.pipe(map((params) => params.get('categoria') ?? '')), { initialValue: '' });
-  readonly filterQuery = toSignal(this.route.queryParamMap.pipe(map((params) => params.get('filter') ?? '')), { initialValue: '' });
+  readonly categoryQuery = signal<string>('');
+  readonly filterQuery = signal<string>('');
   readonly products = toSignal(this.productosService.getProductos(), { initialValue: [] as Producto[] });
   readonly categories = toSignal(this.productosService.getCategorias(), { initialValue: [] as Categoria[] });
+
+  readonly extraCategories = computed(() => {
+    const mainSlugs = ['all', 'mujer', 'ropa-interior', 'pijamas', 'lenceria', 'hombre'];
+    return this.categories().filter((cat) => !mainSlugs.includes(cat.slug));
+  });
 
   readonly searchTerm = signal('');
   readonly categoryFilter = signal('all');
@@ -220,9 +225,12 @@ export class CatalogoPageComponent {
   }
 
   constructor() {
-    effect(() => {
-      const selectedCategory = this.categoryQuery();
-      const selectedFilter = this.filterQuery();
+    this.route.queryParamMap.subscribe((params) => {
+      const selectedCategory = params.get('categoria') ?? '';
+      const selectedFilter = params.get('filter') ?? '';
+
+      this.categoryQuery.set(selectedCategory);
+      this.filterQuery.set(selectedFilter);
 
       if (selectedFilter === 'nuevo') {
         this.selectedTab.set('novedades');

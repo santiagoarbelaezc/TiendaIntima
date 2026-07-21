@@ -48,11 +48,14 @@
           (ngModelChange)="onCategoryChange($event)" 
           [ngModelOptions]="{ standalone: true }" 
           [ngClass]="categoryQuery() === 'lenceria' ? 'bg-[#141414] border-white/15 text-white focus:border-white/40' : 'bg-white border-black/10 text-[#111111] focus:border-[#111111]'"
-          class="w-full rounded-full border px-4 py-3 outline-none transition text-sm font-medium"
-        >
+          class="w-full rounded-full border px-4 py-3 outline-none transition text-sm font-medium">
           <option value="all">Todas las categorías</option>
           <option value="mujer">Mujer</option>
-          <option *ngFor="let category of categories()" [value]="category.slug">{{ category.nombre }}</option>
+          <option value="ropa-interior">Ropa interior</option>
+          <option value="pijamas">Pijamas</option>
+          <option value="lenceria">Lencería</option>
+          <option value="hombre">Hombre</option>
+          <option *ngFor="let category of extraCategories()" [value]="category.slug">{{ category.nombre }}</option>
         </select>
       </label>
 
