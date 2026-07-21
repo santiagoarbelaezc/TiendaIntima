@@ -8,7 +8,7 @@
         <p class="section-title text-4xl tracking-tight">Tiendaintima</p>
       </span>
       <p class="text-sm leading-7 text-white/70 font-editorial">
-        Moda íntima, pijamas y prendas de descanso pensadas para brindarte suavidad, elegancia cotidiana y bienestar en casa. Boutique física y envíos a toda Colombia.
+        Moda íntima, pijamas y prendas de descanso pensadas para brindarte suavidad, elegancia cotidiana y bienestar en casa. Boutique física en Calarcá, Quindío y servicio exclusivo de envíos locales a domicilio.
       </p>
       <div class="flex items-center gap-3 pt-2">
         <a *ngFor="let item of socialLinks" [href]="item.href" target="_blank" rel="noreferrer" class="inline-flex h-9 px-4 items-center justify-center rounded-full bg-white/10 text-xs font-semibold hover:bg-[#EAC7D2] hover:text-[#111111] transition duration-300">
@@ -22,10 +22,11 @@
       <p class="text-xs uppercase tracking-[0.3em] text-[#EAC7D2] font-bold">Explora</p>
       <ul class="mt-4 space-y-3 text-sm text-white/75 font-editorial">
         <li><a routerLink="/" class="transition hover:text-white">Inicio</a></li>
+        <li><a routerLink="/catalogo" class="transition hover:text-white">Catálogo General</a></li>
         <li><a routerLink="/catalogo" [queryParams]="{ categoria: 'ropa-interior' }" class="transition hover:text-white">Ropa interior</a></li>
         <li><a routerLink="/catalogo" [queryParams]="{ categoria: 'pijamas' }" class="transition hover:text-white">Pijamas</a></li>
+        <li><a routerLink="/catalogo" [queryParams]="{ categoria: 'hombre' }" class="transition hover:text-white">Hombre</a></li>
         <li><a routerLink="/galeria" class="transition hover:text-white">Galería de Colección</a></li>
-        <li *ngFor="let item of footerLinks"><a [routerLink]="item.path" class="transition hover:text-white">{{ item.label }}</a></li>
       </ul>
     </div>
 
@@ -42,7 +43,7 @@
     <!-- Columna 4: Ubicación y Horarios -->
     <div class="space-y-3 text-sm text-white/75 font-editorial">
       <p class="text-xs uppercase tracking-[0.3em] text-[#EAC7D2] font-bold">Boutique & Atención</p>
-      <p class="pt-1"><strong class="text-white font-semibold">Dirección:</strong> Pereira, Risaralda / Eje Cafetero, Colombia.</p>
+      <p class="pt-1"><strong class="text-white font-semibold">Dirección:</strong> Cr. 25, Cl. 32 #Local 3, Calarcá, Quindío, Colombia.</p>
       <p><strong class="text-white font-semibold">Horario:</strong> Lunes a Sábado de 9:00 AM a 7:00 PM.</p>
       <p><strong class="text-white font-semibold">WhatsApp:</strong> +57 300 123 4567</p>
       <div class="pt-2">

@@ -19,7 +19,8 @@
         <p class="text-xs uppercase tracking-[0.35em] text-black/45">{{ product()?.categoriaNombre }}</p>
         <h1 class="section-title text-5xl text-[#111111]">{{ product()?.nombre }}</h1>
         <app-rating-stars [rating]="product()?.calificacion ?? 0" [reviewCount]="product()?.resenas ?? 0"></app-rating-stars>
-        <app-price-tag [price]="product()?.precio ?? 0" [previousPrice]="product()?.precioAnterior"></app-price-tag>
+        <!-- Precio desactivado temporalmente según solicitud -->
+        <!-- <app-price-tag [price]="product()?.precio ?? 0" [previousPrice]="product()?.precioAnterior"></app-price-tag> -->
       </div>
 
       <p class="text-sm leading-7 text-black/65">{{ product()?.descripcion }}</p>

@@ -24,9 +24,7 @@ export const socialLinks = [
 export const footerLinks = [
   { label: 'Nosotros', path: '/nosotros' },
   { label: 'Contacto', path: '/contacto' },
-  { label: 'Galería', path: '/galeria' },
-  { label: 'Mi cuenta', path: '/mi-cuenta' },
-  { label: 'Carrito', path: '/carrito' }
+  { label: 'Galería', path: '/galeria' }
 ];
 
 export const legalLinks = [

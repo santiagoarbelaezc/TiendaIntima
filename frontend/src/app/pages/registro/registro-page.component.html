@@ -1,15 +1,193 @@
-<div class="mx-auto flex max-w-xl flex-col gap-6 px-4 py-8 md:px-6 xl:py-12">
-  <div class="space-y-3 text-center">
-    <p class="text-xs uppercase tracking-[0.35em] text-black/45">Registro</p>
-    <h1 class="section-title text-5xl text-[#111111]">Crea tu cuenta</h1>
-  </div>
+<div class="page-container-wide min-h-[calc(100vh-5.5rem)] -mt-6 lg:-mt-8 pt-0 pb-12 flex items-center">
+  <div class="w-full grid gap-8 lg:grid-cols-12 items-stretch rounded-[36px] border border-black/10 bg-white shadow-2xl overflow-hidden">
+    
+    <!-- PANEL IZQUIERDO: Carrusel Editorial & Citas Dinámicas -->
+    <div class="relative hidden lg:flex lg:col-span-6 xl:col-span-7 flex-col justify-end p-10 xl:p-14 min-h-[600px] bg-[#111111] text-white overflow-hidden select-none">
+      <!-- Imágenes del Carrusel con fade de transición -->
+      <div *ngFor="let slide of slides; let i = index" 
+           class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+           [ngClass]="activeSlide() === i ? 'opacity-100 z-10' : 'opacity-0 z-0'">
+        <img [src]="slide.image" [alt]="slide.title" class="w-full h-full object-cover">
+        <!-- Gradiente de oscurecimiento para legibilidad y elegancia -->
+        <div class="absolute inset-0 bg-gradient-to-t from-[#111111] via-[#111111]/40 to-transparent"></div>
+      </div>
 
-  <form class="space-y-4 rounded-[32px] border border-black/10 bg-white p-6 shadow-soft" [formGroup]="form" (ngSubmit)="submit()">
-    <label class="block space-y-2 text-sm"><span class="font-semibold">Nombre</span><input formControlName="nombre" class="w-full rounded-full border border-black/10 px-4 py-3"></label>
-    <label class="block space-y-2 text-sm"><span class="font-semibold">Correo</span><input formControlName="email" type="email" class="w-full rounded-full border border-black/10 px-4 py-3"></label>
-    <label class="block space-y-2 text-sm"><span class="font-semibold">Teléfono</span><input formControlName="telefono" class="w-full rounded-full border border-black/10 px-4 py-3"></label>
-    <label class="block space-y-2 text-sm"><span class="font-semibold">Contraseña</span><input formControlName="password" type="password" class="w-full rounded-full border border-black/10 px-4 py-3"></label>
-    <p class="text-sm text-green-700" *ngIf="successMessage()">{{ successMessage() }}</p>
-    <app-button type="submit">Crear cuenta</app-button>
-  </form>
+      <!-- Contenido de la Slide Activa -->
+      <div class="relative z-20 space-y-4 max-w-xl animate-fade-in">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold uppercase tracking-[0.25em] text-[#EAC7D2]">
+          Boutique Exclusiva
+        </div>
+        <h2 class="section-title text-3xl xl:text-4xl leading-tight text-white drop-shadow-md">
+          {{ slides[activeSlide()].title }}
+        </h2>
+        <p class="font-editorial text-base xl:text-lg text-white/85 leading-relaxed drop-shadow-sm">
+          "{{ slides[activeSlide()].message }}"
+        </p>
+      </div>
+
+      <!-- Indicadores de diapositiva (dots) y controles discretos -->
+      <div class="relative z-20 flex items-center justify-between pt-8 mt-6 border-t border-white/15">
+        <div class="flex items-center gap-2.5">
+          <button *ngFor="let slide of slides; let i = index"
+                  type="button"
+                  (click)="goToSlide(i)"
+                  [title]="'Ir a diapositiva ' + (i + 1)"
+                  class="h-2 rounded-full transition-all duration-300"
+                  [ngClass]="activeSlide() === i ? 'w-8 bg-[#EAC7D2]' : 'w-2 bg-white/40 hover:bg-white/70'">
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button type="button" (click)="prevSlide()" class="h-9 w-9 rounded-full border border-white/20 hover:border-white/60 text-white flex items-center justify-center transition duration-200 hover:bg-white/10" title="Anterior">
+            &larr;
+          </button>
+          <button type="button" (click)="nextSlide()" class="h-9 w-9 rounded-full border border-white/20 hover:border-white/60 text-white flex items-center justify-center transition duration-200 hover:bg-white/10" title="Siguiente">
+            &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL DERECHO: Formularios Interactivos (Login / Registro / Recuperación) -->
+    <div class="lg:col-span-6 xl:col-span-5 flex flex-col justify-center p-6 sm:p-10 md:p-12 xl:p-14 bg-white">
+      
+      <!-- Selector superior entre Iniciar Sesión y Crear Cuenta (sólo en modos login y registro) -->
+      <div *ngIf="mode() !== 'recuperar'" class="flex rounded-full bg-black/5 p-1 mb-8 w-full">
+        <button
+          type="button"
+          (click)="setMode('login')"
+          [ngClass]="mode() === 'login' ? 'bg-[#111111] text-white shadow-md font-bold' : 'text-black/70 hover:text-black font-semibold'"
+          class="flex-1 rounded-full py-3 text-xs uppercase tracking-[0.18em] transition-all duration-300"
+        >
+          Iniciar sesión
+        </button>
+        <button
+          type="button"
+          (click)="setMode('registro')"
+          [ngClass]="mode() === 'registro' ? 'bg-[#111111] text-white shadow-md font-bold' : 'text-black/70 hover:text-black font-semibold'"
+          class="flex-1 rounded-full py-3 text-xs uppercase tracking-[0.18em] transition-all duration-300"
+        >
+          Crear cuenta
+        </button>
+      </div>
+
+      <!-- VISTA 1: INICIAR SESIÓN -->
+      <div *ngIf="mode() === 'login'" class="space-y-6 animate-fade-in">
+        <div class="space-y-2">
+          <p class="text-xs uppercase tracking-[0.3em] text-[#EAC7D2] font-bold">Bienvenida de nuevo</p>
+          <h1 class="section-title text-4xl text-[#111111]">Ingresa a tu cuenta</h1>
+          <p class="text-sm text-black/60 font-editorial">Accede a tus pedidos, beneficios y descuentos reservados para miembros.</p>
+        </div>
+
+        <form class="space-y-4 pt-2" [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+          <label class="block space-y-2 text-sm font-editorial">
+            <span class="font-bold text-[#111111]">Correo electrónico</span>
+            <input formControlName="email" type="email" placeholder="ejemplo@correo.com" class="w-full rounded-full border border-black/15 bg-black/[0.02] px-5 py-3.5 text-sm outline-none transition focus:border-[#111111] focus:bg-white">
+          </label>
+          
+          <label class="block space-y-2 text-sm font-editorial">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-[#111111]">Contraseña</span>
+              <button type="button" (click)="setMode('recuperar')" class="text-xs font-semibold text-[#111111]/70 hover:text-[#111111] underline underline-offset-4 transition">
+                ¿Olvidaste tu contraseña?
+              </button>
+            </div>
+            <input formControlName="password" type="password" placeholder="••••••••" class="w-full rounded-full border border-black/15 bg-black/[0.02] px-5 py-3.5 text-sm outline-none transition focus:border-[#111111] focus:bg-white">
+          </label>
+
+          <p class="text-sm text-red-600 font-medium pt-1" *ngIf="errorMessage()">{{ errorMessage() }}</p>
+
+          <div class="pt-2">
+            <app-button type="submit" class="w-full">
+              Ingresar a mi cuenta
+            </app-button>
+          </div>
+
+          <p class="text-center text-xs text-black/55 pt-4">
+            ¿Aún no formas parte? 
+            <button type="button" (click)="setMode('registro')" class="font-bold text-[#111111] underline decoration-black/30 underline-offset-4 hover:decoration-black">
+              Regístrate y obtén descuentos
+            </button>
+          </p>
+        </form>
+      </div>
+
+      <!-- VISTA 2: REGISTRO -->
+      <div *ngIf="mode() === 'registro'" class="space-y-6 animate-fade-in">
+        <div class="space-y-2">
+          <p class="text-xs uppercase tracking-[0.3em] text-[#EAC7D2] font-bold">Únete hoy</p>
+          <h1 class="section-title text-4xl text-[#111111]">Crea tu cuenta íntima</h1>
+          <p class="text-sm text-black/60 font-editorial">Recibe un 10% de descuento de cortesía en tu primera orden al completar tu registro.</p>
+        </div>
+
+        <form class="space-y-4 pt-2" [formGroup]="registerForm" (ngSubmit)="submitRegister()">
+          <label class="block space-y-2 text-sm font-editorial">
+            <span class="font-bold text-[#111111]">Nombre completo</span>
+            <input formControlName="nombre" placeholder="Tu nombre" class="w-full rounded-full border border-black/15 bg-black/[0.02] px-5 py-3.5 text-sm outline-none transition focus:border-[#111111] focus:bg-white">
+          </label>
+
+          <label class="block space-y-2 text-sm font-editorial">
+            <span class="font-bold text-[#111111]">Correo electrónico</span>
+            <input formControlName="email" type="email" placeholder="ejemplo@correo.com" class="w-full rounded-full border border-black/15 bg-black/[0.02] px-5 py-3.5 text-sm outline-none transition focus:border-[#111111] focus:bg-white">
+          </label>
+
+          <label class="block space-y-2 text-sm font-editorial">
+            <span class="font-bold text-[#111111]">Teléfono móvil</span>
+            <input formControlName="telefono" placeholder="+57 300 000 0000" class="w-full rounded-full border border-black/15 bg-black/[0.02] px-5 py-3.5 text-sm outline-none transition focus:border-[#111111] focus:bg-white">
+          </label>
+
+          <label class="block space-y-2 text-sm font-editorial">
+            <span class="font-bold text-[#111111]">Crea una contraseña</span>
+            <input formControlName="password" type="password" placeholder="Mínimo 6 caracteres" class="w-full rounded-full border border-black/15 bg-black/[0.02] px-5 py-3.5 text-sm outline-none transition focus:border-[#111111] focus:bg-white">
+          </label>
+
+          <p class="text-sm text-green-700 font-medium pt-1" *ngIf="successMessage()">{{ successMessage() }}</p>
+
+          <div class="pt-2">
+            <app-button type="submit" class="w-full">
+              Crear mi cuenta y acceder
+            </app-button>
+          </div>
+
+          <p class="text-center text-xs text-black/55 pt-4">
+            ¿Ya tienes una cuenta con nosotros? 
+            <button type="button" (click)="setMode('login')" class="font-bold text-[#111111] underline decoration-black/30 underline-offset-4 hover:decoration-black">
+              Inicia sesión aquí
+            </button>
+          </p>
+        </form>
+      </div>
+
+      <!-- VISTA 3: RECUPERACIÓN DE CONTRASEÑA -->
+      <div *ngIf="mode() === 'recuperar'" class="space-y-6 animate-fade-in">
+        <div class="space-y-2">
+          <p class="text-xs uppercase tracking-[0.3em] text-[#EAC7D2] font-bold">Seguridad</p>
+          <h1 class="section-title text-4xl text-[#111111]">Recuperar contraseña</h1>
+          <p class="text-sm text-black/60 font-editorial">Ingresa tu correo electrónico y te enviaremos un enlace confidencial para restablecer tu contraseña.</p>
+        </div>
+
+        <form class="space-y-5 pt-2" [formGroup]="recoveryForm" (ngSubmit)="submitRecovery()">
+          <label class="block space-y-2 text-sm font-editorial">
+            <span class="font-bold text-[#111111]">Correo registrado</span>
+            <input formControlName="email" type="email" placeholder="tu@correo.com" class="w-full rounded-full border border-black/15 bg-black/[0.02] px-5 py-3.5 text-sm outline-none transition focus:border-[#111111] focus:bg-white">
+          </label>
+
+          <div *ngIf="recoveryMessage()" class="p-4 rounded-2xl bg-[#EAC7D2]/20 border border-[#EAC7D2] text-sm text-[#111111] font-editorial leading-relaxed">
+            {{ recoveryMessage() }}
+          </div>
+
+          <div class="pt-2 space-y-3">
+            <app-button type="submit" class="w-full">
+              Enviar enlace de recuperación
+            </app-button>
+
+            <button type="button" (click)="setMode('login')" class="w-full rounded-full border border-black/15 py-3 text-xs font-bold uppercase tracking-[0.18em] text-[#111111] transition hover:bg-black/5">
+              &larr; Volver a iniciar sesión
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
 </div>

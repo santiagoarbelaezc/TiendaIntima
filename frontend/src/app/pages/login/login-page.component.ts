@@ -31,17 +31,17 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   readonly slides: AuthSlide[] = [
     {
-      image: 'assets/images/hero_interior_1.png',
+      image: 'assets/images/hero_novedades_1.png',
       title: 'Comunidad Tiendaintima',
       message: 'Ingresa con nosotros para obtener descuentos exclusivos'
     },
     {
-      image: 'assets/images/hero_pijamas_1.png',
+      image: 'assets/images/pijamas-hero-2.png',
       title: 'Beneficios de Bienvenida',
       message: 'Regístrate en Tienda Intima para obtener descuentos exclusivos'
     },
     {
-      image: 'assets/images/galeria_1.png',
+      image: 'assets/images/galeria_4.png',
       title: 'Elegancia & Descanso',
       message: 'Tejidos nobles, satén de seda y algodón nublado pensados para tus momentos de paz y autocuidado en casa.'
     }
