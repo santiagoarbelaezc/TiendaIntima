@@ -4,7 +4,7 @@
 >
   <div class="page-container flex items-center justify-between gap-4">
     <a routerLink="/" class="flex items-center gap-3">
-      <span class="flex h-10 w-10 items-center justify-center rounded-full bg-current text-white font-bold transition-colors duration-300" [ngClass]="(!isDarkBackgroundPage() || scrolled()) ? 'text-[#111111] bg-[#111111] text-white' : 'text-white bg-white text-[#111111]'">T</span>
+      <img src="assets/icons/logo-tiendaintimanavbar.png" [alt]="brandName" class="h-10 w-auto object-contain transition-all duration-300" />
       <div>
         <p class="section-title text-2xl leading-none transition-colors duration-300" [ngClass]="(!isDarkBackgroundPage() || scrolled()) ? 'text-[#111111]' : 'text-white'">{{ brandName }}</p>
         <p class="text-[11px] uppercase tracking-[0.28em] opacity-60">Moda íntima y descanso</p>
@@ -65,7 +65,7 @@
     <!-- Header del Drawer -->
     <div class="flex items-center justify-between p-5 border-b border-black/8">
       <div class="flex items-center gap-2.5">
-        <span class="flex h-8 w-8 items-center justify-center rounded-full bg-[#111111] text-white font-bold text-sm">T</span>
+        <img src="assets/icons/logo-tiendaintimanavbar.png" [alt]="brandName" class="h-8 w-auto object-contain" />
         <div>
           <p class="section-title text-xl leading-none text-[#111111]">{{ brandName }}</p>
           <p class="text-[9px] uppercase tracking-[0.25em] opacity-60">Moda íntima</p>
