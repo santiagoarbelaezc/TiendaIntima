@@ -6,11 +6,12 @@ import { filter } from 'rxjs/operators';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { TopBarPromocionalComponent } from './shared/top-bar-promocional/top-bar-promocional.component';
+import { MobileBottomNavComponent } from './shared/mobile-bottom-nav/mobile-bottom-nav.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, TopBarPromocionalComponent, NavbarComponent, FooterComponent],
+  imports: [CommonModule, RouterOutlet, TopBarPromocionalComponent, NavbarComponent, FooterComponent, MobileBottomNavComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

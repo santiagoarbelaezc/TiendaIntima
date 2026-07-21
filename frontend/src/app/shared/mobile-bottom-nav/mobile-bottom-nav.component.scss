@@ -1,0 +1,13 @@
+.active-tab {
+  color: #111111 !important;
+  font-weight: 700;
+
+  .indicator {
+    opacity: 1 !important;
+    transform: scale(1.2);
+  }
+
+  svg {
+    stroke-width: 2.2px;
+  }
+}

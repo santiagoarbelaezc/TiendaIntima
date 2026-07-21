@@ -26,13 +26,13 @@
     </div>
   </div>
 
-  <!-- Grilla de las 4 Categorías -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+  <!-- Grilla / Scroll de las 4 Categorías -->
+  <div class="flex overflow-x-auto gap-4 snap-x snap-mandatory pb-4 lg:grid lg:grid-cols-4 lg:gap-8 no-scrollbar">
     <a 
       *ngFor="let cat of categorias" 
       [routerLink]="['/catalogo']" 
       [queryParams]="{ categoria: cat.slug }" 
-      class="group relative aspect-[3/4] overflow-hidden rounded-2xl sm:rounded-[20px] bg-[#FAFAFA] border border-black/10 shadow-soft transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl block cursor-pointer"
+      class="group relative aspect-[3/4] w-[78vw] sm:w-auto flex-shrink-0 lg:flex-shrink snap-center overflow-hidden rounded-2xl sm:rounded-[20px] bg-[#FAFAFA] border border-black/10 shadow-soft transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl block cursor-pointer"
     >
       <!-- Imagen de fondo con zoom suave -->
       <img 

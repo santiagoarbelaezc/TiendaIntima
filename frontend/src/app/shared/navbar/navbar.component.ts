@@ -5,7 +5,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs/operators';
 
 import { ProductosService } from '../../services/productos.service';
-import { brandName, navigationItems } from '../../core/constants/brand.constants';
+import { brandName, navigationItems, socialLinks } from '../../core/constants/brand.constants';
 import { MegaMenuComponent } from '../mega-menu/mega-menu.component';
 import type { Categoria } from '../../models/categoria';
 
@@ -21,6 +21,7 @@ export class NavbarComponent implements OnDestroy {
   private readonly router = inject(Router);
   readonly brandName = brandName;
   readonly navigationItems = navigationItems;
+  readonly socialLinks = socialLinks;
   readonly categories = toSignal(this.productosService.getCategorias(), { initialValue: [] as Categoria[] });
   readonly mobileMenuOpen = signal(false);
   readonly activeMegaMenu = signal('');
@@ -37,6 +38,7 @@ export class NavbarComponent implements OnDestroy {
     ).subscribe((event: any) => {
       const url = event.urlAfterRedirects || event.url || '';
       this.isDarkBackgroundPage.set(url === '/' || url === '' || url === '/lenceria' || url === '/#');
+      this.mobileMenuOpen.set(false);
     });
   }
 

@@ -3,13 +3,6 @@
   class="fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 backdrop-blur-md"
 >
   <div class="page-container flex items-center justify-between gap-4">
-    <button type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-current/20 lg:hidden" (click)="toggleMobileMenu()">
-      <span class="sr-only">Abrir menú</span>
-      <span class="block h-px w-5 bg-current"></span>
-      <span class="mt-1 block h-px w-5 bg-current"></span>
-      <span class="mt-1 block h-px w-5 bg-current"></span>
-    </button>
-
     <a routerLink="/" class="flex items-center gap-3">
       <span class="flex h-10 w-10 items-center justify-center rounded-full bg-current text-white font-bold transition-colors duration-300" [ngClass]="(!isDarkBackgroundPage() || scrolled()) ? 'text-[#111111] bg-[#111111] text-white' : 'text-white bg-white text-[#111111]'">T</span>
       <div>
@@ -34,13 +27,22 @@
       </a>
     </nav>
 
-    <div class="flex items-center gap-2">
-      <a routerLink="/login" class="hidden rounded-full border border-current/20 p-3 text-sm font-medium opacity-85 transition hover:opacity-100 hover:border-current/40 md:inline-flex">Mi cuenta</a>
+    <div class="hidden items-center gap-2 lg:flex">
+      <a routerLink="/login" class="rounded-full border border-current/20 p-3 text-sm font-medium opacity-85 transition hover:opacity-100 hover:border-current/40 md:inline-flex">Mi cuenta</a>
       <a routerLink="/carrito" class="relative inline-flex rounded-full border border-current/20 p-3 text-sm font-medium opacity-85 transition hover:opacity-100 hover:border-current/40">
         Carrito
         <span class="ml-2 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-[#EAC7D2] px-1 text-[11px] font-semibold text-[#111111]">0</span>
       </a>
     </div>
+
+    <button type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-current/20 lg:hidden" (click)="toggleMobileMenu()">
+      <span class="sr-only">Abrir menú</span>
+      <div class="flex flex-col gap-1.5 items-center">
+        <span class="block h-0.5 w-5 bg-current transition-transform duration-300"></span>
+        <span class="block h-0.5 w-5 bg-current transition-transform duration-300"></span>
+        <span class="block h-0.5 w-5 bg-current transition-transform duration-300"></span>
+      </div>
+    </button>
   </div>
 
   <div *ngIf="showMegaMenu()" class="page-container hidden pb-4 lg:block" (mouseenter)="openMegaMenu('all')" (mouseleave)="scheduleCloseMegaMenu()">
