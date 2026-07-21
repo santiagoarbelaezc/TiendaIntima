@@ -53,9 +53,45 @@ export class CatalogoPageComponent {
     { label: 'Ofertas', slug: 'ofertas' }
   ];
 
+  private getProductsForActiveCategory(): Producto[] {
+    const allProducts = this.products();
+    const category = this.categoryFilter();
+    const tab = this.selectedTab();
+    const activeCat = tab !== 'all' ? tab : category;
+
+    return allProducts.filter((product: Producto) => {
+      if (activeCat === 'bestsellers') {
+        return Boolean(product.bestseller);
+      } else if (activeCat === 'novedades') {
+        return Boolean(product.nuevo) || product.categoriaSlug === 'novedades';
+      } else if (activeCat === 'ofertas') {
+        return product.categoriaSlug === 'ofertas' || Boolean(product.precioAnterior);
+      } else if (activeCat === 'mujer') {
+        return product.categoriaSlug !== 'hombre' && !product.etiquetas.some(t => t.toLowerCase().includes('hombre'));
+      } else if (activeCat === 'ropa-interior') {
+        return product.categoriaSlug === 'ropa-interior' || 
+          product.categoriaSlug === 'brasieres' || 
+          product.categoriaSlug === 'panties' || 
+          product.subcategoria?.toLowerCase().includes('brasier') || 
+          product.subcategoria?.toLowerCase().includes('panty');
+      } else if (activeCat === 'pijamas') {
+        return product.categoriaSlug === 'pijamas' || product.subcategoria?.toLowerCase().includes('pijama');
+      } else if (activeCat === 'lenceria') {
+        return product.categoriaSlug === 'lenceria' || 
+          product.subcategoria?.toLowerCase().includes('lencer') || 
+          product.etiquetas.some(t => t.toLowerCase().includes('lencer'));
+      } else if (activeCat === 'hombre') {
+        return product.categoriaSlug === 'hombre' || product.etiquetas.some(t => t.toLowerCase().includes('hombre'));
+      } else if (activeCat !== 'all' && activeCat !== '') {
+        return product.categoriaSlug === activeCat;
+      }
+      return true;
+    });
+  }
+
   readonly availableTallas = computed(() => {
     const set = new Set<string>();
-    this.products().forEach((p) => {
+    this.getProductsForActiveCategory().forEach((p) => {
       if (p.tallas && Array.isArray(p.tallas)) {
         p.tallas.forEach((t) => set.add(t));
       }
@@ -71,7 +107,7 @@ export class CatalogoPageComponent {
 
   readonly availableColores = computed(() => {
     const map = new Map<string, string>();
-    this.products().forEach((p) => {
+    this.getProductsForActiveCategory().forEach((p) => {
       if (p.colores && Array.isArray(p.colores)) {
         p.colores.forEach((c) => {
           if (c && c.nombre && c.hex) {
@@ -85,7 +121,7 @@ export class CatalogoPageComponent {
 
   readonly availableTiposPrenda = computed(() => {
     const set = new Set<string>();
-    this.products().forEach((p) => {
+    this.getProductsForActiveCategory().forEach((p) => {
       if (p.subcategoria && p.subcategoria.trim() !== '') {
         set.add(p.subcategoria.trim());
       }
@@ -175,6 +211,14 @@ export class CatalogoPageComponent {
     return this.filteredProducts().slice(start, start + this.pageSize);
   });
 
+  private resetSubFilters(): void {
+    this.selectedTalla.set('all');
+    this.selectedColor.set('all');
+    this.selectedTipoPrenda.set('all');
+    this.searchTerm.set('');
+    this.currentPage.set(1);
+  }
+
   constructor() {
     effect(() => {
       const selectedCategory = this.categoryQuery();
@@ -194,13 +238,13 @@ export class CatalogoPageComponent {
         this.categoryFilter.set('all');
         this.selectedTab.set('all');
       }
-      this.currentPage.set(1);
+      this.resetSubFilters();
     });
   }
 
   onTabSelect(slug: string): void {
     this.selectedTab.set(slug);
-    this.currentPage.set(1);
+    this.resetSubFilters();
     if (slug === 'all') {
       this.categoryFilter.set('all');
       this.router.navigate(['/catalogo']);
@@ -217,7 +261,7 @@ export class CatalogoPageComponent {
   onCategoryChange(newCategory: string): void {
     this.categoryFilter.set(newCategory);
     this.selectedTab.set(newCategory);
-    this.currentPage.set(1);
+    this.resetSubFilters();
     if (newCategory === 'all') {
       this.router.navigate(['/catalogo']);
     } else {

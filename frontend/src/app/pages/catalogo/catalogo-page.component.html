@@ -52,10 +52,6 @@
         >
           <option value="all">Todas las categorías</option>
           <option value="mujer">Mujer</option>
-          <option value="ropa-interior">Ropa interior</option>
-          <option value="pijamas">Pijamas</option>
-          <option value="lenceria">Lencería</option>
-          <option value="hombre">Hombre</option>
           <option *ngFor="let category of categories()" [value]="category.slug">{{ category.nombre }}</option>
         </select>
       </label>
