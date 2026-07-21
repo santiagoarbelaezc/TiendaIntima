@@ -26,8 +26,8 @@
         routerLinkActive="font-semibold opacity-100"
         [routerLinkActiveOptions]="{ exact: item.path === '/' }"
         class="group relative rounded-full px-4 py-2 text-sm font-medium opacity-85 transition hover:opacity-100"
-        (mouseenter)="item.category ? openMegaMenu(item.category) : closeMegaMenu()"
-        (mouseleave)="closeMegaMenu()"
+        (mouseenter)="item.label === 'Catálogo' ? openMegaMenu('all') : scheduleCloseMegaMenu()"
+        (mouseleave)="item.label === 'Catálogo' ? scheduleCloseMegaMenu() : null"
       >
         {{ item.label }}
         <span class="absolute inset-x-4 bottom-1 h-px scale-x-0 bg-current transition duration-200 group-hover:scale-x-100"></span>
@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <div *ngIf="showMegaMenu()" class="page-container hidden pb-4 lg:block">
+  <div *ngIf="showMegaMenu()" class="page-container hidden pb-4 lg:block" (mouseenter)="openMegaMenu('all')" (mouseleave)="scheduleCloseMegaMenu()">
     <app-mega-menu [categories]="categories()" [activeSlug]="activeMegaMenu()"></app-mega-menu>
   </div>
 

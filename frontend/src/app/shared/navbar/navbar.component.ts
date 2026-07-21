@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, computed, inject, signal } from '@angular/core';
+import { Component, HostListener, OnDestroy, computed, inject, signal } from '@angular/core';
 import { Router, NavigationEnd, RouterLink, RouterLinkActive } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import type { Categoria } from '../../models/categoria';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnDestroy {
   private readonly productosService = inject(ProductosService);
   private readonly router = inject(Router);
   readonly brandName = brandName;
@@ -27,6 +27,7 @@ export class NavbarComponent {
   readonly showMegaMenu = computed(() => this.activeMegaMenu().length > 0);
   readonly scrolled = signal(false);
   readonly isDarkBackgroundPage = signal(true);
+  private closeTimeout?: any;
 
   constructor() {
     this.isDarkBackgroundPage.set(this.router.url === '/' || this.router.url === '' || this.router.url === '/lenceria');
@@ -39,6 +40,11 @@ export class NavbarComponent {
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.closeTimeout) {
+      clearTimeout(this.closeTimeout);
+    }
+  }
 
   @HostListener('window:scroll')
   onScroll(): void {
@@ -50,14 +56,32 @@ export class NavbarComponent {
   @HostListener('document:keydown.escape')
   closeMenus(): void {
     this.mobileMenuOpen.set(false);
-    this.activeMegaMenu.set('');
+    this.closeMegaMenu();
   }
 
   openMegaMenu(slug: string): void {
+    if (this.closeTimeout) {
+      clearTimeout(this.closeTimeout);
+      this.closeTimeout = undefined;
+    }
     this.activeMegaMenu.set(slug);
   }
 
+  scheduleCloseMegaMenu(): void {
+    if (this.closeTimeout) {
+      clearTimeout(this.closeTimeout);
+    }
+    this.closeTimeout = setTimeout(() => {
+      this.activeMegaMenu.set('');
+      this.closeTimeout = undefined;
+    }, 180);
+  }
+
   closeMegaMenu(): void {
+    if (this.closeTimeout) {
+      clearTimeout(this.closeTimeout);
+      this.closeTimeout = undefined;
+    }
     this.activeMegaMenu.set('');
   }
 
