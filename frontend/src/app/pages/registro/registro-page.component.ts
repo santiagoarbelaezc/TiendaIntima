@@ -52,8 +52,8 @@ export class RegistroPageComponent implements OnInit, OnDestroy {
   readonly recoveryMessage = signal('');
 
   readonly loginForm = this.fb.group({
-    email: ['laura@demo.com', [Validators.required, Validators.email]],
-    password: ['123456', [Validators.required]]
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]]
   });
 
   readonly registerForm = this.fb.group({
@@ -122,18 +122,11 @@ export class RegistroPageComponent implements OnInit, OnDestroy {
   }
 
   submitLogin(): void {
-    const email = (this.loginForm.value.email ?? '').trim();
-    const password = (this.loginForm.value.password ?? '').trim();
-
-    if (!email && !password) {
-      this.authService.loginAsAdminDemo().subscribe(() => {
-        this.router.navigateByUrl('/admin');
-      });
-      return;
-    }
-
     this.loginForm.markAllAsTouched();
     if (this.loginForm.invalid) return;
+
+    const email = (this.loginForm.value.email ?? '').trim();
+    const password = (this.loginForm.value.password ?? '').trim();
 
     this.errorMessage.set('');
     this.authService.login(email, password).subscribe({

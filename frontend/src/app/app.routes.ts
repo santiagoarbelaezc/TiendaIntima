@@ -18,6 +18,7 @@ export const routes: Routes = [
 	{ path: 'registro', loadComponent: () => import('./pages/registro/registro-page.component').then((m) => m.RegistroPageComponent) },
 	{ path: 'nosotros', data: { section: 'acerca-tienda' }, loadComponent: () => import('./pages/legal-ayuda/legal-ayuda-page.component').then((m) => m.LegalAyudaPageComponent) },
 	{ path: 'contacto', data: { section: 'soporte-garantias' }, loadComponent: () => import('./pages/legal-ayuda/legal-ayuda-page.component').then((m) => m.LegalAyudaPageComponent) },
+	{ path: 'dashboard', redirectTo: 'admin', pathMatch: 'full' },
 	{
 		path: 'admin',
 		canActivate: [adminGuard],

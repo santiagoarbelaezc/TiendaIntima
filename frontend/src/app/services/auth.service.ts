@@ -32,6 +32,14 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<Usuario> {
+    // TODO (Backend Integration): Reemplazar mock local por petición HTTP POST real al backend:
+    // return this.http.post<{ token: string; usuario: Usuario }>(`${environment.apiUrl}/auth/login`, { email, password })
+    //   .pipe(
+    //     tap(res => {
+    //       localStorage.setItem('auth-token', res.token);
+    //       this.currentUserSignal.set(res.usuario);
+    //     })
+    //   );
     return this.users$.pipe(
       map((users) => {
         const user = users.find((item) => item.email.toLowerCase() === email.toLowerCase() && item.password === password);
@@ -40,29 +48,6 @@ export class AuthService {
           throw new Error('Credenciales inválidas');
         }
 
-        return user;
-      }),
-      tap((user) => this.currentUserSignal.set(user))
-    );
-  }
-
-  loginAsAdminDemo(): Observable<Usuario> {
-    return this.users$.pipe(
-      map((users) => {
-        const user = users.find((item) => item.rol === 'admin' || item.email.toLowerCase() === 'laura@demo.com');
-        if (!user) {
-          const fallbackAdmin: Usuario = {
-            id: 'u1',
-            nombre: 'Laura Gómez (Admin)',
-            email: 'laura@demo.com',
-            password: '123456',
-            telefono: '3001234567',
-            fechaRegistro: new Date().toISOString(),
-            rol: 'admin',
-            direcciones: []
-          };
-          return fallbackAdmin;
-        }
         return user;
       }),
       tap((user) => this.currentUserSignal.set(user))
