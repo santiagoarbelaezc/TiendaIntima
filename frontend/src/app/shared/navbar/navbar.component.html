@@ -49,20 +49,14 @@
       </span>
     </div>
 
-    <div class="flex items-center gap-2 lg:hidden">
-      <span class="inline-flex items-center gap-1.5 rounded-full border border-amber-500/40 bg-amber-500/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider" [ngClass]="(!isDarkBackgroundPage() || scrolled()) ? 'text-amber-800' : 'text-amber-300'">
-        <span class="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-        En desarrollo
-      </span>
-      <button type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-current/20" (click)="toggleMobileMenu()">
-        <span class="sr-only">Abrir menú</span>
-        <div class="flex flex-col gap-1.5 items-center">
-          <span class="block h-0.5 w-5 bg-current transition-transform duration-300"></span>
-          <span class="block h-0.5 w-5 bg-current transition-transform duration-300"></span>
-          <span class="block h-0.5 w-5 bg-current transition-transform duration-300"></span>
-        </div>
-      </button>
-    </div>
+    <button type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-current/20 lg:hidden" (click)="toggleMobileMenu()">
+      <span class="sr-only">Abrir menú</span>
+      <div class="flex flex-col gap-1.5 items-center">
+        <span class="block h-0.5 w-5 bg-current transition-transform duration-300"></span>
+        <span class="block h-0.5 w-5 bg-current transition-transform duration-300"></span>
+        <span class="block h-0.5 w-5 bg-current transition-transform duration-300"></span>
+      </div>
+    </button>
   </div>
 
   <div *ngIf="showMegaMenu()" class="page-container hidden pb-4 lg:block" (mouseenter)="openMegaMenu('all')" (mouseleave)="scheduleCloseMegaMenu()">
@@ -98,6 +92,15 @@
       >
         ✕
       </button>
+    </div>
+
+    <!-- Banner Sitio en Desarrollo dentro del Drawer desplegado -->
+    <div class="px-5 py-2.5 bg-amber-500/10 border-b border-amber-500/20 flex items-center justify-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] text-amber-800">
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+      </span>
+      Sitio en desarrollo
     </div>
 
     <!-- Lista de Navegación con Íconos -->
