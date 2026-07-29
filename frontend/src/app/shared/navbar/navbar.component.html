@@ -32,22 +32,37 @@
       </a>
     </nav>
 
-    <div class="hidden items-center gap-2 lg:flex">
+    <div class="hidden items-center gap-2.5 lg:flex">
       <a routerLink="/login" class="rounded-full border border-current/20 p-3 text-sm font-medium opacity-85 transition hover:opacity-100 hover:border-current/40 md:inline-flex">Mi cuenta</a>
       <a routerLink="/carrito" class="relative inline-flex rounded-full border border-current/20 p-3 text-sm font-medium opacity-85 transition hover:opacity-100 hover:border-current/40">
         Carrito
         <span class="ml-2 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-[#EAC7D2] px-1 text-[11px] font-semibold text-[#111111]">0</span>
       </a>
+
+      <!-- Insignia Sitio en Desarrollo -->
+      <span class="ml-1 inline-flex items-center gap-2 rounded-full border border-amber-500/40 bg-amber-500/15 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] transition-colors duration-300" [ngClass]="(!isDarkBackgroundPage() || scrolled()) ? 'text-amber-800 bg-amber-500/15' : 'text-amber-300 bg-amber-500/25'">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+        </span>
+        Sitio en desarrollo
+      </span>
     </div>
 
-    <button type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-current/20 lg:hidden" (click)="toggleMobileMenu()">
-      <span class="sr-only">Abrir menú</span>
-      <div class="flex flex-col gap-1.5 items-center">
-        <span class="block h-0.5 w-5 bg-current transition-transform duration-300"></span>
-        <span class="block h-0.5 w-5 bg-current transition-transform duration-300"></span>
-        <span class="block h-0.5 w-5 bg-current transition-transform duration-300"></span>
-      </div>
-    </button>
+    <div class="flex items-center gap-2 lg:hidden">
+      <span class="inline-flex items-center gap-1.5 rounded-full border border-amber-500/40 bg-amber-500/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider" [ngClass]="(!isDarkBackgroundPage() || scrolled()) ? 'text-amber-800' : 'text-amber-300'">
+        <span class="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+        En desarrollo
+      </span>
+      <button type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-current/20" (click)="toggleMobileMenu()">
+        <span class="sr-only">Abrir menú</span>
+        <div class="flex flex-col gap-1.5 items-center">
+          <span class="block h-0.5 w-5 bg-current transition-transform duration-300"></span>
+          <span class="block h-0.5 w-5 bg-current transition-transform duration-300"></span>
+          <span class="block h-0.5 w-5 bg-current transition-transform duration-300"></span>
+        </div>
+      </button>
+    </div>
   </div>
 
   <div *ngIf="showMegaMenu()" class="page-container hidden pb-4 lg:block" (mouseenter)="openMegaMenu('all')" (mouseleave)="scheduleCloseMegaMenu()">

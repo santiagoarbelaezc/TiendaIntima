@@ -12,7 +12,6 @@ export const navigationItems = [
   { label: 'Ropa interior', path: '/catalogo', category: 'ropa-interior' },
   { label: 'Pijamas', path: '/catalogo', category: 'pijamas' },
   { label: 'Hombre', path: '/catalogo', category: 'hombre' },
-  { label: 'Novedades', path: '/catalogo', filter: 'nuevo' },
   { label: 'Promociones', path: '/catalogo', filter: 'promo' }
 ];
 
