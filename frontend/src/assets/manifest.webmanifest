@@ -1,0 +1,18 @@
+{
+  "name": "Tiendaintima | Moda íntima y descanso",
+  "short_name": "Tiendaintima",
+  "description": "Tiendaintima: pijamas, ropa interior y prendas de descanso para mujer con una experiencia elegante y cercana.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#111111",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/icons/logo-moviltienda.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
