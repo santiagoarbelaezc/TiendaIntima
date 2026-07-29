@@ -7,12 +7,13 @@ import { filter } from 'rxjs/operators';
 import { ProductosService } from '../../services/productos.service';
 import { brandName, navigationItems, socialLinks } from '../../core/constants/brand.constants';
 import { MegaMenuComponent } from '../mega-menu/mega-menu.component';
+import { TopBarPromocionalComponent } from '../top-bar-promocional/top-bar-promocional.component';
 import type { Categoria } from '../../models/categoria';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, MegaMenuComponent],
+  imports: [CommonModule, RouterLink, RouterLinkActive, MegaMenuComponent, TopBarPromocionalComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })

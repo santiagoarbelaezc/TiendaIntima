@@ -1,8 +1,13 @@
 <header 
-  [ngClass]="(!isDarkBackgroundPage() || scrolled()) ? 'bg-white/95 text-[#111111] border-black/5 shadow-soft py-2' : 'bg-transparent text-white border-transparent py-4'"
+  [ngClass]="(!isDarkBackgroundPage() || scrolled()) ? 'bg-white/95 text-[#111111] border-black/5 shadow-soft' : 'bg-transparent text-white border-transparent'"
   class="fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 backdrop-blur-md"
 >
-  <div class="page-container flex items-center justify-between gap-4">
+  <app-top-bar-promocional></app-top-bar-promocional>
+
+  <div 
+    [ngClass]="(!isDarkBackgroundPage() || scrolled()) ? 'py-2' : 'py-3.5'"
+    class="page-container flex items-center justify-between gap-4 transition-all duration-300"
+  >
     <a routerLink="/" class="flex items-center gap-3">
       <img src="assets/icons/logo-tiendaintimanavbar.png" [alt]="brandName" class="h-10 w-auto object-contain transition-all duration-300" />
       <div>
