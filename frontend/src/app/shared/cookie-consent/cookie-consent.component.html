@@ -1,0 +1,304 @@
+<!-- TARJETA FLOTANTE DE AVISO DE COOKIES -->
+<div 
+  *ngIf="isVisible() && !isModalOpen()" 
+  class="fixed bottom-4 left-4 right-4 sm:right-auto sm:bottom-6 sm:left-6 max-w-none sm:max-w-[480px] z-[999999] animate-slide-up font-editorial"
+>
+  <div class="bg-white/95 backdrop-blur-md rounded-[20px] border border-black/10 p-5 sm:p-6 shadow-[0_20px_48px_rgba(17,17,17,0.14)] text-[#111111] space-y-4">
+    
+    <!-- Encabezado con Icono SVG Cookie -->
+    <div class="flex items-start gap-3.5">
+      <div class="flex-shrink-0 w-11 h-11 rounded-2xl bg-[#EAC7D2]/30 border border-[#EAC7D2] flex items-center justify-center p-2">
+        <svg viewBox="0 0 24 24" fill="none" class="w-full h-full text-[#111111]" xmlns="http://www.w3.org/2000/svg">
+          <!-- Galleta base -->
+          <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 10.7423 21.7675 9.5387 21.3444 8.43166C20.6974 8.79579 19.9536 9 19.1667 9C16.8655 9 15 7.13452 15 4.83333C15 4.04642 15.2042 3.3026 15.5683 2.65561C14.4613 2.23253 13.2577 2 12 2Z" fill="#D59AAD" fill-opacity="0.85" stroke="#111111" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Chispas de chocolate -->
+          <circle cx="8.5" cy="8.5" r="1.25" fill="#111111" />
+          <circle cx="8" cy="15" r="1.25" fill="#111111" />
+          <circle cx="14" cy="16.5" r="1.25" fill="#111111" />
+          <circle cx="14" cy="11" r="1.25" fill="#111111" />
+        </svg>
+      </div>
+
+      <div class="space-y-0.5">
+        <h3 class="font-bold text-base text-[#111111] flex items-center gap-1.5 leading-snug">
+          Uso de Cookies y Privacidad
+          <span class="inline-block w-2 h-2 rounded-full bg-[#D59AAD]"></span>
+        </h3>
+        <p class="text-xs text-black/55 font-medium">
+          Cumplimiento Ley 1581 de 2012 (Habeas Data) & RGPD
+        </p>
+      </div>
+    </div>
+
+    <!-- Texto Informativo Resumido -->
+    <p class="text-xs sm:text-sm text-black/75 leading-relaxed">
+      En <strong class="text-[#111111]">Tiendaintima</strong> utilizamos cookies propias y de terceros para optimizar tu experiencia, personalizar contenidos y analizar la navegación. Garantizamos la protección de tus datos personales conforme a la normatividad vigente.
+    </p>
+
+    <!-- Botones de Acción -->
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 pt-1">
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+        <button 
+          type="button" 
+          (click)="acceptAll()" 
+          class="px-5 py-2.5 bg-[#111111] text-white hover:bg-[#D59AAD] hover:text-[#111111] font-bold text-xs uppercase tracking-[0.12em] rounded-full transition-all duration-200 shadow-sm text-center cursor-pointer"
+        >
+          Aceptar todas
+        </button>
+
+        <button 
+          type="button" 
+          (click)="acceptEssential()" 
+          class="px-4 py-2.5 bg-black/5 hover:bg-black/10 text-[#111111] border border-black/10 font-semibold text-xs rounded-full transition-all duration-200 text-center cursor-pointer"
+        >
+          Solo esenciales
+        </button>
+      </div>
+
+      <button 
+        type="button" 
+        (click)="openModal()" 
+        class="text-xs font-bold text-[#111111] underline hover:text-[#D59AAD] transition-colors py-1 text-center sm:text-right cursor-pointer"
+      >
+        Configurar
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL DE CONFIGURACIÓN Y TEXTO LEGAL COMPLETO -->
+<div 
+  *ngIf="isModalOpen()" 
+  class="fixed inset-0 z-[9999999] flex items-center justify-center p-4 sm:p-6 bg-black/40 backdrop-blur-md animate-fade-in font-editorial"
+>
+  <div class="w-full max-w-3xl bg-white rounded-[28px] border border-black/10 shadow-2xl flex flex-col max-h-[90vh] overflow-hidden text-[#111111] animate-scale-up">
+    
+    <!-- Encabezado del Modal -->
+    <div class="p-6 sm:p-8 border-b border-black/10 flex items-center justify-between gap-4 bg-[#FAFAFA]">
+      <div class="space-y-1">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAC7D2]/40 border border-[#EAC7D2] text-[10px] font-bold uppercase tracking-[0.2em] text-[#111111]">
+          Protección de Datos & Preferencias
+        </div>
+        <h2 class="text-xl sm:text-2xl font-bold section-title text-[#111111]">
+          Configuración de Cookies y Aviso Legal
+        </h2>
+      </div>
+
+      <button 
+        type="button" 
+        (click)="closeModal()" 
+        aria-label="Cerrar modal"
+        class="w-9 h-9 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/15 text-[#111111] transition font-bold text-base cursor-pointer flex-shrink-0"
+      >
+        ✕
+      </button>
+    </div>
+
+    <!-- Navegación por Pestañas -->
+    <div class="flex border-b border-black/10 bg-white px-6 sm:px-8">
+      <button 
+        type="button"
+        (click)="selectTab('preferences')"
+        [ngClass]="activeTab() === 'preferences' ? 'border-[#111111] text-[#111111] font-bold' : 'border-transparent text-black/50 font-semibold'"
+        class="py-4 px-2 sm:px-4 border-b-2 text-xs sm:text-sm transition-all cursor-pointer flex items-center gap-2"
+      >
+        <span>⚙️</span> Configurar Preferencias
+      </button>
+
+      <button 
+        type="button"
+        (click)="selectTab('legal')"
+        [ngClass]="activeTab() === 'legal' ? 'border-[#111111] text-[#111111] font-bold' : 'border-transparent text-black/50 font-semibold'"
+        class="py-4 px-2 sm:px-4 border-b-2 text-xs sm:text-sm transition-all cursor-pointer flex items-center gap-2"
+      >
+        <span>📜</span> Documento Legal Completo (Habeas Data & RGPD)
+      </button>
+    </div>
+
+    <!-- Contenido del Modal -->
+    <div class="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6">
+      
+      <!-- PESTAÑA 1: CONFIGURAR PREFERENCIAS -->
+      <div *ngIf="activeTab() === 'preferences'" class="space-y-4">
+        
+        <!-- Option 1: Necesarias -->
+        <div class="p-5 rounded-2xl bg-[#FAFAFA] border border-black/10 flex items-start justify-between gap-4">
+          <div class="space-y-1.5 max-w-lg">
+            <div class="flex items-center gap-2">
+              <h4 class="font-bold text-sm text-[#111111]">Cookies Necesarias (Técnicas)</h4>
+              <span class="px-2.5 py-0.5 rounded-full bg-[#111111] text-white text-[10px] font-bold uppercase tracking-wider">
+                Siempre Activas
+              </span>
+            </div>
+            <p class="text-xs text-black/65 leading-relaxed">
+              Esenciales para permitir el funcionamiento básico del sitio web, navegación por el catálogo de lencería y pijamas, mantener el carrito de compras y garantizar la seguridad en las transacciones.
+            </p>
+          </div>
+
+          <!-- Lock Switch -->
+          <div class="relative inline-flex items-center cursor-not-allowed opacity-80 pt-1">
+            <div class="w-11 h-6 bg-[#111111] rounded-full p-0.5 transition-colors">
+              <div class="w-5 h-5 bg-white rounded-full translate-x-5 shadow-sm"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Option 2: Analíticas -->
+        <div class="p-5 rounded-2xl bg-white border border-black/10 hover:border-black/20 transition-all flex items-start justify-between gap-4">
+          <div class="space-y-1.5 max-w-lg">
+            <h4 class="font-bold text-sm text-[#111111]">Cookies Analíticas y Medición</h4>
+            <p class="text-xs text-black/65 leading-relaxed">
+              Nos permiten medir de manera anónima y agregada el número de visitantes, fuentes de tráfico y las secciones más populares para optimizar la velocidad y usabilidad de nuestro portal en Calarcá.
+            </p>
+          </div>
+
+          <!-- Toggle Switch -->
+          <button 
+            type="button" 
+            (click)="toggleAnalytics()"
+            aria-label="Conmutar cookies analíticas"
+            class="relative inline-flex items-center cursor-pointer pt-1 flex-shrink-0"
+          >
+            <div [ngClass]="analytics() ? 'bg-[#D59AAD]' : 'bg-black/20'" class="w-11 h-6 rounded-full p-0.5 transition-colors duration-200">
+              <div [ngClass]="analytics() ? 'translate-x-5' : 'translate-x-0'" class="w-5 h-5 bg-white rounded-full transition-transform duration-200 shadow-md"></div>
+            </div>
+          </button>
+        </div>
+
+        <!-- Option 3: Preferencias -->
+        <div class="p-5 rounded-2xl bg-white border border-black/10 hover:border-black/20 transition-all flex items-start justify-between gap-4">
+          <div class="space-y-1.5 max-w-lg">
+            <h4 class="font-bold text-sm text-[#111111]">Cookies de Preferencias y Funcionalidad</h4>
+            <p class="text-xs text-black/65 leading-relaxed">
+              Permiten recordar tus opciones personalizadas durante la navegación, como la categoría preferida, moneda o configuración de la boutique para una atención personalizada.
+            </p>
+          </div>
+
+          <!-- Toggle Switch -->
+          <button 
+            type="button" 
+            (click)="toggleFunctional()"
+            aria-label="Conmutar cookies de preferencias"
+            class="relative inline-flex items-center cursor-pointer pt-1 flex-shrink-0"
+          >
+            <div [ngClass]="functional() ? 'bg-[#D59AAD]' : 'bg-black/20'" class="w-11 h-6 rounded-full p-0.5 transition-colors duration-200">
+              <div [ngClass]="functional() ? 'translate-x-5' : 'translate-x-0'" class="w-5 h-5 bg-white rounded-full transition-transform duration-200 shadow-md"></div>
+            </div>
+          </button>
+        </div>
+
+        <!-- Option 4: Marketing -->
+        <div class="p-5 rounded-2xl bg-white border border-black/10 hover:border-black/20 transition-all flex items-start justify-between gap-4">
+          <div class="space-y-1.5 max-w-lg">
+            <h4 class="font-bold text-sm text-[#111111]">Cookies de Marketing y Publicidad</h4>
+            <p class="text-xs text-black/65 leading-relaxed">
+              Utilizadas para mostrarte ofertas exclusivas, anuncios relevantes y novedades de colecciones adaptadas a tus intereses tanto en nuestro sitio como en plataformas asociadas.
+            </p>
+          </div>
+
+          <!-- Toggle Switch -->
+          <button 
+            type="button" 
+            (click)="toggleMarketing()"
+            aria-label="Conmutar cookies de marketing"
+            class="relative inline-flex items-center cursor-pointer pt-1 flex-shrink-0"
+          >
+            <div [ngClass]="marketing() ? 'bg-[#D59AAD]' : 'bg-black/20'" class="w-11 h-6 rounded-full p-0.5 transition-colors duration-200">
+              <div [ngClass]="marketing() ? 'translate-x-5' : 'translate-x-0'" class="w-5 h-5 bg-white rounded-full transition-transform duration-200 shadow-md"></div>
+            </div>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- PESTAÑA 2: DOCUMENTO LEGAL COMPLETO -->
+      <div *ngIf="activeTab() === 'legal'" class="space-y-6 text-xs sm:text-sm text-black/75 leading-relaxed font-editorial">
+        
+        <div class="p-4 rounded-2xl bg-[#EAC7D2]/25 border border-[#EAC7D2] text-[#111111]">
+          <p class="font-bold text-xs uppercase tracking-wider">Aviso Legal de Protección de Datos Personales</p>
+          <p class="text-xs text-black/70 mt-0.5">
+            Conforme a la Ley Estatutaria 1581 de 2012, el Decreto 1377 de 2013 de Colombia y el Reglamento General de Protección de Datos (RGPD UE 2016/679).
+          </p>
+        </div>
+
+        <section class="space-y-2">
+          <h3 class="font-bold text-base text-[#111111] section-title">1. Responsable del Tratamiento de Datos</h3>
+          <p>
+            El responsable de la recolección, almacenamiento y tratamiento de tus datos personales es <strong class="text-[#111111]">TIENDA INTIMA S.A.S.</strong>, identificada legalmente para la comercialización de prendas de vestir y lencería, con domicilio principal en:
+          </p>
+          <div class="bg-[#FAFAFA] p-3.5 rounded-xl border border-black/10 text-xs space-y-1 font-mono text-[#111111]">
+            <p><strong>Boutique Física:</strong> Carrera 25, Calle 32 #Local 3, Calarcá, Quindío, Colombia</p>
+            <p><strong>Correo Electrónico Oficial:</strong> privacidad&#64;tiendaintima.com</p>
+            <p><strong>Línea Telefónica & WhatsApp:</strong> +57 300 123 4567</p>
+          </div>
+        </section>
+
+        <section class="space-y-2">
+          <h3 class="font-bold text-base text-[#111111] section-title">2. Principios y Finalidades del Tratamiento</h3>
+          <p>
+            Los datos personales proporcionados por los titulares son recopilados bajo principios de libertad, veracidad, transparencia, acceso y circulación restringida, y seguridad. Las finalidades principales son:
+          </p>
+          <ul class="list-disc pl-5 space-y-1 text-black/70">
+            <li>Procesamiento, preparación, empaque discreto y despacho de compras a domicilio en Calarcá, Quindío.</li>
+            <li>Gestión de la relación comercial, emisión de facturas y atención de soporte al cliente posventa.</li>
+            <li>Envío de comunicaciones promocionales o boletines sobre nuevas prendas, previa autorización explícita.</li>
+            <li>Cumplimiento de obligaciones legales, contables, tributarias y requerimientos de autoridades competentes.</li>
+          </ul>
+        </section>
+
+        <section class="space-y-2">
+          <h3 class="font-bold text-base text-[#111111] section-title">3. Derechos ARCO del Titular de la Información</h3>
+          <p>
+            De acuerdo con el Artículo 8 de la Ley 1581 de 2012 y normativas del RGPD, el titular cuenta con los siguientes derechos de forma gratuita:
+          </p>
+          <ul class="list-disc pl-5 space-y-1 text-black/70">
+            <li><strong>Acceso y Conocimiento:</strong> Solicitar prueba de la autorización otorgada y consultar los datos tratados.</li>
+            <li><strong>Rectificación y Actualización:</strong> Solicitar la corrección de datos parciales, inexactos o incompletos.</li>
+            <li><strong>Cancelación y Supresión:</strong> Solicitar la eliminación de los datos cuando no exista un deber legal o contractual de permanecer en la base de datos.</li>
+            <li><strong>Oposición y Revocatoria:</strong> Revocar la autorización prestada para el tratamiento publicitario o comercial.</li>
+          </ul>
+          <p class="pt-1">
+            Para ejercer tus Derechos ARCO, puedes presentar una solicitud indicando tu nombre, documento de identidad y descripción de la petición a nuestro Oficial de Privacidad a través de <a href="mailto:privacidad@tiendaintima.com" class="text-[#111111] font-bold underline">privacidad&#64;tiendaintima.com</a>. Las peticiones serán atendidas en un plazo máximo de 10 días hábiles.
+          </p>
+        </section>
+
+        <section class="space-y-2">
+          <h3 class="font-bold text-base text-[#111111] section-title">4. Exención de Responsabilidad y Enlaces a Terceros</h3>
+          <p>
+            Nuestro sitio web puede incluir enlaces, complementos o pasarelas de pago operadas por terceros (tales como botones sociales o servicios de procesamiento financiero). TIENDA INTIMA S.A.S. no asume responsabilidad por las políticas de privacidad ni los contenidos de sitios externos no gestionados directamente por nuestra boutique.
+          </p>
+        </section>
+
+        <section class="space-y-2">
+          <h3 class="font-bold text-base text-[#111111] section-title">5. Autoridad de Control Competente</h3>
+          <p>
+            En caso de considerar vulnerado tu derecho a la protección de datos personales, podrás acudir ante la <strong class="text-[#111111]">Superintendencia de Industria y Comercio (SIC)</strong> de Colombia — Delegatura para la Protección de Datos Personales (<a href="https://www.sic.gov.co" target="_blank" rel="noreferrer" class="underline font-semibold text-[#111111]">www.sic.gov.co</a>), o ante las Autoridades de Protección de Datos de la Unión Europea si eres residente en dicha jurisdicción.
+          </p>
+        </section>
+
+      </div>
+
+    </div>
+
+    <!-- Footer del Modal -->
+    <div class="p-5 sm:p-6 border-t border-black/10 bg-[#FAFAFA] flex flex-col sm:flex-row items-center justify-end gap-3">
+      <button 
+        type="button" 
+        (click)="savePreferences()" 
+        class="w-full sm:w-auto px-6 py-2.5 bg-black/5 hover:bg-black/10 text-[#111111] border border-black/15 font-bold text-xs rounded-full transition-all duration-200 cursor-pointer text-center"
+      >
+        Guardar mis preferencias
+      </button>
+
+      <button 
+        type="button" 
+        (click)="acceptAll()" 
+        class="w-full sm:w-auto px-6 py-2.5 bg-[#111111] text-white hover:bg-[#D59AAD] hover:text-[#111111] font-bold text-xs uppercase tracking-[0.12em] rounded-full transition-all duration-200 shadow-md cursor-pointer text-center"
+      >
+        Aceptar todas
+      </button>
+    </div>
+
+  </div>
+</div>

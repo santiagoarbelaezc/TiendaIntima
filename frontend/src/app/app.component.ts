@@ -6,11 +6,19 @@ import { filter } from 'rxjs/operators';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { MobileBottomNavComponent } from './shared/mobile-bottom-nav/mobile-bottom-nav.component';
+import { CookieConsentComponent } from './shared/cookie-consent/cookie-consent.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent, MobileBottomNavComponent],
+  imports: [
+    CommonModule, 
+    RouterOutlet, 
+    NavbarComponent, 
+    FooterComponent, 
+    MobileBottomNavComponent,
+    CookieConsentComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
