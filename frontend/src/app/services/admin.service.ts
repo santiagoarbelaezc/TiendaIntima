@@ -117,9 +117,9 @@ export class AdminService {
         'Nueva colección de pijamas',
         'Promo especial en sets seleccionados'
       ],
-      heroTitle: 'Siente la suavidad y el confort en cada momento',
-      heroSubtitle: 'Descubre nuestra colección de pijamas y ropa interior diseñada para realzar tu belleza y brindarte el máximo descanso.',
-      heroCta: 'Ver colección',
+      heroTitle: 'Descanso & Confort',
+      heroSubtitle: 'Pijamas y prendas íntimas suaves para tu comodidad diaria. Envíos solo en Calarcá, Quindío.',
+      heroCta: 'Ver Colección',
       instagramUrl: 'https://instagram.com/tiendaintima',
       whatsappUrl: 'https://wa.me/573001234567'
     };

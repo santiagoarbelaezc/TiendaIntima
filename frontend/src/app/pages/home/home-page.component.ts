@@ -11,7 +11,6 @@ import { NewsletterSignupComponent } from '../../shared/newsletter-signup/newsle
 import { BeneficiosComponent } from '../../shared/beneficios/beneficios.component';
 import { CategoriasDestacadasComponent } from '../../shared/categorias-destacadas/categorias-destacadas.component';
 import { GaleriaComponent } from '../../shared/galeria/galeria.component';
-import { TestimoniosComponent } from '../../shared/testimonios/testimonios.component';
 import { MapaUbicacionComponent } from '../../shared/mapa-ubicacion/mapa-ubicacion.component';
 
 @Component({
@@ -27,7 +26,6 @@ import { MapaUbicacionComponent } from '../../shared/mapa-ubicacion/mapa-ubicaci
     BeneficiosComponent,
     CategoriasDestacadasComponent,
     GaleriaComponent,
-    TestimoniosComponent,
     MapaUbicacionComponent
   ],
   templateUrl: './home-page.component.html',
