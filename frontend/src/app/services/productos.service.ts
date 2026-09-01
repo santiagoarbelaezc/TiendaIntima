@@ -8,8 +8,8 @@ import type { Producto } from '../models/producto';
 @Injectable({ providedIn: 'root' })
 export class ProductosService {
   private readonly http = inject(HttpClient);
-  private readonly productos$ = this.http.get<Producto[]>('assets/mock-data/productos.json').pipe(delay(200), shareReplay(1));
-  private readonly categorias$ = this.http.get<Categoria[]>('assets/mock-data/categorias.json').pipe(delay(150), shareReplay(1));
+  private readonly productos$ = this.http.get<Producto[]>(`assets/mock-data/productos.json?t=${new Date().getTime()}`).pipe(delay(100), shareReplay(1));
+  private readonly categorias$ = this.http.get<Categoria[]>(`assets/mock-data/categorias.json?t=${new Date().getTime()}`).pipe(delay(100), shareReplay(1));
 
   getProductos(): Observable<Producto[]> {
     return this.productos$;

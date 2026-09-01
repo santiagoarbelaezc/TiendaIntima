@@ -32,7 +32,7 @@
   </div>
 
   <!-- Favoritos de la comunidad (Más vendidos) -->
-  <section class="page-container-wide grid gap-6">
+  <section class="page-container-wide grid gap-6" *ngIf="featuredProducts().length > 0">
     <div class="flex items-end justify-between gap-4">
       <div>
         <p class="text-xs uppercase tracking-[0.35em] text-[#EAC7D2] font-bold">Más vendidos</p>
