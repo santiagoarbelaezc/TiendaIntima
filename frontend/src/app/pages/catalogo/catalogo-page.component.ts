@@ -47,16 +47,18 @@ export class CatalogoPageComponent {
   readonly currentPage = signal<number>(1);
   readonly pageSize = 20;
 
-  readonly quickTabs = [
-    { label: 'Todos', slug: 'all' },
-    { label: 'Mujer', slug: 'mujer' },
-    { label: 'Ropa interior', slug: 'ropa-interior' },
-    { label: 'Pijamas', slug: 'pijamas' },
-    { label: 'Lencería', slug: 'lenceria' },
-    { label: 'Hombre', slug: 'hombre' },
-    { label: 'Más Vendidos', slug: 'bestsellers' },
-    { label: 'Ofertas', slug: 'ofertas' }
-  ];
+  readonly quickTabs = computed(() => {
+    const cats = this.categories();
+    if (cats.length === 0) {
+      return [
+        { label: 'Todos', slug: 'all' }
+      ];
+    }
+    return [
+      { label: 'Todos', slug: 'all' },
+      ...cats.map((c) => ({ label: c.nombre, slug: c.slug }))
+    ];
+  });
 
   private getProductsForActiveCategory(): Producto[] {
     const allProducts = this.products();

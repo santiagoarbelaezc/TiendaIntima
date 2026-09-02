@@ -9,7 +9,6 @@ import { ProductCardComponent } from '../../components/product-card/product-card
 import { BannerPromocionalComponent } from '../../shared/banner-promocional/banner-promocional.component';
 import { NewsletterSignupComponent } from '../../shared/newsletter-signup/newsletter-signup.component';
 import { BeneficiosComponent } from '../../shared/beneficios/beneficios.component';
-import { CategoriasDestacadasComponent } from '../../shared/categorias-destacadas/categorias-destacadas.component';
 import { GaleriaComponent } from '../../shared/galeria/galeria.component';
 import { MapaUbicacionComponent } from '../../shared/mapa-ubicacion/mapa-ubicacion.component';
 
@@ -24,7 +23,6 @@ import { MapaUbicacionComponent } from '../../shared/mapa-ubicacion/mapa-ubicaci
     NewsletterSignupComponent, 
     ProductCardComponent,
     BeneficiosComponent,
-    CategoriasDestacadasComponent,
     GaleriaComponent,
     MapaUbicacionComponent
   ],

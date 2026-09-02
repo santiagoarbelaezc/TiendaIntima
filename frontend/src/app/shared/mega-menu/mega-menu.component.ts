@@ -18,6 +18,6 @@ export class MegaMenuComponent {
 
   get highlightImage(): string {
     const activeCategory = this.categories.find((category) => category.slug === this.activeSlug);
-    return activeCategory?.imagen ?? this.categories[0]?.imagen ?? '';
+    return activeCategory?.imagen || this.categories[0]?.imagen || 'assets/images/categorias/cat_pijama.png';
   }
 }

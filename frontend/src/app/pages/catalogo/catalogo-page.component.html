@@ -3,9 +3,9 @@
   class="page-container-wide space-y-6 -mt-6 lg:-mt-8 pt-0 pb-24 xl:pb-32 mb-12 xl:mb-16 transition-all duration-500"
 >
   <!-- Barra horizontal de navegación por pestañas de categoría (sin scroll horizontal) -->
-  <div class="flex flex-wrap items-center justify-center gap-2.5 pb-4 border-b border-black/10" [ngClass]="categoryQuery() === 'lenceria' ? 'border-white/10' : ''">
+  <div *ngIf="categories().length > 0" class="flex flex-wrap items-center justify-center gap-2.5 pb-4 border-b border-black/10" [ngClass]="categoryQuery() === 'lenceria' ? 'border-white/10' : ''">
     <button
-      *ngFor="let tab of quickTabs"
+      *ngFor="let tab of quickTabs()"
       type="button"
       (click)="onTabSelect(tab.slug)"
       [ngClass]="selectedTab() === tab.slug 
@@ -41,7 +41,7 @@
         >
       </label>
 
-      <label class="block space-y-2 text-sm font-editorial">
+      <label *ngIf="categories().length > 0" class="block space-y-2 text-sm font-editorial">
         <span class="font-bold" [ngClass]="categoryQuery() === 'lenceria' ? 'text-white/80' : 'text-black/80'">Categoría</span>
         <select 
           [ngModel]="categoryFilter()" 
@@ -50,12 +50,7 @@
           [ngClass]="categoryQuery() === 'lenceria' ? 'bg-[#141414] border-white/15 text-white focus:border-white/40' : 'bg-white border-black/10 text-[#111111] focus:border-[#111111]'"
           class="w-full rounded-full border px-4 py-3 outline-none transition text-sm font-medium">
           <option value="all">Todas las categorías</option>
-          <option value="mujer">Mujer</option>
-          <option value="ropa-interior">Ropa interior</option>
-          <option value="pijamas">Pijamas</option>
-          <option value="lenceria">Lencería</option>
-          <option value="hombre">Hombre</option>
-          <option *ngFor="let category of extraCategories()" [value]="category.slug">{{ category.nombre }}</option>
+          <option *ngFor="let category of categories()" [value]="category.slug">{{ category.nombre }}</option>
         </select>
       </label>
 

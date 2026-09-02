@@ -6,13 +6,19 @@ export const topBarMessages = [
   'Promo especial: 10% OFF en tu primera compra'
 ];
 
-export const navigationItems = [
+export interface NavigationItem {
+  label: string;
+  path: string;
+  category?: string;
+  filter?: string;
+}
+
+export const navigationItems: NavigationItem[] = [
   { label: 'Inicio', path: '/' },
   { label: 'Catálogo', path: '/catalogo' },
-  { label: 'Ropa interior', path: '/catalogo', category: 'ropa-interior' },
-  { label: 'Pijamas', path: '/catalogo', category: 'pijamas' },
-  { label: 'Hombre', path: '/catalogo', category: 'hombre' },
-  { label: 'Promociones', path: '/catalogo', filter: 'promo' }
+  { label: 'Galería', path: '/galeria' },
+  { label: 'Nosotros', path: '/nosotros' },
+  { label: 'Contacto', path: '/contacto' }
 ];
 
 export const socialLinks = [

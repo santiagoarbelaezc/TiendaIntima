@@ -26,7 +26,7 @@ export class NavbarComponent implements OnDestroy {
   readonly categories = toSignal(this.productosService.getCategorias(), { initialValue: [] as Categoria[] });
   readonly mobileMenuOpen = signal(false);
   readonly activeMegaMenu = signal('');
-  readonly showMegaMenu = computed(() => this.activeMegaMenu().length > 0);
+  readonly showMegaMenu = computed(() => this.activeMegaMenu().length > 0 && this.categories().length > 0);
   readonly scrolled = signal(false);
   readonly isDarkBackgroundPage = signal(true);
   private closeTimeout?: any;
@@ -78,7 +78,7 @@ export class NavbarComponent implements OnDestroy {
     this.closeTimeout = setTimeout(() => {
       this.activeMegaMenu.set('');
       this.closeTimeout = undefined;
-    }, 180);
+    }, 280);
   }
 
   closeMegaMenu(): void {

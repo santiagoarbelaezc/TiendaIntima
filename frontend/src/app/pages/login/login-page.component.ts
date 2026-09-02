@@ -140,7 +140,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? defaultUrl;
         this.router.navigateByUrl(returnUrl);
       },
-      error: () => this.errorMessage.set('No pudimos validar esos datos de acceso. Por favor verifica tu correo y contraseña.')
+      error: (err) => {
+        const msg = err?.error?.message || err?.message || 'No pudimos validar esos datos de acceso. Por favor verifica tu correo y contraseña.';
+        this.errorMessage.set(msg);
+      }
     });
   }
 

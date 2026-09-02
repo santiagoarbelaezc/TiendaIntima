@@ -1,16 +1,35 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, effect, inject, signal } from '@angular/core';
-import { Observable, delay, map, of, shareReplay, tap } from 'rxjs';
+import { Observable, delay, map, of, tap } from 'rxjs';
 
+import { environment } from '../../environments/environment';
 import type { Usuario } from '../models/usuario';
 
 const storageKey = 'tiendaintima-user';
+const tokenKey = 'auth_token';
+
+interface LoginApiResponse {
+  success: boolean;
+  data: {
+    token: string;
+    expires_in?: number;
+    user: {
+      id: number | string;
+      email: string;
+      nombre: string;
+      telefono?: string;
+      rol?: 'cliente' | 'admin';
+      created_at?: string;
+    };
+  };
+  message?: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
+  private readonly baseUrl = environment.apiUrl;
   private readonly currentUserSignal = signal<Usuario | null>(this.readSession());
-  private readonly users$ = this.http.get<Usuario[]>('assets/mock-data/usuarios.json').pipe(delay(150), shareReplay(1));
 
   readonly currentUser = computed(() => this.currentUserSignal());
   readonly isLoggedIn = computed(() => this.currentUserSignal() !== null);
@@ -18,11 +37,13 @@ export class AuthService {
   constructor() {
     effect(() => {
       const currentUser = this.currentUserSignal();
-
-      if (currentUser) {
-        localStorage.setItem(storageKey, JSON.stringify(currentUser));
-      } else {
-        localStorage.removeItem(storageKey);
+      if (typeof localStorage !== 'undefined') {
+        if (currentUser) {
+          localStorage.setItem(storageKey, JSON.stringify(currentUser));
+        } else {
+          localStorage.removeItem(storageKey);
+          localStorage.removeItem(tokenKey);
+        }
       }
     });
   }
@@ -31,24 +52,38 @@ export class AuthService {
     return this.currentUserSignal() !== null;
   }
 
-  login(email: string, password: string): Observable<Usuario> {
-    // TODO (Backend Integration): Reemplazar mock local por petición HTTP POST real al backend:
-    // return this.http.post<{ token: string; usuario: Usuario }>(`${environment.apiUrl}/auth/login`, { email, password })
-    //   .pipe(
-    //     tap(res => {
-    //       localStorage.setItem('auth-token', res.token);
-    //       this.currentUserSignal.set(res.usuario);
-    //     })
-    //   );
-    return this.users$.pipe(
-      map((users) => {
-        const user = users.find((item) => item.email.toLowerCase() === email.toLowerCase() && item.password === password);
+  getToken(): string | null {
+    if (typeof localStorage === 'undefined') return null;
+    return localStorage.getItem(tokenKey);
+  }
 
-        if (!user) {
-          throw new Error('Credenciales inválidas');
+  login(email: string, password: string): Observable<Usuario> {
+    return this.http.post<LoginApiResponse>(`${this.baseUrl}/auth/login`, { email, password }).pipe(
+      map((res) => {
+        if (!res || !res.success || !res.data) {
+          throw new Error(res?.message || 'Error al iniciar sesión');
         }
 
-        return user;
+        const data = res.data;
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem(tokenKey, data.token);
+        }
+
+        const role: 'cliente' | 'admin' = (data.user.email?.toLowerCase().includes('admin') || data.user.rol === 'admin')
+          ? 'admin'
+          : 'cliente';
+
+        const usuario: Usuario = {
+          id: String(data.user.id),
+          nombre: data.user.nombre,
+          email: data.user.email,
+          telefono: data.user.telefono || '',
+          fechaRegistro: data.user.created_at || new Date().toISOString(),
+          direcciones: [],
+          rol: role
+        };
+
+        return usuario;
       }),
       tap((user) => this.currentUserSignal.set(user))
     );
@@ -61,7 +96,8 @@ export class AuthService {
       email: payload.email,
       telefono: payload.telefono,
       fechaRegistro: new Date().toISOString(),
-      direcciones: []
+      direcciones: [],
+      rol: 'cliente'
     };
 
     this.currentUserSignal.set(user);
@@ -69,15 +105,17 @@ export class AuthService {
   }
 
   logout(): void {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem(tokenKey);
+      localStorage.removeItem(storageKey);
+    }
     this.currentUserSignal.set(null);
   }
 
   private readSession(): Usuario | null {
+    if (typeof localStorage === 'undefined') return null;
     const session = localStorage.getItem(storageKey);
-
-    if (!session) {
-      return null;
-    }
+    if (!session) return null;
 
     try {
       return JSON.parse(session) as Usuario;

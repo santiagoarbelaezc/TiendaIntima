@@ -75,6 +75,7 @@
         </div>
         <div class="flex-1 min-h-[320px]">
           <app-chart-wrapper 
+            *ngIf="data.ventasPorDia && data.ventasPorDia.labels"
             type="line" 
             [labels]="data.ventasPorDia.labels" 
             [data]="data.ventasPorDia.data"

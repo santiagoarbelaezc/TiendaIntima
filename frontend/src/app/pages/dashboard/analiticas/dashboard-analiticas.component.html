@@ -16,6 +16,7 @@
         </div>
         <div class="flex-1 min-h-[300px]">
           <app-chart-wrapper 
+            *ngIf="data.ventasPorCategoria && data.ventasPorCategoria.labels"
             type="pie" 
             [labels]="data.ventasPorCategoria.labels" 
             [data]="data.ventasPorCategoria.data"
@@ -32,6 +33,7 @@
         </div>
         <div class="flex-1 min-h-[300px]">
           <app-chart-wrapper 
+            *ngIf="data.metodosPago && data.metodosPago.labels"
             type="doughnut" 
             [labels]="data.metodosPago.labels" 
             [data]="data.metodosPago.data"

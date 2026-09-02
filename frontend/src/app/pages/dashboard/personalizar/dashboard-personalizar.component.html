@@ -3,13 +3,20 @@
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
     <div>
       <h1 class="admin-title text-4xl text-[#111111]">Personalizar Sitio Web</h1>
-      <p class="text-sm text-black/60 mt-1 font-editorial">Configura la identidad de marca, mensajes promocionales y el contenido del hero.</p>
+      <p class="text-sm text-black/60 mt-1 font-editorial">Configura la identidad de marca, mensajes del hero, fotos de la galería y copias de seguridad de la base de datos.</p>
     </div>
+  </div>
 
+  <!-- Mensajes de feedback -->
+  <div *ngIf="successMessage()" class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-semibold animate-in fade-in duration-200">
+    ✓ {{ successMessage() }}
+  </div>
+  <div *ngIf="errorMessage()" class="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-sm font-semibold animate-in fade-in duration-200">
+    ⚠ {{ errorMessage() }}
   </div>
 
   <!-- Pestañas de Navegación -->
-  <div class="flex items-center gap-2 border-b border-black/10 pb-4">
+  <div class="flex flex-wrap items-center gap-2 border-b border-black/10 pb-4">
     <button 
       type="button" 
       (click)="setTab('marca')"
@@ -32,12 +39,28 @@
       class="px-5 py-2.5 rounded-full text-xs font-bold transition"
       [ngClass]="activeTab() === 'redes' ? 'bg-[#111111] text-white shadow-soft' : 'text-black/60 hover:bg-black/5 hover:text-[#111111]'"
     >
-      Redes Sociales
+      Redes y Contacto
+    </button>
+    <button 
+      type="button" 
+      (click)="setTab('galeria')"
+      class="px-5 py-2.5 rounded-full text-xs font-bold transition"
+      [ngClass]="activeTab() === 'galeria' ? 'bg-[#111111] text-white shadow-soft' : 'text-black/60 hover:bg-black/5 hover:text-[#111111]'"
+    >
+      Galería de Fotos
+    </button>
+    <button 
+      type="button" 
+      (click)="setTab('backups')"
+      class="px-5 py-2.5 rounded-full text-xs font-bold transition"
+      [ngClass]="activeTab() === 'backups' ? 'bg-[#111111] text-white shadow-soft' : 'text-black/60 hover:bg-black/5 hover:text-[#111111]'"
+    >
+      Copias de Seguridad (Backups)
     </button>
   </div>
 
-  <!-- Contenedor Principal con Formulario y Vista Previa -->
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+  <!-- SECCIÓN 1: FORMULARIOS DE TEXTOS (Marca, Hero, Redes) -->
+  <div *ngIf="activeTab() === 'marca' || activeTab() === 'hero' || activeTab() === 'redes'" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
     <!-- Formulario (7 columnas) -->
     <form [formGroup]="form" (ngSubmit)="save()" class="lg:col-span-7 space-y-6 rounded-[28px] border border-black/10 bg-white p-6 sm:p-8 shadow-soft">
       <!-- Tab 1: Marca y Topbar -->
@@ -59,78 +82,74 @@
           <input formControlName="topBarActive" type="checkbox" id="tba" class="h-5 w-5 rounded border-black/20 text-[#111111] focus:ring-black/10" />
           <label for="tba" class="text-sm font-semibold text-[#111111]">Activar barra superior promocional</label>
         </div>
-        <div class="space-y-3">
+
+        <div class="space-y-4">
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1">Mensaje Promocional 1</label>
-            <input formControlName="topBarMsg1" type="text" placeholder="Ej: Envíos gratis por compras superiores a $150.000" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
+            <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Mensaje 1 (Principal)</label>
+            <input formControlName="topBarMsg1" type="text" placeholder="Ej: Envíos a domicilio exclusivos en Calarcá, Quindío" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
           </div>
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1">Mensaje Promocional 2</label>
-            <input formControlName="topBarMsg2" type="text" placeholder="Ej: Nueva colección de pijamas disponible" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
+            <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Mensaje 2 (Secundario)</label>
+            <input formControlName="topBarMsg2" type="text" placeholder="Ej: Nueva colección de pijamas y descanso" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
           </div>
         </div>
       </div>
 
-      <!-- Tab 2: Hero -->
+      <!-- Tab 2: Hero Banner -->
       <div *ngIf="activeTab() === 'hero'" class="space-y-6 animate-in fade-in duration-200">
-        <h3 class="text-lg font-bold text-[#111111] border-b border-black/5 pb-3">Sección Hero de la Tienda</h3>
+        <h3 class="text-lg font-bold text-[#111111] border-b border-black/5 pb-3">Contenido del Hero</h3>
         <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Título Principal (H1)</label>
-          <input formControlName="heroTitle" type="text" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none font-bold text-base" />
+          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Título Principal</label>
+          <input formControlName="heroTitle" type="text" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
         </div>
         <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Subtítulo o Descripción</label>
-          <textarea formControlName="heroSubtitle" rows="4" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none"></textarea>
+          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Aviso de Envíos</label>
+          <input formControlName="heroNotice" type="text" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
         </div>
         <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Texto del Botón de Acción (CTA)</label>
-          <input formControlName="heroCta" type="text" class="w-full max-w-xs rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
+          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Descripción o Subtítulo</label>
+          <textarea formControlName="heroSubtitle" rows="3" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Texto del Botón (CTA)</label>
+          <input formControlName="heroCta" type="text" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
         </div>
       </div>
 
-      <!-- Tab 3: Redes -->
+      <!-- Tab 3: Redes y Contacto -->
       <div *ngIf="activeTab() === 'redes'" class="space-y-6 animate-in fade-in duration-200">
-        <h3 class="text-lg font-bold text-[#111111] border-b border-black/5 pb-3">Enchufes Sociales</h3>
+        <h3 class="text-lg font-bold text-[#111111] border-b border-black/5 pb-3">Canales Oficiales</h3>
         <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Enlace Oficial de Instagram</label>
-          <input formControlName="instagramUrl" type="url" placeholder="https://instagram.com/tu-tienda" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
+          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">WhatsApp Oficial (Ej: +573001234567)</label>
+          <input formControlName="whatsappUrl" type="text" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
         </div>
         <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Enlace o Número de WhatsApp</label>
-          <input formControlName="whatsappUrl" type="url" placeholder="https://wa.me/57300..." class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
+          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Enlace a Instagram</label>
+          <input formControlName="instagramUrl" type="text" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
         </div>
       </div>
 
-      <!-- Alerta de éxito -->
-      <div *ngIf="successMessage()" class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center gap-2 animate-in fade-in">
-        <svg class="w-5 h-5 flex-shrink-0 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-        </svg>
-        <span>{{ successMessage() }}</span>
-      </div>
-
-      <!-- Botón Submit -->
-      <div class="pt-4 border-t border-black/5 flex justify-end">
+      <!-- Botón de Guardado -->
+      <div class="pt-4 border-t border-black/10 flex justify-end">
         <button 
           type="submit" 
-          class="px-8 py-3.5 rounded-full bg-[#111111] text-white text-sm font-bold hover:bg-black/80 transition shadow-soft flex items-center gap-2"
+          class="px-8 py-3.5 rounded-full bg-[#111111] text-white font-bold text-sm hover:bg-black/80 transition shadow-soft flex items-center gap-2"
         >
+          <span>Guardar Cambios</span>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
-          <span>Guardar Configuración</span>
         </button>
       </div>
     </form>
 
-    <!-- Vista Previa en Vivo (5 columnas) -->
-    <div class="lg:col-span-5 sticky top-28 space-y-4">
-      <div class="flex items-center justify-between text-xs font-bold text-black/50 uppercase tracking-wider px-2">
-        <span>Vista Previa en Tiempo Real</span>
+    <!-- Previsualización en Vivo (5 columnas) -->
+    <div class="lg:col-span-5 space-y-4">
+      <div class="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-black/40 px-2">
+        <span>Vista Previa de la Tienda</span>
         <span class="text-emerald-600">&bull; En Vivo</span>
       </div>
 
-      <!-- Miniatura Topbar & Navbar -->
       <div class="rounded-[28px] border border-black/10 bg-white overflow-hidden shadow-soft">
         <div *ngIf="form.value.topBarActive" class="bg-[#111111] text-white px-4 py-2 text-center text-[10px] font-medium truncate">
           {{ form.value.topBarMsg1 || 'Mensaje promocional de ejemplo' }}
@@ -145,27 +164,132 @@
           </div>
           <div class="flex gap-2 text-[10px] font-bold text-black/40">
             <span>Inicio</span>
-            <span>Pijamas</span>
+            <span>Catálogo</span>
           </div>
         </div>
 
         <!-- Miniatura Hero Preview -->
         <div class="p-6 bg-[#FAFAFA] text-center space-y-3">
           <span class="inline-block px-2.5 py-1 rounded-full bg-[#EAC7D2]/40 text-[#111111] text-[9px] font-extrabold uppercase tracking-widest">
-            Nueva Colección 2026
+            {{ form.value.heroNotice || 'Envíos en Calarcá' }}
           </span>
           <h4 class="text-lg font-extrabold text-[#111111] leading-tight max-w-xs mx-auto">
             {{ form.value.heroTitle || 'Título de ejemplo para el hero' }}
           </h4>
-          <p class="text-[11px] text-black/60 line-clamp-3 max-w-xs mx-auto">
+          <p class="text-[11px] text-black/60 line-clamp-3 max-w-xs mx-auto font-editorial">
             {{ form.value.heroSubtitle || 'Subtítulo o descripción de la tienda' }}
           </p>
           <div class="pt-2">
             <span class="inline-block px-5 py-2 rounded-full bg-[#111111] text-white text-[10px] font-bold shadow-sm">
-              {{ form.value.heroCta || 'Ver colección' }} &rarr;
+              {{ form.value.heroCta || 'Ver catálogo' }} &rarr;
             </span>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2: GESTIÓN DE GALERÍA -->
+  <div *ngIf="activeTab() === 'galeria'" class="space-y-6 animate-in fade-in duration-200">
+    <!-- Formulario para agregar foto -->
+    <div class="rounded-[28px] border border-black/10 bg-white p-6 sm:p-8 shadow-soft">
+      <h3 class="text-xl font-bold text-[#111111] mb-2">Añadir Nueva Foto a la Galería</h3>
+      <p class="text-xs text-black/60 mb-6 font-editorial">Ingresa el título o descripción corta y la URL de la imagen (puedes usar enlaces de Cloudinary).</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">Título / Descripción de la Foto</label>
+          <input [ngModel]="newGaleriaTitulo()" (ngModelChange)="newGaleriaTitulo.set($event)" type="text" placeholder="Ej: Satén Blush en Mañanas Claras" class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-black/60 mb-1.5">URL de la Imagen (Cloudinary / Web)</label>
+          <input [ngModel]="newGaleriaUrl()" (ngModelChange)="newGaleriaUrl.set($event)" type="text" placeholder="https://res.cloudinary.com/... o assets/images/..." class="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm focus:border-black/30 outline-none" />
+        </div>
+      </div>
+
+      <div class="mt-5 flex justify-end">
+        <button (click)="addFoto()" type="button" class="px-6 py-3 rounded-full bg-[#111111] text-white text-xs font-bold hover:bg-black/80 transition shadow-soft flex items-center gap-2">
+          <span>+ Añadir Imagen a Galería</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Lista de Fotos Actuales -->
+    <div class="rounded-[28px] border border-black/10 bg-white p-6 sm:p-8 shadow-soft">
+      <h3 class="text-xl font-bold text-[#111111] mb-6">Fotos Publicadas en la Galería</h3>
+
+      <div *ngIf="galeriaItems().length === 0" class="text-center py-10 text-sm text-black/50">
+        No hay fotos registradas en la galería actualmente.
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div *ngFor="let item of galeriaItems()" class="group rounded-2xl border border-black/10 overflow-hidden bg-[#FAFAFA] flex flex-col justify-between shadow-sm hover:shadow-md transition">
+          <div class="relative aspect-square overflow-hidden bg-black/5">
+            <img [src]="item.imagen_url" [alt]="item.titulo" class="w-full h-full object-cover transition duration-300 group-hover:scale-105" />
+          </div>
+          <div class="p-4 flex flex-col justify-between flex-1">
+            <p class="text-xs font-bold text-[#111111] line-clamp-2">{{ item.titulo }}</p>
+            <div class="pt-3 mt-3 border-t border-black/5 flex items-center justify-between">
+              <span class="text-[10px] text-black/40 font-mono">Orden: {{ item.orden }}</span>
+              <button (click)="deleteFoto(item.id)" type="button" class="text-rose-600 hover:text-rose-800 text-xs font-bold transition">
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 3: COPIAS DE SEGURIDAD (BACKUPS) -->
+  <div *ngIf="activeTab() === 'backups'" class="space-y-6 animate-in fade-in duration-200">
+    <div class="rounded-[28px] border border-black/10 bg-white p-6 sm:p-8 shadow-soft flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <h3 class="text-xl font-bold text-[#111111]">Copias de Seguridad de la Base de Datos</h3>
+        <p class="text-xs text-black/60 mt-1 font-editorial">Genera un respaldo snapshot descargable de todos los usuarios, productos, personalización y analíticas.</p>
+      </div>
+      <button 
+        (click)="generarBackup()" 
+        [disabled]="loadingBackups()" 
+        type="button" 
+        class="px-6 py-3 rounded-full bg-[#111111] text-white text-xs font-bold hover:bg-black/80 transition shadow-soft flex items-center gap-2 flex-shrink-0 disabled:opacity-50"
+      >
+        <span>{{ loadingBackups() ? 'Generando Respaldo...' : '⚡ Generar Respaldo Ahora' }}</span>
+      </button>
+    </div>
+
+    <!-- Tabla de Backups -->
+    <div class="rounded-[28px] border border-black/10 bg-white p-6 sm:p-8 shadow-soft">
+      <div *ngIf="backups().length === 0" class="text-center py-10 text-sm text-black/50">
+        No hay copias de seguridad generadas aún. Haz clic en "Generar Respaldo Ahora".
+      </div>
+
+      <div *ngIf="backups().length > 0" class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead>
+            <tr class="border-b border-black/10 text-xs uppercase font-bold tracking-wider text-black/60">
+              <th class="py-3 px-4">Archivo</th>
+              <th class="py-3 px-4">Tamaño</th>
+              <th class="py-3 px-4">Fecha de Creación</th>
+              <th class="py-3 px-4 text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-black/5">
+            <tr *ngFor="let b of backups()" class="hover:bg-[#FAFAFA] transition">
+              <td class="py-3 px-4 font-mono text-xs font-bold text-[#111111]">{{ b.filename }}</td>
+              <td class="py-3 px-4 text-xs font-semibold text-black/70">{{ b.size_formatted }}</td>
+              <td class="py-3 px-4 text-xs text-black/60">{{ b.created_at }}</td>
+              <td class="py-3 px-4 text-right space-x-3">
+                <a [href]="downloadUrl(b.filename)" target="_blank" download class="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 hover:text-emerald-800 transition">
+                  ⬇ Descargar
+                </a>
+                <button (click)="eliminarBackup(b.filename)" type="button" class="text-xs font-bold text-rose-600 hover:text-rose-800 transition">
+                  ✕ Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
