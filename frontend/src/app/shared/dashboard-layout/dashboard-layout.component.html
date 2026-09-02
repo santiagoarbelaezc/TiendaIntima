@@ -52,18 +52,31 @@
       </a>
     </nav>
 
-    <!-- Sidebar Footer / Volver a la Tienda -->
-    <div class="p-4 border-t border-black/5">
+    <!-- Sidebar Footer / Volver a la Tienda & Cerrar Sesión -->
+    <div class="p-3 border-t border-black/5 space-y-1">
       <a 
         routerLink="/" 
-        class="flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm font-medium text-black/65 hover:bg-[#EAC7D2]/20 hover:text-[#111111] transition-all duration-200"
-        [title]="sidebarCollapsed() ? 'Volver a la tienda' : ''"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-xs font-bold text-black/75 hover:bg-[#EAC7D2]/20 hover:text-[#111111] transition-all duration-200"
+        [title]="sidebarCollapsed() ? 'Ver sitio en vivo' : ''"
       >
-        <svg class="w-5 h-5 flex-shrink-0 text-black/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        <svg class="w-4 h-4 flex-shrink-0 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
         </svg>
-        <span *ngIf="!sidebarCollapsed()" class="truncate">Ver tienda pública</span>
+        <span *ngIf="!sidebarCollapsed()" class="truncate">Ver sitio en vivo</span>
       </a>
+
+      <button 
+        type="button" 
+        (click)="logout()" 
+        class="w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl text-xs font-bold text-rose-700 hover:bg-rose-50 transition-all duration-200 text-left"
+        [title]="sidebarCollapsed() ? 'Cerrar sesión' : ''"
+      >
+        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+        </svg>
+        <span *ngIf="!sidebarCollapsed()" class="truncate">Cerrar sesión</span>
+      </button>
     </div>
   </aside>
 
@@ -91,33 +104,42 @@
       </div>
 
       <!-- Acciones Topbar -->
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3">
+        <!-- Botón Ver sitio en vivo -->
         <a 
           routerLink="/" 
-          class="inline-flex lg:hidden items-center gap-2 text-xs font-semibold px-3 py-2 rounded-full border border-black/10 hover:bg-black/5 transition"
+          class="inline-flex items-center gap-2 text-xs font-bold px-4 py-2.5 rounded-full border border-black/15 bg-white text-[#111111] hover:bg-black/5 hover:border-black/30 transition shadow-sm"
+          title="Abrir la tienda pública"
         >
-          <span>Ver tienda</span>
+          <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+          <span>Ver sitio en vivo</span>
         </a>
 
+        <!-- Botón Cerrar sesión -->
+        <button 
+          type="button" 
+          (click)="logout()" 
+          class="inline-flex items-center gap-2 text-xs font-bold px-4 py-2.5 rounded-full border border-rose-200 bg-rose-50/80 text-rose-700 hover:bg-rose-100 transition shadow-sm"
+          title="Cerrar sesión y salir del panel"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+          <span>Cerrar sesión</span>
+        </button>
+
         <!-- Perfil Usuario Logueado -->
-        <div class="flex items-center gap-3 pl-4 border-l border-black/10">
-          <div class="text-right hidden md:block">
-            <p class="text-sm font-bold text-[#111111] leading-none">{{ currentUser()?.nombre || 'Administrador' }}</p>
-            <p class="text-[11px] text-black/50 mt-1 uppercase tracking-wider">{{ currentUser()?.rol || 'Admin' }}</p>
+        <div class="flex items-center gap-3 pl-3 border-l border-black/10">
+          <div class="text-right hidden sm:block">
+            <p class="text-xs font-bold text-[#111111] leading-none">{{ currentUser()?.nombre || 'Administrador' }}</p>
+            <p class="text-[10px] text-black/50 mt-1 uppercase tracking-wider">{{ currentUser()?.rol || 'Admin' }}</p>
           </div>
-          <div class="h-10 w-10 rounded-full bg-[#EAC7D2] text-[#111111] flex items-center justify-center font-bold text-sm shadow-inner">
+          <div class="h-9 w-9 rounded-full bg-[#EAC7D2] text-[#111111] flex items-center justify-center font-bold text-xs shadow-inner">
             {{ (currentUser()?.nombre || 'A')[0].toUpperCase() }}
           </div>
-          <button 
-            type="button" 
-            (click)="logout()" 
-            class="p-2 text-black/40 hover:text-red-600 hover:bg-red-50 rounded-xl transition"
-            title="Cerrar sesión"
-          >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-            </svg>
-          </button>
         </div>
       </div>
     </header>
@@ -172,15 +194,22 @@
         <a 
           routerLink="/" 
           (click)="toggleMobileMenu()"
-          class="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-2xl bg-black/5 text-sm font-semibold text-[#111111] hover:bg-black/10 transition"
+          class="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-2xl border border-black/10 bg-white text-xs font-bold text-[#111111] hover:bg-black/5 transition shadow-sm"
         >
-          <span>Ver tienda pública</span>
+          <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+          <span>Ver sitio en vivo</span>
         </a>
         <button 
           type="button" 
           (click)="logout()" 
-          class="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-2xl text-red-600 bg-red-50 hover:bg-red-100 text-sm font-semibold transition"
+          class="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-2xl text-rose-700 bg-rose-50 hover:bg-rose-100 text-xs font-bold transition border border-rose-200 shadow-sm"
         >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
           <span>Cerrar sesión</span>
         </button>
       </div>

@@ -3,22 +3,13 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, delay, shareReplay, tap, map, catchError, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Usuario } from '../models/usuario';
-import { Producto } from '../models/producto';
-import { Categoria } from '../models/categoria';
 
 export interface AdminKpis {
-  ventasMes: number;
-  ventasDelta: number;
-  pedidosPendientes: number;
-  pedidosDelta: number;
-  nuevosUsuarios: number;
-  usuariosDelta: number;
-  ticketPromedio: number;
-  ticketDelta: number;
-  totalCotizacionesWhatsApp?: number;
-  totalInteracciones?: number;
-  productosActivos?: number;
-  fotosGaleria?: number;
+  totalCotizacionesWhatsApp: number;
+  totalInteracciones: number;
+  prendasActivas: number;
+  fotosGaleria: number;
+  usuariosAdmin: number;
 }
 
 export interface ChartData {
@@ -26,38 +17,20 @@ export interface ChartData {
   data: number[];
 }
 
-export interface EmbudoStage {
-  etapa: string;
-  valor: number;
-  porcentaje: number;
-}
-
 export interface TopProductoAdmin {
   id: string;
   nombre: string;
   categoria: string;
-  ventas: number;
-  ingresos: number;
-  stock: number;
-}
-
-export interface PedidoAdmin {
-  id: string;
-  cliente: string;
-  fecha: string;
-  total: number;
-  estado: 'pendiente' | 'enviado' | 'entregado' | 'cancelado';
-  items: number;
+  consultas: number;
+  precio: number;
 }
 
 export interface AdminStats {
   kpis: AdminKpis;
-  ventasPorDia: ChartData;
-  ventasPorCategoria: ChartData;
-  metodosPago: ChartData;
-  embudoConversion: EmbudoStage[];
+  consultasPorDia: ChartData;
+  prendasPorCategoria: ChartData;
+  canalesInteraccion: ChartData;
   topProductos: TopProductoAdmin[];
-  ultimosPedidos: PedidoAdmin[];
 }
 
 export interface SiteSettings {
@@ -87,6 +60,7 @@ export interface BackupItemAdmin {
   filename: string;
   size_bytes: number;
   size_formatted: string;
+  cloudinary_url?: string;
   created_at: string;
 }
 
@@ -96,11 +70,6 @@ const SETTINGS_KEY = 'tiendaintima-admin-settings';
 export class AdminService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = environment.apiUrl;
-
-  private readonly statsFallback$ = this.http.get<AdminStats>('assets/mock-data/admin-stats.json').pipe(
-    delay(200),
-    shareReplay(1)
-  );
 
   private readonly users$ = this.http.get<Usuario[]>('assets/mock-data/usuarios.json').pipe(
     delay(150),
@@ -120,42 +89,49 @@ export class AdminService {
         const raw = (res && res.success && res.data) ? res.data : (res || {});
         return {
           kpis: {
-            ventasMes: raw.kpis?.ventasMes ?? 4850000,
-            ventasDelta: raw.kpis?.ventasDelta ?? 12.5,
-            pedidosPendientes: raw.kpis?.pedidosPendientes ?? 3,
-            pedidosDelta: raw.kpis?.pedidosDelta ?? 5.0,
-            nuevosUsuarios: raw.kpis?.nuevosUsuarios ?? 18,
-            usuariosDelta: raw.kpis?.usuariosDelta ?? 8.3,
-            ticketPromedio: raw.kpis?.ticketPromedio ?? 125000,
-            ticketDelta: raw.kpis?.ticketDelta ?? 4.2,
             totalCotizacionesWhatsApp: raw.kpis?.totalCotizacionesWhatsApp ?? 0,
             totalInteracciones: raw.kpis?.totalInteracciones ?? 0,
-            productosActivos: raw.kpis?.productosActivos ?? 0,
-            fotosGaleria: raw.kpis?.fotosGaleria ?? 0
+            prendasActivas: raw.kpis?.prendasActivas ?? 0,
+            fotosGaleria: raw.kpis?.fotosGaleria ?? 0,
+            usuariosAdmin: raw.kpis?.usuariosAdmin ?? 1
           },
-          ventasPorDia: {
-            labels: raw.ventasPorDia?.labels?.length ? raw.ventasPorDia.labels : ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
-            data: raw.ventasPorDia?.data?.length ? raw.ventasPorDia.data : [120000, 240000, 180000, 310000, 280000, 420000, 390000]
+          consultasPorDia: {
+            labels: raw.consultasPorDia?.labels?.length ? raw.consultasPorDia.labels : ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+            data: raw.consultasPorDia?.data?.length ? raw.consultasPorDia.data : [0, 0, 0, 0, 0, 0, 0]
           },
-          ventasPorCategoria: {
-            labels: raw.ventasPorCategoria?.labels?.length ? raw.ventasPorCategoria.labels : ['Pijamas', 'Ropa interior', 'Lencería', 'Hombre'],
-            data: raw.ventasPorCategoria?.data?.length ? raw.ventasPorCategoria.data : [45, 25, 20, 10]
+          prendasPorCategoria: {
+            labels: raw.prendasPorCategoria?.labels?.length ? raw.prendasPorCategoria.labels : ['Pijamas', 'Ropa interior', 'Lencería', 'Hombre'],
+            data: raw.prendasPorCategoria?.data?.length ? raw.prendasPorCategoria.data : [1, 1, 1, 1]
           },
-          metodosPago: {
-            labels: raw.metodosPago?.labels?.length ? raw.metodosPago.labels : ['WhatsApp / Nequi', 'Bancolombia Transferencia', 'Contraentrega Calarcá', 'Tarjeta Crédito'],
-            data: raw.metodosPago?.data?.length ? raw.metodosPago.data : [55, 25, 15, 5]
+          canalesInteraccion: {
+            labels: raw.canalesInteraccion?.labels?.length ? raw.canalesInteraccion.labels : ['Cotizaciones WhatsApp', 'Vistas de Detalle Prenda', 'Otras Interacciones'],
+            data: raw.canalesInteraccion?.data?.length ? raw.canalesInteraccion.data : [0, 0, 0]
           },
-          embudoConversion: raw.embudoConversion?.length ? raw.embudoConversion : [
-            { etapa: 'Visitas al Catálogo', valor: 1450, porcentaje: 100 },
-            { etapa: 'Vieron Detalle de Prenda', valor: 820, porcentaje: 56 },
-            { etapa: 'Clics en Cotizar WhatsApp', valor: 210, porcentaje: 25 },
-            { etapa: 'Compras Concretadas', valor: 85, porcentaje: 10 }
-          ],
-          topProductos: raw.topProductos?.length ? raw.topProductos : [],
-          ultimosPedidos: raw.ultimosPedidos?.length ? raw.ultimosPedidos : []
+          topProductos: raw.topProductos?.length ? raw.topProductos : []
         };
       }),
-      catchError(() => this.statsFallback$)
+      catchError(() => of({
+        kpis: {
+          totalCotizacionesWhatsApp: 0,
+          totalInteracciones: 0,
+          prendasActivas: 0,
+          fotosGaleria: 0,
+          usuariosAdmin: 1
+        },
+        consultasPorDia: {
+          labels: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+          data: [0, 0, 0, 0, 0, 0, 0]
+        },
+        prendasPorCategoria: {
+          labels: ['Pijamas', 'Ropa interior', 'Lencería', 'Hombre'],
+          data: [0, 0, 0, 0]
+        },
+        canalesInteraccion: {
+          labels: ['Cotizaciones WhatsApp', 'Vistas de Detalle Prenda', 'Otras Interacciones'],
+          data: [0, 0, 0]
+        },
+        topProductos: []
+      }))
     );
   }
 

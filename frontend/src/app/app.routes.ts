@@ -30,7 +30,7 @@ export const routes: Routes = [
 			{ path: 'productos', loadComponent: () => import('./pages/dashboard/productos/dashboard-productos.component').then((m) => m.DashboardProductosComponent) },
 			{ path: 'categorias', loadComponent: () => import('./pages/dashboard/categorias/dashboard-categorias.component').then((m) => m.DashboardCategoriasComponent) },
 			{ path: 'personalizar', loadComponent: () => import('./pages/dashboard/personalizar/dashboard-personalizar.component').then((m) => m.DashboardPersonalizarComponent) },
-			{ path: 'reportes', loadComponent: () => import('./pages/dashboard/reportes/dashboard-reportes.component').then((m) => m.DashboardReportesComponent) }
+			{ path: 'reportes', redirectTo: '', pathMatch: 'full' }
 		]
 	},
 	{ path: '**', redirectTo: '' }
