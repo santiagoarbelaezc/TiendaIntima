@@ -1,0 +1,20 @@
+{
+    "name": "tiendaintima/backend-php",
+    "description": "Backend API REST profesional para Tienda Íntima con JWT, configuración, analíticas y backups",
+    "type": "project",
+    "license": "MIT",
+    "config": {
+        "audit": {
+            "block-insecure": false
+        }
+    },
+    "require": {
+        "php": ">=8.1",
+        "firebase/php-jwt": "^6.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}

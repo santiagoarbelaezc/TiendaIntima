@@ -8,6 +8,7 @@ import { map } from 'rxjs';
 import { EmptyStateComponent } from '../../components/empty-state/empty-state.component';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { ProductosService } from '../../services/productos.service';
+import { groupTallas, Talla } from '../../services/tallas.service';
 import type { Producto } from '../../models/producto';
 import type { Categoria } from '../../models/categoria';
 
@@ -103,13 +104,14 @@ export class CatalogoPageComponent {
         p.tallas.forEach((t) => set.add(t));
       }
     });
-    const order: Record<string, number> = { 'XS': 1, 'S': 2, 'M': 3, 'L': 4, 'XL': 5, 'XXL': 6 };
-    return Array.from(set).sort((a, b) => {
-      const orderA = order[a] ?? 99;
-      const orderB = order[b] ?? 99;
-      if (orderA !== 99 || orderB !== 99) return orderA - orderB;
-      return a.localeCompare(b);
+
+    const rawTallas: Talla[] = Array.from(set).map((nom, idx) => ({ id: idx + 1, nombre: nom }));
+    const groups = groupTallas(rawTallas);
+    const result: string[] = [];
+    groups.forEach((g) => {
+      g.tallas.forEach((t) => result.push(t.nombre));
     });
+    return result;
   });
 
   readonly availableColores = computed(() => {

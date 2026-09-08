@@ -110,29 +110,48 @@ export function mapBackendProducto(b: BackendProducto): Producto {
 }
 
 export function mapBackendCategoria(c: any): Categoria {
-  const nombre = c.nombre || c.name || '';
+  const nombre = (c.nombre || c.name || '').trim();
   const catSlug = slugify(nombre);
   let subcats: string[] = [];
+  let subcatsCompletas: any[] = [];
 
   if (c.subcategorias && Array.isArray(c.subcategorias)) {
-    subcats = c.subcategorias.map((s: any) => typeof s === 'string' ? s : (s?.nombre || '')).filter(Boolean);
+    c.subcategorias.forEach((s: any) => {
+      if (typeof s === 'string' && s.trim()) {
+        subcats.push(s.trim());
+        subcatsCompletas.push({ id: 0, nombre: s.trim(), slug: slugify(s.trim()) });
+      } else if (s && typeof s === 'object' && s.nombre) {
+        subcats.push(s.nombre.trim());
+        subcatsCompletas.push({
+          id: s.id || 0,
+          nombre: s.nombre.trim(),
+          slug: slugify(s.nombre.trim()),
+          id_padre: s.id_padre ?? c.id
+        });
+      }
+    });
   }
 
-  let defaultImg = 'assets/images/card/c1.png';
-  const lowerName = nombre.toLowerCase();
-  if (lowerName.includes('pijama')) defaultImg = 'assets/images/categorias/cat_pijama.png';
-  else if (lowerName.includes('interior') || lowerName.includes('brasier') || lowerName.includes('panty')) defaultImg = 'assets/images/categorias/cat_ropa_interior.png';
-  else if (lowerName.includes('lencer')) defaultImg = 'assets/images/categorias/cat_lenceria.png';
-  else if (lowerName.includes('hombre')) defaultImg = 'assets/images/categorias/cat_hombre.png';
+  let defaultImg = c.imagen_url || c.imagen || 'assets/images/card/c1.png';
+  if (!c.imagen_url && !c.imagen) {
+    const lowerName = nombre.toLowerCase();
+    if (lowerName.includes('pijama')) defaultImg = 'assets/images/categorias/cat_pijama.png';
+    else if (lowerName.includes('interior') || lowerName.includes('brasier') || lowerName.includes('panty')) defaultImg = 'assets/images/categorias/cat_ropa_interior.png';
+    else if (lowerName.includes('lencer')) defaultImg = 'assets/images/categorias/cat_lenceria.png';
+    else if (lowerName.includes('hombre')) defaultImg = 'assets/images/categorias/cat_hombre.png';
+    else if (lowerName.includes('baño') || lowerName.includes('vestido')) defaultImg = 'assets/images/categorias/cat_lenceria.png';
+    else if (lowerName.includes('active') || lowerName.includes('accesorio')) defaultImg = 'assets/images/categorias/cat_pijama.png';
+  }
 
   return {
     id: String(c.id),
     nombre,
     slug: catSlug,
-    descripcion: `Explora nuestra selección de ${nombre}.`,
+    descripcion: c.descripcion || `Explora nuestra selección de ${nombre}.`,
     imagen: defaultImg,
     acento: '#EAC7D2',
     subcategorias: subcats,
+    subcategoriasCompletas: subcatsCompletas,
     id_padre: c.id_padre
   };
 }
@@ -258,7 +277,44 @@ export class ProductosService {
       }),
       catchError((err) => {
         console.warn('No se pudo conectar con el endpoint de categorías en backend:', err.message || err);
-        return of([]);
+        return of([
+          {
+            id: '32',
+            nombre: 'Ropa Interior Mujer',
+            slug: 'ropa-interior-mujer',
+            descripcion: 'Curaduría diaria en algodón y soporte suave.',
+            imagen: 'assets/images/categorias/cat_ropa_interior.png',
+            acento: '#EAC7D2',
+            subcategorias: ['Brasier', 'Panties']
+          },
+          {
+            id: '37',
+            nombre: 'Lencería',
+            slug: 'lenceria',
+            descripcion: 'Detalles en encajes finos y transparencias.',
+            imagen: 'assets/images/categorias/cat_lenceria.png',
+            acento: '#EAC7D2',
+            subcategorias: ['Bodys', 'Bralettes']
+          },
+          {
+            id: '1',
+            nombre: 'Pijamas',
+            slug: 'pijamas',
+            descripcion: 'Sets de satén y algodón nublado para descanso.',
+            imagen: 'assets/images/categorias/cat_pijama.png',
+            acento: '#EAC7D2',
+            subcategorias: ['Satén', 'Algodón']
+          },
+          {
+            id: '36',
+            nombre: 'Ropa Interior Hombre',
+            slug: 'ropa-interior-hombre',
+            descripcion: 'Línea de descanso masculina y comodidad diaria.',
+            imagen: 'assets/images/categorias/cat_hombre.png',
+            acento: '#EAC7D2',
+            subcategorias: ['Boxers', 'Pijamas Hombre']
+          }
+        ]);
       })
     );
   }

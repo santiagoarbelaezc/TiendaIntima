@@ -1,0 +1,27 @@
+# Variables de entorno y secretos
+.env
+.env.*
+!.env.example
+.env.local
+.env.*.local
+*.pem
+*.key
+*.cert
+
+# Dependencias de Composer
+/vendor/
+
+# Archivos de base de datos local y backups
+*.sqlite
+*.sqlite3
+*.db
+*.sql
+*.dump
+/storage/database.sqlite
+/storage/database.sqlite-journal
+/storage/backups/*
+!/storage/backups/.gitkeep
+
+# Logs y temporales
+*.log
+.phpunit.result.cache
