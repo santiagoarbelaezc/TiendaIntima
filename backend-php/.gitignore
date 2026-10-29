@@ -10,6 +10,7 @@
 
 # Dependencias de Composer
 /vendor/
+composer.phar
 
 # Archivos de base de datos local y backups
 *.sqlite

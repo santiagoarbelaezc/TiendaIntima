@@ -37,43 +37,50 @@ class AnaliticaEvento
 
     public function getDashboardStats(): array
     {
-        // 1. Total cotizaciones WhatsApp registradas
-        $stmtWa = $this->pdo->query("SELECT COUNT(*) FROM analitica_eventos WHERE event_type = 'whatsapp_quote'");
-        $totalWhatsApp = (int) ($stmtWa ? $stmtWa->fetchColumn() : 0);
+        // 1. Agregado de KPIs en una sola consulta
+        $stmtKpis = $this->pdo->query("
+            SELECT 
+                (SELECT COUNT(*) FROM analitica_eventos WHERE event_type = 'whatsapp_quote') as total_wa,
+                (SELECT COUNT(*) FROM analitica_eventos) as total_eventos,
+                (SELECT COUNT(*) FROM productos WHERE activo = 1) as total_productos,
+                (SELECT COUNT(*) FROM galeria_items WHERE activo = 1) as total_galeria,
+                (SELECT COUNT(*) FROM admin_usuarios) as total_usuarios
+        ");
+        $kpiData = $stmtKpis ? $stmtKpis->fetch() : [];
 
-        // 2. Total interacciones registradas
-        $stmtTotal = $this->pdo->query("SELECT COUNT(*) FROM analitica_eventos");
-        $totalEventos = (int) ($stmtTotal ? $stmtTotal->fetchColumn() : 0);
+        $totalWhatsApp  = (int) ($kpiData['total_wa'] ?? 0);
+        $totalEventos   = (int) ($kpiData['total_eventos'] ?? 0);
+        $totalProductos = (int) ($kpiData['total_productos'] ?? 0);
+        $totalGaleria   = (int) ($kpiData['total_galeria'] ?? 0);
+        $totalUsuarios  = (int) ($kpiData['total_usuarios'] ?? 0);
 
-        // 3. Total prendas activas en catálogo
-        $stmtProd = $this->pdo->query("SELECT COUNT(*) FROM productos WHERE activo = 1");
-        $totalProductos = (int) ($stmtProd ? $stmtProd->fetchColumn() : 0);
-
-        // 4. Total fotos en galería
-        $stmtGal = $this->pdo->query("SELECT COUNT(*) FROM galeria_items WHERE activo = 1");
-        $totalGaleria = (int) ($stmtGal ? $stmtGal->fetchColumn() : 0);
-
-        // 5. Total administradores
-        $stmtUsers = $this->pdo->query("SELECT COUNT(*) FROM admin_usuarios");
-        $totalUsuarios = (int) ($stmtUsers ? $stmtUsers->fetchColumn() : 0);
-
-        // 6. Consultas por día (últimos 7 días reales)
+        // 2. Consultas por día (últimos 7 días) en 1 sola consulta
         $labelsDias = [];
         $dataDias = [];
+        $diasMap = [];
         $diasSemana = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-        for ($i = 6; $i >= 0; $i--) {
-            $ts = strtotime("-{$i} days");
-            $fecha = date('Y-m-d', $ts);
-            $diaSem = $diasSemana[(int) date('w', $ts)];
-            $labelsDias[] = $diaSem;
-
-            $stmtCount = $this->pdo->prepare("SELECT COUNT(*) FROM analitica_eventos WHERE DATE(created_at) = ?");
-            $stmtCount->execute([$fecha]);
-            $cant = (int) $stmtCount->fetchColumn();
-            $dataDias[] = $cant;
+        
+        $fechaInicio = date('Y-m-d 00:00:00', strtotime('-6 days'));
+        $stmtDias = $this->pdo->prepare("
+            SELECT DATE(created_at) as fecha, COUNT(*) as cant 
+            FROM analitica_eventos 
+            WHERE created_at >= ? 
+            GROUP BY DATE(created_at)
+        ");
+        $stmtDias->execute([$fechaInicio]);
+        $rowsDias = $stmtDias->fetchAll();
+        foreach ($rowsDias as $r) {
+            $diasMap[$r['fecha']] = (int) $r['cant'];
         }
 
-        // 7. Distribución real de prendas por categoría
+        for ($i = 6; $i >= 0; $i--) {
+            $ts = strtotime("-{$i} days");
+            $fechaStr = date('Y-m-d', $ts);
+            $labelsDias[] = $diasSemana[(int) date('w', $ts)];
+            $dataDias[] = $diasMap[$fechaStr] ?? 0;
+        }
+
+        // 3. Distribución real de prendas por categoría (1 consulta)
         $stmtCat = $this->pdo->query("
             SELECT c.nombre as categoria, COUNT(p.id) as total_prendas
             FROM categorias c
@@ -93,7 +100,7 @@ class AnaliticaEvento
             $dataCat = [1, 1, 1, 1];
         }
 
-        // 8. Top prendas más consultadas por WhatsApp o visitas
+        // 4. Top prendas más consultadas por WhatsApp o visitas (1 consulta)
         $stmtTop = $this->pdo->query("
             SELECT p.id, p.nombre, COUNT(e.id) as consultas, COALESCE(c.nombre, 'General') as categoria,
                    p.precio_base as precio
@@ -106,7 +113,6 @@ class AnaliticaEvento
         ");
         $topList = $stmtTop ? $stmtTop->fetchAll() : [];
 
-        // Si aún no hay suficientes eventos registrados, mostrar las prendas del catálogo
         if (empty($topList)) {
             $stmtFallback = $this->pdo->query("
                 SELECT p.id, p.nombre, 0 as consultas, COALESCE(c.nombre, 'General') as categoria,
@@ -129,14 +135,23 @@ class AnaliticaEvento
             ];
         }, $topList);
 
-        // 9. Canales de interacción (WhatsApp vs Catálogo Web)
+        // 5. Canales de interacción en 1 sola consulta
         $labelsCanales = ['Cotizaciones WhatsApp', 'Vistas de Detalle Prenda', 'Otras Interacciones'];
-        $stmtWaCount = $this->pdo->query("SELECT COUNT(*) FROM analitica_eventos WHERE event_type = 'whatsapp_quote'");
-        $cWa = (int) ($stmtWaCount ? $stmtWaCount->fetchColumn() : 0);
-
-        $stmtViewCount = $this->pdo->query("SELECT COUNT(*) FROM analitica_eventos WHERE event_type = 'product_view'");
-        $cView = (int) ($stmtViewCount ? $stmtViewCount->fetchColumn() : 0);
-
+        $cWa = 0;
+        $cView = 0;
+        $stmtEventCounts = $this->pdo->query("
+            SELECT event_type, COUNT(*) as cant 
+            FROM analitica_eventos 
+            GROUP BY event_type
+        ");
+        $eventRows = $stmtEventCounts ? $stmtEventCounts->fetchAll() : [];
+        foreach ($eventRows as $er) {
+            if ($er['event_type'] === 'whatsapp_quote') {
+                $cWa = (int) $er['cant'];
+            } elseif ($er['event_type'] === 'product_view') {
+                $cView = (int) $er['cant'];
+            }
+        }
         $cOther = max(0, $totalEventos - ($cWa + $cView));
         $dataCanales = [$cWa, $cView, $cOther];
 

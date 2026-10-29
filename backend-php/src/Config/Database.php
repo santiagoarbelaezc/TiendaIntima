@@ -32,6 +32,7 @@ final class Database
                     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                     PDO::ATTR_EMULATE_PREPARES   => false,
+                    PDO::ATTR_PERSISTENT         => true,
                 ]);
             } else {
                 $dbRelativePath = Env::get('DB_DATABASE', 'storage/database.sqlite');
@@ -166,21 +167,27 @@ final class Database
             );
         ");
 
-        // 1. Seed usuario administrador por defecto
-        $stmt = $pdo->prepare('SELECT COUNT(*) FROM admin_usuarios WHERE email = ?');
-        $stmt->execute(['admin@tiendaintima.com']);
-        if ((int) $stmt->fetchColumn() === 0) {
-            $insertUser = $pdo->prepare('
-                INSERT INTO admin_usuarios (nombre, email, password_hash, rol)
-                VALUES (?, ?, ?, ?)
-            ');
-            $adminPassword = Env::get('ADMIN_INITIAL_PASSWORD', 'Tiendaintima-123');
-            $insertUser->execute([
-                'Administrador Tienda Íntima',
-                'admin@tiendaintima.com',
-                password_hash($adminPassword, PASSWORD_BCRYPT),
-                'admin'
-            ]);
+        // 1. Seed usuarios administradores por defecto
+        $admins = [
+            ['Administrador Tienda Íntima', 'admin@tiendaintima.com'],
+            ['Administrador Calarcá', 'tiendaintimacalarca@gmail.com']
+        ];
+        foreach ($admins as [$nombre, $email]) {
+            $stmt = $pdo->prepare('SELECT COUNT(*) FROM admin_usuarios WHERE email = ?');
+            $stmt->execute([$email]);
+            if ((int) $stmt->fetchColumn() === 0) {
+                $insertUser = $pdo->prepare('
+                    INSERT INTO admin_usuarios (nombre, email, password_hash, rol)
+                    VALUES (?, ?, ?, ?)
+                ');
+                $adminPassword = Env::get('ADMIN_INITIAL_PASSWORD', 'Tiendaintima-123');
+                $insertUser->execute([
+                    $nombre,
+                    $email,
+                    password_hash($adminPassword, PASSWORD_BCRYPT),
+                    'admin'
+                ]);
+            }
         }
 
         // 2. Seed configuración inicial
@@ -197,7 +204,43 @@ final class Database
             'whatsapp_number'    => ['+573001234567', 'Número oficial de WhatsApp'],
             'instagram_url'      => ['https://instagram.com/tiendaintima', 'Enlace de Instagram'],
             'direccion_fisica'   => ['Boutique física en Calarcá, Quindío. Envíos locales.', 'Dirección y cobertura física'],
-            'politica_envio'     => ['Los envíos a domicilio aplican exclusivamente para el municipio de Calarcá, Quindío.', 'Texto de política de envíos']
+            'politica_envio'     => ['Los envíos a domicilio aplican exclusivamente para el municipio de Calarcá, Quindío.', 'Texto de política de envíos'],
+
+            // Secciones del Homepage — Destacados
+            'home_section_destacados_title' => ['Favoritos de la comunidad', 'Título sección destacados'],
+            'home_section_destacados_badge' => ['Más vendidos', 'Badge superior sección destacados'],
+            'home_section_destacados_limit' => ['4', 'Cantidad de productos destacados a mostrar'],
+
+            // Secciones del Homepage — Colección
+            'home_section_coleccion_title'    => ['Colección Íntima & Descanso', 'Título sección colección'],
+            'home_section_coleccion_subtitle' => ['Tejidos de algodón nublado, encaje fino y satén diseñados para abrazar tu tranquilidad en casa y acompañarte en cada momento de paz.', 'Subtítulo sección colección'],
+            'home_section_coleccion_badge'    => ['Comodidad con Intención', 'Badge superior sección colección'],
+            'home_section_coleccion_cta'      => ['Ver Colección Completa', 'Texto CTA sección colección'],
+            'home_section_coleccion_categoria_id' => ['2', 'ID categoría para sección colección'],
+
+            // Secciones del Homepage — Para Él
+            'home_section_hombre_title'       => ['Comodidad y Estilo Para Él', 'Título sección para él'],
+            'home_section_hombre_subtitle'    => ['Bóxers de algodón premium y prendas de descanso que combinan suavidad, libertad de movimiento y un ajuste impecable.', 'Subtítulo sección para él'],
+            'home_section_hombre_badge'       => ['Línea Masculina', 'Badge superior sección para él'],
+            'home_section_hombre_cta'         => ['Explorar Colección', 'Texto CTA sección para él'],
+            'home_section_hombre_categoria_id'=> ['4', 'ID categoría para sección hombre'],
+
+            // Secciones del Homepage — Lookbook
+            'home_section_lookbook_title'     => ['Nueva Temporada de Descanso', 'Título sección lookbook'],
+            'home_section_lookbook_subtitle'  => ['Texturas fluidas de satén y algodón de tacto nublado diseñadas para tus mejores momentos de paz en casa.', 'Subtítulo sección lookbook'],
+            'home_section_lookbook_badge'     => ['Boutique Lookbook', 'Badge superior sección lookbook'],
+            'home_section_lookbook_cta'       => ['Ver Pijamas de Lujo', 'Texto CTA sección lookbook'],
+            'home_section_lookbook_categoria_id' => ['1', 'ID categoría para sección lookbook'],
+
+            // Carruseles por categoría
+            'home_carruseles_categorias'      => ['1,2,3,4', 'IDs de categorías para carruseles en el home'],
+            'home_carruseles_activo'          => ['1', 'Activar/desactivar carruseles por categoría'],
+
+            // Banner de registro
+            'home_banner_registro_title'      => ['Regístrate para obtener los mejores descuentos', 'Título banner registro'],
+            'home_banner_registro_subtitle'   => ['Únete hoy a la comunidad exclusiva de Tiendaintima. Obtén un 10% de descuento de cortesía en tu primera orden, acceso a ventas anticipadas y lanzamientos de edición limitada antes que nadie.', 'Subtítulo banner registro'],
+            'home_banner_registro_badge'      => ['Regalo de Bienvenida', 'Badge banner registro'],
+            'home_banner_registro_cta'        => ['Crear mi Cuenta', 'CTA banner registro']
         ];
 
         $checkConf = $pdo->prepare('SELECT COUNT(*) FROM configuracion WHERE clave = ?');
